@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+app/node_modules/
+
+# Build output
+app/dist/
+dist/
+
+# Python
+pipeline/__pycache__/
+pipeline/.venv/
+*.pyc
+
+# Data: keep the normalized snapshot in the repo, ignore raw API caches
+pipeline/.cache/
+data/raw/
+
+# Editor / OS
+.DS_Store
+*.local
+.env
+.vscode/
+.idea/
+
+# Local IDE / personal config
+.claude/
