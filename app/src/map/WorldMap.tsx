@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Map as MapGL, Source, Layer, useControl } from '@vis.gl/react-maplibre';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import { ArcLayer } from '@deck.gl/layers';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import type { StyleSpecification } from 'maplibre-gl';
 import type { BBox } from '../lib/geo';
+import { useLang } from '../i18n';
 
 // The map instance + event shapes we actually use. Kept local so we don't depend
 // on the exact type-export surface of the wrapper/maplibre-gl across versions.
@@ -47,6 +49,17 @@ interface Props {
 // CARTO dark-matter: tokenless vector style, dark ocean — ideal under a glowing choropleth.
 const BASEMAP = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 
+// Offline fallback: a minimal dark style with no external resources, so the
+// single-file build keeps working from file:// without any network access.
+const OFFLINE_STYLE: StyleSpecification = {
+  version: 8,
+  name: 'World Economic Map (offline)',
+  sources: {},
+  layers: [
+    { id: 'wem-bg', type: 'background', paint: { 'background-color': '#0d1117' } },
+  ],
+};
+
 /** deck.gl overlay (added as a MapLibre control) that draws the trade arcs. */
 function DeckOverlay({ arcs }: { arcs: Arc[] }) {
   const overlay = useControl(() => new MapboxOverlay({ interleaved: false, layers: [] }));
@@ -85,6 +98,26 @@ export function WorldMap({
 }: Props) {
   const hoveredRef = useRef<string | null>(null);
   const mapRef = useRef<MapInstance | null>(null);
+  const offlineChecked = useRef(false);
+  const { t } = useLang();
+  const [style, setStyle] = useState<string | StyleSpecification>(() =>
+    typeof navigator !== 'undefined' && navigator.onLine === false ? OFFLINE_STYLE : BASEMAP,
+  );
+
+  // Check once whether the online basemap is reachable; fall back to the
+  // embedded offline style so the map works even without any network.
+  useEffect(() => {
+    if (offlineChecked.current) return;
+    offlineChecked.current = true;
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    fetch(BASEMAP, { signal: ctrl.signal })
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      })
+      .catch(() => setStyle(OFFLINE_STYLE))
+      .finally(() => clearTimeout(timer));
+  }, []);
 
   // Fly to a country when it's picked from the list / search.
   useEffect(() => {
@@ -162,7 +195,7 @@ export function WorldMap({
       minZoom={0.7}
       maxZoom={7}
       dragRotate={false}
-      mapStyle={BASEMAP}
+      mapStyle={style}
       style={{ position: 'absolute', inset: 0 }}
       interactiveLayerIds={['country-fill']}
       onMouseMove={onMouseMove}
@@ -170,8 +203,7 @@ export function WorldMap({
       onClick={onClick}
       attributionControl={{
         compact: true,
-        customAttribution:
-          'Daten: World Bank · IMF (Handel & Inflation) · BIS (Leitzins) · Grenzen: Natural Earth',
+        customAttribution: t.sourcesFooter,
       }}
     >
       {/* promoteId lets feature-state key on the country's ISO3 string */}

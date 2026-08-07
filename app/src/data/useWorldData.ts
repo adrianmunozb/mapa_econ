@@ -10,7 +10,32 @@ interface WorldData {
   error: string | null;
 }
 
-/** Load snapshot, geometry, trade flows, and 20-year history from /public/data. */
+/**
+ * Data embedded into the single-file build via
+ * <script type="application/json" id="wem-data-...">. Returns null when the
+ * app runs in dev mode / a normal multi-file build (then fetch() is used).
+ */
+function inlineData<T>(name: string): T | null {
+  if (typeof document === 'undefined') return null;
+  const el = document.getElementById(`wem-data-${name}`);
+  if (!el || !el.textContent) return null;
+  try {
+    return JSON.parse(el.textContent) as T;
+  } catch {
+    return null;
+  }
+}
+
+/** Embedded data if present, otherwise fetch from /data. */
+async function loadOne<T>(name: string, path: string): Promise<T> {
+  const inline = inlineData<T>(name);
+  if (inline !== null) return inline;
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
+  return res.json() as Promise<T>;
+}
+
+/** Load snapshot, geometry, trade flows, and 20-year history. */
 export function useWorldData(): WorldData {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [geojson, setGeojson] = useState<unknown | null>(null);
@@ -21,17 +46,15 @@ export function useWorldData(): WorldData {
 
   useEffect(() => {
     let alive = true;
-    const load = async (path: string) => {
-      const res = await fetch(path);
-      if (!res.ok) throw new Error(`${path}: HTTP ${res.status}`);
-      return res.json();
-    };
 
     // Map + metrics are required.
-    Promise.all([load('/data/snapshot.json'), load('/data/countries.geojson')])
+    Promise.all([
+      loadOne<Snapshot>('snapshot', '/data/snapshot.json'),
+      loadOne<unknown>('countries', '/data/countries.geojson'),
+    ])
       .then(([s, g]) => {
         if (!alive) return;
-        setSnapshot(s as Snapshot);
+        setSnapshot(s);
         setGeojson(g);
       })
       .catch((e) => {
@@ -39,14 +62,14 @@ export function useWorldData(): WorldData {
       });
 
     // Trade + history are optional — their absence must not block the map.
-    load('/data/trade.json')
-      .then((t) => alive && setTrade(t as TradeData))
+    loadOne<TradeData>('trade', '/data/trade.json')
+      .then((t) => alive && setTrade(t))
       .catch(() => {});
-    load('/data/timeseries.json')
-      .then((t) => alive && setTimeseries(t as TimeseriesData))
+    loadOne<TimeseriesData>('timeseries', '/data/timeseries.json')
+      .then((t) => alive && setTimeseries(t))
       .catch(() => {});
-    load('/data/trade_products.json')
-      .then((p) => alive && setProducts(p as TradeProductsData))
+    loadOne<TradeProductsData>('products', '/data/trade_products.json')
+      .then((p) => alive && setProducts(p))
       .catch(() => {});
 
     return () => {

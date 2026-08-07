@@ -28,8 +28,17 @@ Explore economic, health and social indicators for **every country on Earth** on
 
 ## 🚀 Quick Start
 
+**The easiest way — one single file, works offline:**
+
+1. Go to [Releases](https://github.com/vrjo/WorldEconomicMap/releases)
+2. Download **`WorldEconomicMap-v1.1.0.html`** (≈ 6 MB — the complete app, all data and the map in ONE file)
+3. Double-click it — the map opens directly in your browser. **No installation, no server, no internet needed.** 🌍
+
+*It works because the entire app — code, all 200+ countries of data, the map geometry and an offline map style — is embedded in that single HTML file.*
+
+**Run from source (developers):**
+
 ```bash
-# The whole app runs on a static web server — no build step needed for users:
 cd app
 npm install
 npm run dev
@@ -38,7 +47,7 @@ npm run dev
 
 **One-click macOS launcher:** double-click `Start World Economic Map.command`.
 
-**Production build & download:** [Releases](https://github.com/vrjo/WorldEconomicMap/releases) → download the **v1.0.0 web bundle**, unzip and serve the folder with any static server (e.g. `npx serve dist` or `npm run preview`).
+**Production build:** `npm run build` → a self-contained `dist/index.html` (single-file build) that you can copy anywhere, host statically (GitHub Pages, Netlify, …) or attach to releases.
 
 ## 🗂️ Data Sources (all official & verified)
 
