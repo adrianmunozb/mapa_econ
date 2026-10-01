@@ -13,34 +13,59 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from ..catalog import WORLD_BANK_METRICS, sources
+from ..catalog import ALL_METRICS, sources
 from ..geometry import DEFAULT_ADJUSTMENTS, apply_adjustments
 from ..http import HttpClient
 from ..jsonio import file_kb, write_json
 from ..paths import Paths
 from ..providers import natural_earth
 from ..providers.worldbank import WorldBankClient
+from ..providers.registry import ProviderPool
+
+
+def _sources(metrics_meta: list[dict]) -> list[dict]:
+    """World Bank + Natural Earth first, then any other provider actually used."""
+    out = [sources.WORLD_BANK.to_dict(), sources.NATURAL_EARTH.to_dict()]
+    for m in metrics_meta:
+        if m["source"] not in out:
+            out.append(m["source"])
+    return out
 
 
 def run(paths: Paths, args=()) -> int:
     http = HttpClient("WorldEconomicMap/0.1 (data pipeline)")
-    worldbank = WorldBankClient(http)
+    pool = ProviderPool(http)
 
     print("→ Lade Länder-Metadaten (World Bank) …")
-    countries = worldbank.countries()
+    countries = WorldBankClient(http).countries()
     print(f"  {len(countries)} echte Länder (Aggregate gefiltert)")
 
     metrics_meta = []
-    for metric in WORLD_BANK_METRICS:
-        print(f"→ Lade {metric.label} ({metric.indicator_code}) …")
-        values = worldbank.latest(metric.indicator_code)
+    skipped: list[str] = []
+    for metric in ALL_METRICS:
+        provider = pool.get(metric.provider)
+        print(f"→ Lade {metric.label} ({metric.provider}:{metric.indicator_code}) …")
+        try:
+            values = provider.latest(metric.indicator_code)
+        except Exception as exc:
+            if not metric.optional:
+                raise
+            print(f"  ⚠ übersprungen ({metric.id}): {exc}")
+            skipped.append(metric.id)
+            continue
         hits = 0
         for iso3, mv in values.items():
             if iso3 in countries:
                 countries[iso3]["metrics"][metric.id] = mv
                 hits += 1
         print(f"  {hits} Länder mit Wert")
-        metrics_meta.append(metric.to_dict(sources.WORLD_BANK))
+        if hits == 0 and metric.optional:
+            print(f"  ⚠ keine Daten — {metric.id} wird nicht aufgenommen")
+            skipped.append(metric.id)
+            continue
+        metrics_meta.append(metric.to_dict(provider.source))
+    if skipped:
+        print(f"  ⚠ {len(skipped)} optionale Metriken ohne Daten: {', '.join(skipped)}")
 
     print("→ Lade Ländergrenzen (Natural Earth 50m) …")
     geojson = natural_earth.fetch_borders(http)
@@ -60,7 +85,7 @@ def run(paths: Paths, args=()) -> int:
 
     snapshot = {
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "sources": [sources.WORLD_BANK.to_dict(), sources.NATURAL_EARTH.to_dict()],
+        "sources": _sources(metrics_meta),
         "metrics": metrics_meta,
         "countries": sorted(countries.values(), key=lambda c: c["name"]),
     }

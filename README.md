@@ -21,6 +21,7 @@ Explore economic, health and social indicators for **every country on Earth** on
 | ⚖️ | **Country comparison** — side-by-side table of up to 4 countries, best value highlighted |
 | 🏆 | **Interactive rankings** — every indicator as a sortable top/bottom list |
 | 🧭 | **Regional drill-down** — click a supported country to map first-level regions, with regional GDP, GDP per capita and population |
+| 📄 | **CSV history per indicator** — `data/csv/history/<indicator>.csv` (country × year), plus `indicators.csv` and `latest.csv` |
 | 🔎 | **Country search** — jump straight to any country |
 | 💬 | **Bilingual** — English (default) and German UI |
 | 🔗 | **Shareable URLs** — your current view (metric, country, trade mode, period) is encoded in the URL hash |
@@ -70,7 +71,7 @@ The current regional map covers 48 countries whose regions can be matched confid
 
 - **Frontend:** React 19 · TypeScript · Vite
 - **Maps:** MapLibre GL + deck.gl (GPU-accelerated arcs)
-- **Data pipeline:** Python (World Bank API, IMF SDMX, BIS CSV, UN Comtrade)
+- **Data pipeline:** Python (World Bank API, IMF SDMX + DataMapper, BIS CSV, UN Comtrade)
 - **No backend, no API keys** — static JSON served to the browser
 
 ## 🧱 Architecture
@@ -85,7 +86,7 @@ WorldEconomicMap/
     wem/geometry/   declarative border adjustments (e.g. Morocco / Western Sahara)
     wem/regions/    regional (ADM1) matching + simplification
     tests/          unit tests + offline end-to-end run on a fake network
-  data/       Generated snapshot (committed) + raw/ (local cache, gitignored)
+  data/       csv/ (committed CSV exports) + raw/ (local download cache, gitignored)
 ```
 
 ## 🧑‍💻 Development
@@ -113,6 +114,7 @@ python -m wem current         # current inflation (IMF) + policy rates (BIS)
 python -m wem trade           # bilateral trade flows (IMF IMTS)
 python -m wem products        # export products (UN Comtrade)
 python -m wem i18n            # bilingual labels (EN default, DE)
+python -m wem export          # CSV history per indicator → data/csv/ (offline)
 python -m wem audit           # optional: data consistency checks
 
 python -m unittest discover -s tests -t .   # offline tests (no network needed)

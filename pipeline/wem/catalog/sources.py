@@ -20,3 +20,8 @@ DOSE = Source(
     "CC BY 4.0",
 )
 GEOBOUNDARIES = Source("geoBoundaries gbOpen ADM1", "https://www.geoboundaries.org/", "CC BY 4.0; attribution required")
+IMF_DATAMAPPER = Source(
+    "IMF – DataMapper (World Economic Outlook)",
+    "https://www.imf.org/external/datamapper",
+    "IMF Terms (Quellenangabe erforderlich)",
+)

@@ -34,6 +34,10 @@ class Metric:
     format: str
     higher_is_better: bool | None
     indicator_code: str
+    # Pipeline-only (not serialized): which IndicatorProvider serves this series, and
+    # whether a failing/empty fetch may be skipped instead of aborting the run.
+    provider: str = "worldbank"
+    optional: bool = False
 
     def to_dict(self, source: Source | None = None) -> dict:
         """Wire format consumed by the frontend (camelCase, optional ``source``)."""

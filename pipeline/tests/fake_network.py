@@ -47,7 +47,16 @@ def _wb_countries():
     return [{"page": 1}, rows]
 
 
+def _imf_datamapper(code):
+    years = {str(y): round((_h(code, y) % 1000) / 10.0, 2) for y in range(2015, 2031)}
+    years["2019"] = None  # gaps must be tolerated
+    values = {iso: dict(years) for iso in [*COUNTRIES, "UVK", "WEOWORLD"]}
+    return {"values": {code: values}}
+
+
 def _wb_indicator(code, params):
+    if code == "VC.IHR.PSRC.P5":  # a series the API knows but has no rows for
+        return [{"page": 1}, []]
     window = str(params.get("date", ""))
     years = range(2004, 2025) if window else (2022, 2023, 2024)
     rows = []
@@ -173,6 +182,11 @@ def route(url, params=None):
     params = params or {}
     if "api.worldbank.org" in url:
         return FakeResponse(url, _wb_countries() if url.rstrip("/").endswith("/country") else _wb_indicator(url.split("/indicator/")[1], params))
+    if "imf.org/external/datamapper" in url:
+        code = url.rsplit("/", 1)[1]
+        if code == "NGSD_NGDP":  # unreachable series: optional metrics must be skipped
+            return FakeResponse(url, status=404, text="not found")
+        return FakeResponse(url, _imf_datamapper(code))
     if "natural-earth-vector" in url:
         return FakeResponse(url, _natural_earth())
     if "IMF.STA/CPI" in url:

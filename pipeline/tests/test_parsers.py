@@ -1,6 +1,9 @@
 import unittest
 
 from wem.providers import bis, comtrade, imf, natural_earth, worldbank
+from wem.providers.imf_datamapper import ImfDataMapperClient, parse_series
+from wem.providers.registry import ProviderPool
+from wem.catalog import ALL_METRICS
 from wem.regions.boundaries import index_shapes
 from wem.regions.matcher import match_country
 from wem.regions.names import normalize, normalize_admin_name
@@ -27,6 +30,42 @@ class WorldBankParsersTest(unittest.TestCase):
     def test_history_is_sparse(self):
         rows = [{"countryiso3code": "DEU", "date": "2020", "value": 2.0}, {"countryiso3code": "DEU", "date": "2021", "value": None}]
         self.assertEqual(worldbank.parse_history(rows), {"DEU": {2020: 2.0}})
+
+
+class ImfDataMapperTest(unittest.TestCase):
+    ROOT = {"values": {"X": {
+        "USA": {"2022": 1.0, "2023": 2.0, "2024": None, "2029": 9.0, "bad": 5.0},
+        "UVK": {"2020": 3.0},
+        "NAN": {"2020": float("nan")},
+    }}}
+
+    def test_parse_series_drops_nulls_nan_and_bad_years_and_maps_kosovo(self):
+        out = parse_series(self.ROOT, "X")
+        self.assertEqual(out["USA"], {2022: 1.0, 2023: 2.0, 2029: 9.0})
+        self.assertIn("XKX", out)
+        self.assertNotIn("NAN", out)
+
+    def test_latest_excludes_forecast_years(self):
+        client = ImfDataMapperClient.__new__(ImfDataMapperClient)
+        client._max_year = 2024
+        client._series = lambda code: parse_series(self.ROOT, code)
+        self.assertEqual(client.latest("X")["USA"], {"value": 2.0, "year": 2023})
+        self.assertEqual(client.history("X", 2020, 2023)["USA"], {2022: 1.0, 2023: 2.0})
+
+
+class CatalogTest(unittest.TestCase):
+    def test_ids_codes_and_providers_are_consistent(self):
+        ids = [m.id for m in ALL_METRICS]
+        self.assertEqual(len(ids), len(set(ids)))
+        for m in ALL_METRICS:
+            self.assertTrue(m.indicator_code and m.label and m.label_en and m.description_en, m.id)
+            self.assertIn(m.format, {"currency", "number", "percent", "years", "index"}, m.id)
+            self.assertIn(m.domain, {"economy", "health", "social", "demographics", "environment", "infrastructure", "trade"}, m.id)
+        pool = ProviderPool(http=None)
+        for name in {m.provider for m in ALL_METRICS}:
+            self.assertTrue(pool.get(name).source.name)
+        with self.assertRaises(KeyError):
+            pool.get("nope")
 
 
 class NaturalEarthTest(unittest.TestCase):

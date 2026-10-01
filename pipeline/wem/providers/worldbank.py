@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from ..catalog import sources
 from ..http import HttpClient
 
 BASE = "https://api.worldbank.org/v2"
@@ -50,6 +51,8 @@ def parse_history(rows: list[dict]) -> dict[str, dict[int, float]]:
 
 
 class WorldBankClient:
+    source = sources.WORLD_BANK
+
     def __init__(self, http: HttpClient) -> None:
         self._http = http
 

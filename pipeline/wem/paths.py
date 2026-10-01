@@ -25,6 +25,11 @@ class Paths:
         return self.root / "data" / "raw"
 
     @property
+    def csv_dir(self) -> Path:
+        """Committed CSV exports (one history file per indicator)."""
+        return self.root / "data" / "csv"
+
+    @property
     def snapshot(self) -> Path:
         return self.out_dir / "snapshot.json"
 

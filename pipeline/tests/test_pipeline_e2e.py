@@ -1,10 +1,12 @@
 """Run every step offline against the fake network and check the produced files."""
 
 import contextlib
+import csv
 import io
 import json
 import tempfile
 import unittest
+from datetime import date
 from pathlib import Path
 
 from shapely.geometry import shape
@@ -45,6 +47,42 @@ class EndToEndTest(unittest.TestCase):
         usa = next(c for c in snap["countries"] if c["iso3"] == "USA")
         self.assertIn("period", usa["metrics"]["inflation"])
         self.assertEqual(usa["metrics"]["policy_rate"]["value"], 4.5)
+
+    def test_extra_metrics_optional_skipping_and_providers(self):
+        snap = load(self.paths.snapshot)
+        ids = {m["id"] for m in snap["metrics"]}
+        self.assertIn("gov_debt_gdp", ids)            # IMF DataMapper provider
+        self.assertIn("infant_mortality", ids)        # extra World Bank metric
+        self.assertNotIn("savings_gdp", ids)          # 404 -> skipped
+        self.assertNotIn("homicide_rate", ids)        # empty series -> skipped
+        self.assertIn("IMF – DataMapper (World Economic Outlook)", [s["name"] for s in snap["sources"]])
+        debt = next(m for m in snap["metrics"] if m["id"] == "gov_debt_gdp")
+        self.assertEqual(debt["source"]["name"], "IMF – DataMapper (World Economic Outlook)")
+        usa = next(c for c in snap["countries"] if c["iso3"] == "USA")
+        self.assertLessEqual(usa["metrics"]["gov_debt_gdp"]["year"], date.today().year - 1)  # no forecasts
+        kos = next(c for c in snap["countries"] if c["iso3"] == "XKX")
+        self.assertIn("gov_debt_gdp", kos["metrics"])  # UVK -> XKX
+        ts = load(self.paths.timeseries)
+        self.assertIn("gov_debt_gdp", ts["data"]["USA"])
+        self.assertNotIn("savings_gdp", ts["sources"])
+
+    def test_csv_export(self):
+        csv_dir = self.paths.csv_dir
+        with (csv_dir / "history" / "gdp_total.csv").open(encoding="utf-8") as fh:
+            rows = list(csv.reader(fh))
+        self.assertEqual(rows[0][:3], ["iso3", "country", "2004"])
+        self.assertEqual(rows[0][-1], "2024")
+        self.assertEqual([r[0] for r in rows[1:]], sorted(r[0] for r in rows[1:]))
+        self.assertTrue(all(len(r) == len(rows[0]) for r in rows))
+        self.assertFalse((csv_dir / "history" / "savings_gdp.csv").exists())
+        self.assertFalse((csv_dir / "history" / "policy_rate.csv").exists())  # snapshot-only
+        with (csv_dir / "indicators.csv").open(encoding="utf-8") as fh:
+            ind = {r["id"]: r for r in csv.DictReader(fh)}
+        self.assertEqual(ind["gov_debt_gdp"]["license"], "IMF Terms (Quellenangabe erforderlich)")
+        self.assertEqual(ind["gdp_total"]["history_first_year"], "2004")
+        with (csv_dir / "latest.csv").open(encoding="utf-8") as fh:
+            latest = {r["iso3"]: r for r in csv.DictReader(fh)}
+        self.assertEqual(latest["USA"]["policy_rate"], "4.5")
 
     def test_western_sahara_is_separated_from_morocco(self):
         feats = {f["properties"]["iso3"]: shape(f["geometry"]) for f in load(self.paths.countries_geojson)["features"] if f["properties"]["iso3"]}

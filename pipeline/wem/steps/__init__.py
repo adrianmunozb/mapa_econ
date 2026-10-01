@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Callable, Sequence
 
 from ..paths import Paths
-from . import audit, current, i18n, products, regions, snapshot, timeseries, trade
+from . import audit, current, export, i18n, products, regions, snapshot, timeseries, trade
 
 RunFn = Callable[[Paths, Sequence[str]], int]
 
@@ -30,6 +30,7 @@ STEPS: dict[str, Step] = {
         Step("trade", "bilateral trade flows (IMF IMTS)", trade.run),
         Step("products", "export products (UN Comtrade)", products.run),
         Step("i18n", "bilingual labels (EN default, DE)", i18n.run),
+        Step("export", "CSV history per indicator → data/csv/", export.run),
         Step("audit", "data consistency checks (read-only)", audit.run, in_full_run=False),
     )
 }

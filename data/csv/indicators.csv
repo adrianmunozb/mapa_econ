@@ -1,0 +1,21 @@
+id,label,label_en,domain,unit,unit_en,source,license,indicator_code,history_first_year,history_last_year,history_countries
+gdp_per_capita,BIP pro Kopf,GDP per capita,economy,US$,US$,World Bank Open Data,CC BY 4.0,NY.GDP.PCAP.CD,2004,2024,214
+gdp_per_capita_ppp,BIP pro Kopf (KKP),GDP per capita (PPP),economy,Int$,Int$,World Bank Open Data,CC BY 4.0,NY.GDP.PCAP.PP.CD,2004,2024,203
+gdp_total,BIP gesamt,Total GDP,economy,US$,US$,World Bank Open Data,CC BY 4.0,NY.GDP.MKTP.CD,2004,2024,214
+population,Bevölkerung,Population,demographics,Menschen,people,World Bank Open Data,CC BY 4.0,SP.POP.TOTL,2004,2024,217
+life_expectancy,Lebenserwartung,Life expectancy,health,Jahre,years,World Bank Open Data,CC BY 4.0,SP.DYN.LE00.IN,2004,2024,217
+gini,Gini-Index (Ungleichheit),Gini index (inequality),social,Index 0–100,Index 0–100,World Bank Open Data,CC BY 4.0,SI.POV.GINI,2004,2024,168
+health_expenditure_gdp,Gesundheitsausgaben,Health expenditure,health,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,SH.XPD.CHEX.GD.ZS,2004,2024,193
+unemployment,Arbeitslosenquote,Unemployment rate,economy,% der Erwerbspersonen,% of labor force,World Bank Open Data,CC BY 4.0,SL.UEM.TOTL.ZS,2004,2024,187
+inflation,Inflation,Inflation,economy,% pro Jahr,% per year,IMF – Consumer Price Index (CPI),IMF Terms (Quellenangabe erforderlich),CPI:YOY_PCH_PA_PT,2004,2024,193
+policy_rate,Leitzins,Central bank policy rate,economy,%,%,BIS – Central bank policy rates,BIS Terms (Quellenangabe erforderlich),WS_CBPOL,,,
+gdp_growth,BIP-Wachstum,GDP growth,economy,% pro Jahr,% per year,World Bank Open Data,CC BY 4.0,NY.GDP.MKTP.KD.ZG,2004,2024,214
+exports_gdp,Exporte (Anteil am BIP),Exports (% of GDP),economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,NE.EXP.GNFS.ZS,2004,2024,191
+poverty,Extreme Armut,Extreme poverty,social,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,SI.POV.DDAY,2004,2024,168
+education_expenditure,Bildungsausgaben,Education expenditure,social,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,SE.XPD.TOTL.GD.ZS,2004,2024,199
+fertility,Geburtenrate,Fertility rate,health,Kinder/Frau,children/woman,World Bank Open Data,CC BY 4.0,SP.DYN.TFRT.IN,2004,2024,217
+urban_population,Stadtbevölkerung,Urban population,demographics,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,SP.URB.TOTL.IN.ZS,2004,2024,217
+co2_per_capita,CO₂ pro Kopf,Urban population,environment,t pro Jahr,% of population,World Bank Open Data,CC BY 4.0,EN.GHG.CO2.PC.CE.AR5,2004,2024,203
+internet_users,Internetnutzer,Internet users,infrastructure,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,IT.NET.USER.ZS,2004,2024,210
+electricity_access,Stromzugang,Electricity access,infrastructure,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,EG.ELC.ACCS.ZS,2004,2023,215
+mobile_subscriptions,Mobilfunkverträge,Mobile subscriptions,infrastructure,pro 100 Einw.,per 100 people,World Bank Open Data,CC BY 4.0,IT.CEL.SETS.P2,2004,2024,214
