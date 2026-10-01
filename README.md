@@ -79,6 +79,7 @@ The current regional map covers 48 countries whose regions can be matched confid
 WorldEconomicMap/
   app/        Frontend — Vite + React + TypeScript + MapLibre GL + deck.gl
   pipeline/   Python scripts: fetch official data, normalize, attach provenance
+    geometry/   Declarative border adjustments (e.g. Morocco / Western Sahara split)
   data/       Generated snapshot (committed) + raw/ (local cache, gitignored)
 ```
 
