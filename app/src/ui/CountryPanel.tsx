@@ -32,6 +32,9 @@ interface Props {
   history: YearMap | null;
   products: ProductEntry | null;
   productNames: Record<string, string>;
+  regionalDataLoaded?: boolean;
+  regionalRegionCount?: number;
+  onExploreRegions?: () => void;
 }
 
 export function CountryPanel({
@@ -48,6 +51,9 @@ export function CountryPanel({
   history,
   products,
   productNames,
+  regionalDataLoaded = false,
+  regionalRegionCount,
+  onExploreRegions,
 }: Props) {
   const { lang, t } = useLang();
 
@@ -89,6 +95,14 @@ export function CountryPanel({
       >
         {inCompare ? t.inCompare : compareFull ? t.compareFull : t.addCompare}
       </button>
+
+      {regionalRegionCount && onExploreRegions ? (
+        <button className="btn btn--regional" onClick={onExploreRegions}>
+          {fmt(t.regionalOpen, { count: regionalRegionCount })}
+        </button>
+      ) : regionalDataLoaded ? (
+        <p className="regional-panel__coverage">{t.regionalNoDataCountry}</p>
+      ) : null}
 
       {history && (
         <div className="panel__group">

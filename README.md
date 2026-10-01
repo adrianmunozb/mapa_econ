@@ -20,6 +20,7 @@ Explore economic, health and social indicators for **every country on Earth** on
 | 📈 | **Time series charts** — per-country history for every metric (2004–2024) |
 | ⚖️ | **Country comparison** — side-by-side table of up to 4 countries, best value highlighted |
 | 🏆 | **Interactive rankings** — every indicator as a sortable top/bottom list |
+| 🧭 | **Regional drill-down** — click a supported country to map first-level regions, with regional GDP, GDP per capita and population |
 | 🔎 | **Country search** — jump straight to any country |
 | 💬 | **Bilingual** — English (default) and German UI |
 | 🔗 | **Shareable URLs** — your current view (metric, country, trade mode, period) is encoded in the URL hash |
@@ -60,6 +61,10 @@ Every number shown in the app carries its **source, year and link** — so you c
 | [BIS](https://data.bis.org) | Central bank policy rates | BIS Terms |
 | [UN Comtrade](https://comtradeplus.un.org) | Detailed bilateral merchandise trade, export products | UN Terms |
 | [Natural Earth](https://www.naturalearthdata.com) | Country borders (geometry) | Public Domain |
+| [DOSE v2.11](https://doi.org/10.5281/zenodo.16313760) | Reported GDP and population for about 1,660 regions in 83 countries, through 2020 | CC BY 4.0 |
+| [geoBoundaries](https://www.geoboundaries.org/) | Simplified first-level administrative boundaries used for regional maps | CC BY 4.0 (attribution required) |
+
+The current regional map covers 48 countries whose regions can be matched confidently to the reported series. Missing or unmatched regions remain gray; countries without regional coverage keep the country-level view. Values and years vary by region; DOSE contains data through 2020 and is not a live regional feed. GDP totals in US dollars are calculated from reported GDP per capita and population.
 
 ## 🛠️ Tech Stack
 
@@ -92,6 +97,7 @@ cd pipeline
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python build_snapshot.py      # World Bank indicators + Natural Earth borders
+python build_regions.py       # reported regional GDP/population + ADM1 boundaries
 python build_timeseries.py    # 2004–2024 history
 python build_current.py       # current inflation (IMF) + policy rates (BIS)
 python build_trade.py         # bilateral trade flows (IMF IMTS)

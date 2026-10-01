@@ -333,6 +333,50 @@
   font-weight: 400;
 }
 
+.btn--regional {
+  width: 100%;
+  margin-top: 8px;
+  border-color: rgba(79, 156, 249, 0.38);
+  color: #9fc9ff;
+  text-align: left;
+}
+.regional-controls {
+  width: 340px;
+}
+.regional-controls__title {
+  margin: 12px 0 4px;
+  font-size: 17px;
+}
+.regional-controls__country {
+  margin: 0 0 14px;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+.regional-controls__hint {
+  margin: 9px 0 0;
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.regional-panel__head {
+  align-items: flex-start;
+}
+.regional-panel__marker {
+  color: #ffd166;
+  font-size: 29px;
+  line-height: 1;
+}
+.regional-panel__coverage {
+  margin: 14px 0 0;
+  padding: 9px 10px;
+  border: 1px solid rgba(255, 209, 102, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 209, 102, 0.06);
+  color: #dac58d;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
 .panel__source {
   margin-top: 16px;
   padding-top: 12px;
@@ -772,6 +816,9 @@
   .panel-right {
     width: 300px;
   }
+  .regional-controls {
+    width: 306px;
+  }
   .ranking__list {
     max-height: 24vh;
   }
@@ -786,5 +833,9 @@
     top: auto;
     bottom: 12px;
     max-height: 50vh;
+  }
+  .regional-controls {
+    width: calc(100vw - 24px);
+    max-height: 34vh;
   }
 }

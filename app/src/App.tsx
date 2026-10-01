@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { useWorldData } from './data/useWorldData';
 import { WorldMap, type HoverInfo, type Arc } from './map/WorldMap';
+import { RegionMap, type RegionHoverInfo, type RegionSelection } from './map/RegionMap';
 import { MetricPicker } from './ui/MetricPicker';
 import { Legend } from './ui/Legend';
 import { CountryPanel, type TradeSummary } from './ui/CountryPanel';
@@ -10,12 +11,20 @@ import { RankingList } from './ui/RankingList';
 import { SearchBox } from './ui/SearchBox';
 import { CompareBar } from './ui/CompareBar';
 import { CompareTable } from './ui/CompareTable';
+import { RegionalPanel } from './ui/RegionalPanel';
 import { buildColorScale, buildDivergingScale } from './lib/colors';
 import { formatValueWithUnit, formatUsdCompact, formatCompact, formatChange } from './lib/format';
 import { changeSince } from './lib/timeseries';
 import { bboxOf, mergeBBox, largestPolygonCentroid, type BBox } from './lib/geo';
 import { fmt, metricDescription, metricShortLabel, metricUnit, useLang } from './i18n';
 import type { CountryData } from './types';
+import {
+  REGIONAL_METRICS,
+  formatRegionalValue,
+  latestRegionalValue,
+  type RegionalMetricId,
+  type RegionRecord,
+} from './data/regions';
 
 const MAX_COMPARE = 4;
 const CHANGE_PERIODS = [2004, 2014]; // baked into the geojson for fast development-mode coloring
@@ -24,18 +33,25 @@ type ViewMode = 'current' | 'change';
 
 /** Read shareable state from the URL hash. */
 function readHash() {
-  if (typeof location === 'undefined') return { m: null as string | null, c: null as string | null, t: false, v: null as string | null, fy: null as string | null };
+  if (typeof location === 'undefined') return { m: null as string | null, c: null as string | null, t: false, v: null as string | null, fy: null as string | null, r: false, rm: null as string | null };
   const p = new URLSearchParams(location.hash.replace(/^#/, ''));
-  return { m: p.get('m'), c: p.get('c'), t: p.get('t') === '1', v: p.get('v'), fy: p.get('fy') };
+  return { m: p.get('m'), c: p.get('c'), t: p.get('t') === '1', v: p.get('v'), fy: p.get('fy'), r: p.get('r') === '1', rm: p.get('rm') };
 }
 
 export default function App() {
   const { lang, setLang, t } = useLang();
-  const { snapshot, geojson, trade, timeseries, products, error } = useWorldData();
   const initial = useMemo(() => readHash(), []);
   const [metricId, setMetricId] = useState(initial.m || 'gdp_per_capita');
   const [selectedIso, setSelectedIso] = useState<string | null>(initial.c);
+  const [regionalIso, setRegionalIso] = useState<string | null>(initial.r ? initial.c : null);
+  const [regionalMetricId, setRegionalMetricId] = useState<RegionalMetricId>(
+    REGIONAL_METRICS.some((metric) => metric.id === initial.rm)
+      ? (initial.rm as RegionalMetricId)
+      : 'gdpPerCapitaUsd2015',
+  );
+  const [selectedRegion, setSelectedRegion] = useState<RegionSelection | null>(null);
   const [hover, setHover] = useState<HoverInfo | null>(null);
+  const [regionHover, setRegionHover] = useState<RegionHoverInfo | null>(null);
   const [focusBbox, setFocusBbox] = useState<BBox | null>(null);
   const [focusNonce, setFocusNonce] = useState(0);
   const [compare, setCompare] = useState<string[]>([]);
@@ -43,12 +59,25 @@ export default function App() {
   const [tradeMode, setTradeMode] = useState(initial.t);
   const [viewMode, setViewMode] = useState<ViewMode>(initial.v === 'change' ? 'change' : 'current');
   const [changeFromYear, setChangeFromYear] = useState(initial.fy === '2014' ? 2014 : 2004);
+  const {
+    snapshot,
+    geojson,
+    trade,
+    timeseries,
+    products,
+    regionalIndex,
+    regionalGeometry,
+    regionalCountryData,
+    error,
+  } = useWorldData(regionalIso);
 
   // Keep the URL hash in sync so the current view is shareable.
   useEffect(() => {
     const p = new URLSearchParams();
     p.set('m', metricId);
     if (selectedIso) p.set('c', selectedIso);
+    if (regionalIso) p.set('r', '1');
+    if (regionalMetricId !== 'gdpPerCapitaUsd2015') p.set('rm', regionalMetricId);
     if (tradeMode) p.set('t', '1');
     if (viewMode === 'change') {
       p.set('v', 'change');
@@ -56,7 +85,7 @@ export default function App() {
     }
     const hash = `#${p.toString()}`;
     if (location.hash !== hash) history.replaceState(null, '', hash);
-  }, [metricId, selectedIso, tradeMode, viewMode, changeFromYear]);
+  }, [metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, viewMode, changeFromYear]);
 
   const byIso = useMemo(() => {
     const map = new Map<string, CountryData>();
@@ -247,22 +276,123 @@ export default function App() {
     [compare, byIso],
   );
 
+  const regionsById = useMemo(() => {
+    const map = new Map<string, RegionRecord>();
+    regionalCountryData?.regions.forEach((region) => map.set(region.id, region));
+    return map;
+  }, [regionalCountryData]);
+
+  const enrichedRegional = useMemo(() => {
+    if (!regionalGeometry || !regionalCountryData) return null;
+    const fc = regionalGeometry as {
+      type: string;
+      features: Array<{ type: string; geometry: unknown; properties: Record<string, unknown> | null }>;
+    };
+    return {
+      type: fc.type,
+      features: fc.features.map((feature) => {
+        const properties: Record<string, unknown> = { ...(feature.properties ?? {}) };
+        const regionId = typeof properties.regionId === 'string' ? properties.regionId : null;
+        const value = latestRegionalValue(regionId ? regionsById.get(regionId) : undefined, regionalMetricId);
+        if (value) {
+          properties.metricValue = value.value;
+          properties.metricYear = value.year;
+        } else {
+          delete properties.metricValue;
+          delete properties.metricYear;
+        }
+        return { ...feature, properties };
+      }),
+    };
+  }, [regionalGeometry, regionalCountryData, regionsById, regionalMetricId]);
+
+  const regionalScale = useMemo(() => {
+    const features = (enrichedRegional as { features: Array<{ properties: Record<string, unknown> }> } | null)?.features ?? [];
+    const values = features
+      .map((feature) => feature.properties.metricValue)
+      .filter((value): value is number => typeof value === 'number' && Number.isFinite(value));
+    return buildColorScale(values, 'metricValue');
+  }, [enrichedRegional]);
+
+  const regionalBbox = useMemo(() => {
+    const bboxMap = { features: (regionalGeometry as { features?: Array<{ geometry: unknown }> } | null)?.features ?? [] };
+    let bounds: BBox | null = null;
+    for (const feature of bboxMap.features) {
+      const next = bboxOf(feature.geometry);
+      if (next) bounds = bounds ? mergeBBox(bounds, next) : next;
+    }
+    return bounds;
+  }, [regionalGeometry]);
+
+  const selectWorldCountry = useCallback((iso3: string | null) => {
+    setSelectedIso(iso3);
+    setHover(null);
+    setRegionHover(null);
+    setSelectedRegion(null);
+    setRegionalIso(iso3 && regionalIndex?.countries[iso3] ? iso3 : null);
+  }, [regionalIndex]);
+
+  const openRegionalForSelected = useCallback(() => {
+    if (!selectedIso || !regionalIndex?.countries[selectedIso]) return;
+    setRegionalIso(selectedIso);
+    setSelectedRegion(null);
+    setRegionHover(null);
+  }, [regionalIndex, selectedIso]);
+
+  const closeCountryPanel = useCallback(() => {
+    setSelectedIso(null);
+    setRegionalIso(null);
+    setSelectedRegion(null);
+  }, []);
+
+  const backToWorldMap = useCallback(() => {
+    const iso3 = regionalIso;
+    setRegionalIso(null);
+    setSelectedRegion(null);
+    setRegionHover(null);
+    if (iso3) flyTo(iso3);
+  }, [regionalIso, flyTo]);
+
+  useEffect(() => {
+    if (regionalIso && regionalIndex && !regionalIndex.countries[regionalIso]) {
+      setRegionalIso(null);
+    }
+  }, [regionalIso, regionalIndex]);
+
   const ready = enriched && scale && metric;
   const hoverValue = hover ? display.get(hover.iso3) : undefined;
 
   return (
     <div className="app">
       <div className="map-root">
-        {ready ? (
-          <WorldMap
-            data={enriched}
-            fillColor={scale.expression}
-            selectedIso={selectedIso}
-            focusBbox={focusBbox}
-            focusNonce={focusNonce}
-            arcs={arcs}
-            onHover={setHover}
-            onSelect={setSelectedIso}
+        {!regionalIso ? (
+          ready ? (
+            <WorldMap
+              data={enriched}
+              fillColor={scale.expression}
+              selectedIso={selectedIso}
+              focusBbox={focusBbox}
+              focusNonce={focusNonce}
+              arcs={arcs}
+              onHover={setHover}
+              onSelect={selectWorldCountry}
+            />
+          ) : (
+            <div className="map-placeholder">
+              <div className="spinner" />
+              <p>{error ? fmt(t.loadError, { error }) : t.loading}</p>
+            </div>
+          )
+        ) : enrichedRegional ? (
+          <RegionMap
+            key={regionalIso}
+            data={enrichedRegional}
+            fillColor={regionalScale.expression}
+            selectedShapeId={selectedRegion?.shapeId ?? null}
+            focusBbox={regionalBbox}
+            countryName={byIso.get(regionalIso)?.name ?? regionalIso}
+            onHover={setRegionHover}
+            onSelect={setSelectedRegion}
           />
         ) : (
           <div className="map-placeholder">
@@ -289,7 +419,7 @@ export default function App() {
         </button>
       </div>
 
-      <header className="hud hud--top-left scroll-slim">
+      {!regionalIso && <header className="hud hud--top-left scroll-slim">
         <div className="brand">
           <span className="brand__globe">🌍</span>
           <div>
@@ -366,9 +496,46 @@ export default function App() {
             />
           </div>
         )}
-      </header>
+      </header>}
 
-      {hover && metric && (
+      {regionalIso && regionalIndex?.countries[regionalIso] && (
+        <header className="hud hud--top-left regional-controls scroll-slim">
+          <button className="btn" onClick={backToWorldMap}>{t.regionalBack}</button>
+          <h2 className="regional-controls__title">{byIso.get(regionalIso)?.name ?? regionalIso}</h2>
+          <p className="regional-controls__country">{t.regionalHint}</p>
+          <label className="field">
+            <span>{t.regionalMetricPicker}</span>
+            <select
+              className="select"
+              value={regionalMetricId}
+              onChange={(event) => setRegionalMetricId(event.target.value as RegionalMetricId)}
+            >
+              {REGIONAL_METRICS.map((regionalMetric) => (
+                <option key={regionalMetric.id} value={regionalMetric.id}>{regionalMetric.label[lang]}</option>
+              ))}
+            </select>
+          </label>
+          <Legend
+            unit={REGIONAL_METRICS.find((regionalMetric) => regionalMetric.id === regionalMetricId)?.unit[lang] ?? ''}
+            hint={t.hintCurrent}
+            scale={regionalScale}
+            formatTick={(value) => {
+              const active = REGIONAL_METRICS.find((regionalMetric) => regionalMetric.id === regionalMetricId) ?? REGIONAL_METRICS[0];
+              return formatRegionalValue(value, active, lang, true);
+            }}
+          />
+          {regionalIndex.countries[regionalIso].matched < regionalIndex.countries[regionalIso].regions && (
+            <p className="regional-controls__hint">
+              {fmt(t.regionalCoverage, {
+                matched: regionalIndex.countries[regionalIso].matched,
+                total: regionalIndex.countries[regionalIso].regions,
+              })}
+            </p>
+          )}
+        </header>
+      )}
+
+      {!regionalIso && hover && metric && (
         <Tooltip
           x={hover.x}
           y={hover.y}
@@ -378,12 +545,29 @@ export default function App() {
         />
       )}
 
-      {selectedIso && snapshot && metric && (
+      {regionalIso && regionHover && (
+        <Tooltip
+          x={regionHover.x}
+          y={regionHover.y}
+          name={regionHover.name}
+          metricLabel={`${(REGIONAL_METRICS.find((regionalMetric) => regionalMetric.id === regionalMetricId) ?? REGIONAL_METRICS[0]).shortLabel[lang]}${regionHover.year ? ` · ${regionHover.year}` : ''}`}
+          value={regionHover.value == null
+            ? t.noData
+            : formatRegionalValue(
+                regionHover.value,
+                REGIONAL_METRICS.find((regionalMetric) => regionalMetric.id === regionalMetricId) ?? REGIONAL_METRICS[0],
+                lang,
+                true,
+              )}
+        />
+      )}
+
+      {!regionalIso && selectedIso && snapshot && metric && (
         <CountryPanel
           country={byIso.get(selectedIso) ?? null}
           metrics={snapshot.metrics}
           activeMetricId={metricId}
-          onClose={() => setSelectedIso(null)}
+          onClose={closeCountryPanel}
           onAddCompare={addCompare}
           inCompare={compare.includes(selectedIso)}
           compareFull={compare.length >= MAX_COMPARE}
@@ -393,15 +577,29 @@ export default function App() {
           history={timeseries?.data[selectedIso]?.[metricId] ?? null}
           products={products?.data[selectedIso] ?? null}
           productNames={lang === 'de' ? (products?.names ?? {}) : (products?.namesEn ?? products?.names ?? {})}
+          regionalDataLoaded={regionalIndex !== null}
+          regionalRegionCount={regionalIndex?.countries[selectedIso]?.regions}
+          onExploreRegions={openRegionalForSelected}
         />
       )}
 
-      <CompareBar
+      {regionalIso && regionalIndex?.countries[regionalIso] && (
+        <RegionalPanel
+          countryName={byIso.get(regionalIso)?.name ?? regionalIso}
+          regionName={selectedRegion?.name ?? null}
+          region={selectedRegion?.regionId ? regionsById.get(selectedRegion.regionId) : undefined}
+          coverage={regionalIndex.countries[regionalIso]}
+          activeMetricId={regionalMetricId}
+          onClose={() => setSelectedRegion(null)}
+        />
+      )}
+
+      {!regionalIso && <CompareBar
         countries={compareCountries}
         onRemove={removeCompare}
         onClear={() => setCompare([])}
         onOpen={() => setCompareOpen(true)}
-      />
+      />}
 
       {compareOpen && snapshot && compareCountries.length >= 2 && (
         <CompareTable
