@@ -78,8 +78,13 @@ The current regional map covers 48 countries whose regions can be matched confid
 ```
 WorldEconomicMap/
   app/        Frontend — Vite + React + TypeScript + MapLibre GL + deck.gl
-  pipeline/   Python scripts: fetch official data, normalize, attach provenance
-    geometry/   Declarative border adjustments (e.g. Morocco / Western Sahara split)
+  pipeline/   Python package `wem`: fetch official data, normalize, attach provenance
+    wem/catalog/    static knowledge: metric catalog, data sources, HS2 names
+    wem/providers/  one module per remote API (World Bank, IMF, BIS, Comtrade, …)
+    wem/steps/      one runnable stage per output file (snapshot, trade, …)
+    wem/geometry/   declarative border adjustments (e.g. Morocco / Western Sahara)
+    wem/regions/    regional (ADM1) matching + simplification
+    tests/          unit tests + offline end-to-end run on a fake network
   data/       Generated snapshot (committed) + raw/ (local cache, gitignored)
 ```
 
@@ -97,14 +102,20 @@ npm run lint           # ESLint
 cd pipeline
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python build_snapshot.py      # World Bank indicators + Natural Earth borders
-python build_regions.py       # reported regional GDP/population + ADM1 boundaries
-python build_timeseries.py    # 2004–2024 history
-python build_current.py       # current inflation (IMF) + policy rates (BIS)
-python build_trade.py         # bilateral trade flows (IMF IMTS)
-python build_products.py      # export products (UN Comtrade)
-python patch_i18n.py          # bilingual labels (EN default, DE)
-python audit.py               # optional: data consistency checks
+python -m wem all             # every step below, in order
+python -m wem list            # list the steps
+
+# …or run a single step (the old `python build_snapshot.py` style scripts still work):
+python -m wem snapshot        # World Bank indicators + Natural Earth borders
+python -m wem regions         # reported regional GDP/population + ADM1 boundaries
+python -m wem timeseries      # 2004–2024 history
+python -m wem current         # current inflation (IMF) + policy rates (BIS)
+python -m wem trade           # bilateral trade flows (IMF IMTS)
+python -m wem products        # export products (UN Comtrade)
+python -m wem i18n            # bilingual labels (EN default, DE)
+python -m wem audit           # optional: data consistency checks
+
+python -m unittest discover -s tests -t .   # offline tests (no network needed)
 ```
 
 ## 🔑 Keywords & Topics

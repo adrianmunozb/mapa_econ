@@ -4,7 +4,7 @@ from pathlib import Path
 
 from shapely.geometry import shape
 
-from geometry import DEFAULT_ADJUSTMENTS, ParallelTransfer, apply_adjustments
+from wem.geometry import DEFAULT_ADJUSTMENTS, ParallelTransfer, apply_adjustments
 
 GEOJSON = Path(__file__).resolve().parents[2] / "app/public/data/countries.geojson"
 

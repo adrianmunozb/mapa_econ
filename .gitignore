@@ -7,7 +7,7 @@ app/dist/
 dist/
 
 # Python
-pipeline/__pycache__/
+**/__pycache__/
 pipeline/.venv/
 *.pyc
 
