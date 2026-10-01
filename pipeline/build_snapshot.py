@@ -432,6 +432,26 @@ def ne_iso3(props: dict) -> str | None:
     return None
 
 
+# Natural Earth draws Morocco with the Moroccan-administered part of Western
+# Sahara merged in. Cut it back out along the internationally recognised border
+# (the 27°40'N parallel, Cape Draa to the Algerian frontier) and hand it to ESH.
+MAR_ESH_BORDER_LAT = 27.6667
+
+
+def split_western_sahara(gj: dict) -> None:
+    from shapely.geometry import box, mapping, shape  # lazy: only needed here
+
+    feats = {f["properties"].get("iso3"): f for f in gj["features"]}
+    mar, esh = feats.get("MAR"), feats.get("ESH")
+    if not mar or not esh:
+        return
+    south = box(-180, -90, 180, MAR_ESH_BORDER_LAT)
+    mar_geom, esh_geom = shape(mar["geometry"]), shape(esh["geometry"])
+    esh["geometry"] = mapping(esh_geom.union(mar_geom.intersection(south)))
+    mar["geometry"] = mapping(mar_geom.difference(south))
+    esh["properties"]["name"] = "Western Sahara"
+
+
 def build_geojson() -> tuple[dict, set[str]]:
     """Download NE borders, slim properties to {iso3, name}, return (geojson, iso3 set)."""
     gj = get_json(NE_GEOJSON_URL)
@@ -443,6 +463,7 @@ def build_geojson() -> tuple[dict, set[str]]:
         feat["properties"] = {"iso3": iso3, "name": name}
         if iso3:
             present.add(iso3)
+    split_western_sahara(gj)
     return gj, present
 
 
