@@ -484,6 +484,40 @@
   margin-bottom: 8px;
 }
 
+/* ---------- Collapsible control groups ---------- */
+.section {
+  margin-top: 4px;
+}
+.section__toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--panel-border);
+  padding: 10px 2px 6px;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+.section__title {
+  font-weight: 600;
+}
+.section__badge {
+  margin-left: auto;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.section__body {
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 /* ---------- Ranking list ---------- */
 .ranking {
   margin-top: 4px;
