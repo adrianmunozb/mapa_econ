@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import type { CountryData } from '../types';
-import { flagEmoji } from '../lib/flag';
+import { Flag } from './Flag';
 import { useLang } from '../i18n';
 
 interface Props {
@@ -71,7 +71,7 @@ export const RankingList = memo(function RankingList({ countries, getValue, form
                 >
                   <span className="rank-row__bar" style={{ width: `${Math.max(2, w)}%` }} />
                   <span className="rank-row__pos">{i + 1}</span>
-                  <span className="rank-row__flag">{flagEmoji(r.iso2)}</span>
+                  <Flag iso2={r.iso2} className="rank-row__flag" />
                   <span className="rank-row__name">{r.name}</span>
                   <span className="rank-row__val">{format(r.value)}</span>
                 </button>
