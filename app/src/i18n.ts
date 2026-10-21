@@ -15,6 +15,7 @@ export const DOMAIN_LABELS: Record<string, string> = {
   environment: 'Environment',
   infrastructure: 'Infrastructure',
   trade: 'Trade',
+  governance: 'Governance',
 };
 
 // German month abbreviations (used in some legacy data fields) → English.
