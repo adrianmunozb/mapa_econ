@@ -5,6 +5,7 @@ import { bondMetricId, isBondMetric } from '../data/bonds';
 const DOMAIN_ORDER = [
   'economy',
   'social',
+  'governance',
   'health',
   'demographics',
   'environment',
