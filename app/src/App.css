@@ -98,6 +98,19 @@
   }
 }
 
+/* ---------- Flag icons ---------- */
+.flag-icon {
+  display: inline-block;
+  width: 1.2em;
+  height: 0.9em;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+  vertical-align: middle;
+}
+.flag-icon--placeholder {
+  background: var(--bg-elev-2);
+}
+
 /* ---------- Floating panels ---------- */
 .hud {
   position: absolute;
