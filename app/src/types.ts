@@ -16,7 +16,8 @@ export type MetricDomain =
   | 'demographics'
   | 'environment'
   | 'infrastructure'
-  | 'trade';
+  | 'trade'
+  | 'governance';
 
 export type MetricFormat = 'currency' | 'number' | 'percent' | 'years' | 'index';
 
