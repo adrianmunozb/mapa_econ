@@ -1075,6 +1075,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 6px;
 }
+.layer-toggles__detail {
+  grid-column: 1 / -1;
+}
 .layer-toggles__grid .btn {
   font-size: 11.5px;
   padding: 7px 8px;

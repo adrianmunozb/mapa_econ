@@ -550,6 +550,8 @@ export default function App() {
     if (iso3) flyTo(iso3);
   }, [regionalIso, flyTo]);
 
+  const activeLayerCount = [tradeMode, showChokepoints, showCables, showMarkets, showDayNight, showWebcams, showNews]
+    .filter(Boolean).length;
   const ready = enriched && scale && metric;
   const hoverValue = hover ? display.get(hover.iso3) : undefined;
   const rankingCountries = useMemo(() => allianceMembers
@@ -699,8 +701,10 @@ export default function App() {
               formatTick={(v) => (viewMode === 'current' ? formatCompact(v, metric, lang) : formatChange(v, metric, lang))}
             />}
 
-            <div className="layer-toggles">
-              <span className="layer-toggles__title">Capas Estratégicas</span>
+            <Section
+              title="Capas del mapa"
+              badge={activeLayerCount ? `${activeLayerCount} activas` : undefined}
+            >
               <div className="layer-toggles__grid">
                 <button
                   type="button"
@@ -710,6 +714,23 @@ export default function App() {
                 >
                   🔄 {tradeMode ? 'Comercio ON' : 'Comercio'}
                 </button>
+                {tradeMode && (
+                  <div className="layer-toggles__detail">
+                    <p className="hud__hint">
+                      {selectedIso
+                        ? arcs.length
+                          ? t.arcsHintSelected
+                          : t.arcsHintNone
+                        : 'Showing the 35 largest reported export flows. Select a country to compare exports and partner-reported imports.'}
+                    </p>
+                    <div className="hud__trade-legend" role="group" aria-label={t.tradeDirection}>
+                      <span><i className="hud__trade-swatch hud__trade-swatch--export" aria-hidden="true" />{t.tradeExports}</span>
+                      {selectedIso && (
+                        <span><i className="hud__trade-swatch hud__trade-swatch--import" aria-hidden="true" />{t.tradeImports}</span>
+                      )}
+                    </div>
+                  </div>
+                )}
                 <button
                   type="button"
                   className={`btn toggle${showChokepoints ? ' toggle--on' : ''}`}
@@ -764,24 +785,7 @@ export default function App() {
                   <p>Rutas esquemáticas · movimiento ilustrativo, sin datos de tráfico en tiempo real.</p>
                 </div>
               )}
-            </div>
-            {tradeMode && (
-              <>
-                <p className="hud__hint">
-                  {selectedIso
-                    ? arcs.length
-                      ? t.arcsHintSelected
-                      : t.arcsHintNone
-                    : 'Showing the 35 largest reported export flows. Select a country to compare exports and partner-reported imports.'}
-                </p>
-                <div className="hud__trade-legend" role="group" aria-label={t.tradeDirection}>
-                  <span><i className="hud__trade-swatch hud__trade-swatch--export" aria-hidden="true" />{t.tradeExports}</span>
-                  {selectedIso && (
-                    <span><i className="hud__trade-swatch hud__trade-swatch--import" aria-hidden="true" />{t.tradeImports}</span>
-                  )}
-                </div>
-              </>
-            )}
+            </Section>
 
             <RankingList
               countries={rankingCountries}
