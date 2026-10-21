@@ -1,5 +1,5 @@
 import type { CountryData } from '../types';
-import { flagEmoji } from '../lib/flag';
+import { Flag } from './Flag';
 import { fmt, useLang } from '../i18n';
 
 interface Props {
@@ -18,7 +18,7 @@ export function CompareBar({ countries, onRemove, onClear, onOpen }: Props) {
       <div className="compare-bar__chips">
         {countries.map((c) => (
           <span key={c.iso3} className="chip">
-            <span className="chip__flag">{flagEmoji(c.iso2)}</span>
+            <Flag iso2={c.iso2} className="chip__flag" />
             {c.name}
             <button className="chip__x" onClick={() => onRemove(c.iso3)} aria-label={t.remove}>
               ×

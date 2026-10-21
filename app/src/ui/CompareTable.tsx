@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import type { CountryData, MetricMeta } from '../types';
 import { formatValueWithUnit } from '../lib/format';
-import { flagEmoji } from '../lib/flag';
+import { Flag } from './Flag';
 import { domainLabel, metricLabel, useLang } from '../i18n';
 
 interface Props {
@@ -45,7 +45,7 @@ export function CompareTable({ countries, metrics, onClose }: Props) {
                 <th className="cmp-metric-col">{t.metricCol}</th>
                 {countries.map((c) => (
                   <th key={c.iso3}>
-                    <span className="cmp-flag">{flagEmoji(c.iso2)}</span>
+                    <Flag iso2={c.iso2} className="cmp-flag" />
                     <span className="cmp-cname">{c.name}</span>
                   </th>
                 ))}

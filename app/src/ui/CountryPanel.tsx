@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import type { CountryData, MetricMeta, ProductEntry } from '../types';
 import type { YearMap } from '../lib/timeseries';
 import { formatValueWithUnit, formatUsdCompact } from '../lib/format';
-import { flagEmoji } from '../lib/flag';
+import { Flag } from './Flag';
 import { fmt, domainLabel, metricLabel, tPeriod, useLang } from '../i18n';
 import { TrendChart } from './TrendChart';
 import { getCountryTimeInfo } from '../data/markets';
@@ -90,7 +90,7 @@ export const CountryPanel = memo(function CountryPanel({
       </button>
 
       <div className="panel__head">
-        <span className="panel__flag">{flagEmoji(country.iso2)}</span>
+        <Flag iso2={country.iso2} className="panel__flag" />
         <div>
           <h2 className="panel__name">{country.name}</h2>
           <p className="panel__meta">
@@ -173,7 +173,7 @@ export const CountryPanel = memo(function CountryPanel({
                       className="trade-row__bar"
                       style={{ width: `${Math.max(3, (p.share / maxShare) * 100)}%` }}
                     />
-                    <span className="trade-row__flag">{flagEmoji(p.iso2)}</span>
+                    <Flag iso2={p.iso2} className="trade-row__flag" />
                     <span className="trade-row__name">{p.name}</span>
                     <span className="trade-row__val">{formatUsdCompact(p.value, lang)}</span>
                     <span className="trade-row__share">{p.share.toFixed(0)}%</span>
