@@ -1,14 +1,17 @@
 import type { MetricMeta } from '../types';
 import type { Lang } from '../i18n';
 import { LOCALES, metricUnit } from '../i18n';
+import { numberFormatter } from './numberFormat';
 
-const COMPACT_THRESHOLD = 1e7; // values >= 10M render compactly (M / Mrd. / B)
+const COMPACT_THRESHOLD = 1e7; // values >= 10M render compactly (M / B)
 
 /** Locale-formatted number part only (no unit). */
 export function formatNumber(value: number, metric: MetricMeta, lang: Lang = 'en'): string {
   const compact = Math.abs(value) >= COMPACT_THRESHOLD;
   const decimals = compact
     ? 1
+    : metric.id.startsWith('bond_yield_')
+      ? 2
     : metric.format === 'currency'
       ? 0
       : metric.format === 'number'
@@ -16,7 +19,7 @@ export function formatNumber(value: number, metric: MetricMeta, lang: Lang = 'en
           ? 1 // small counts (CO₂/capita, fertility) keep a decimal
           : 0 // large counts (population) stay whole
         : 1;
-  return new Intl.NumberFormat(LOCALES[lang], {
+  return numberFormatter(LOCALES[lang] ?? 'en-US', {
     notation: compact ? 'compact' : 'standard',
     maximumFractionDigits: decimals,
   }).format(value);
@@ -29,7 +32,7 @@ export function formatValueWithUnit(value: number, metric: MetricMeta, lang: Lan
     case 'percent':
       return `${n} %`;
     case 'years':
-      return lang === 'de' ? `${n} Jahre` : `${n} years`;
+      return `${n} years`;
     case 'currency':
       return `${n} ${metricUnit(metric, lang)}`;
     case 'index':
@@ -44,16 +47,16 @@ export function formatValueWithUnit(value: number, metric: MetricMeta, lang: Lan
  *  metrics, absolute Δ (years / percentage points / index points) otherwise. */
 export function formatChange(value: number, metric: MetricMeta, lang: Lang = 'en'): string {
   const sign = value > 0 ? '+' : value < 0 ? '−' : '';
-  const num = new Intl.NumberFormat(LOCALES[lang], { maximumFractionDigits: 1 }).format(Math.abs(value));
+  const num = numberFormatter(LOCALES[lang] ?? 'en-US', { maximumFractionDigits: 1 }).format(Math.abs(value));
   if (metric.format === 'currency' || metric.format === 'number') return `${sign}${num} %`;
-  if (metric.format === 'years') return lang === 'de' ? `${sign}${num} J.` : `${sign}${num} yr`;
-  if (metric.format === 'percent') return lang === 'de' ? `${sign}${num} %-Pkt.` : `${sign}${num} pp`;
+  if (metric.format === 'years') return `${sign}${num} yr`;
+  if (metric.format === 'percent') return `${sign}${num} pp`;
   return `${sign}${num}`;
 }
 
 /** Compact USD amount for trade values, e.g. "US$ 337.9B". */
 export function formatUsdCompact(value: number, lang: Lang = 'en'): string {
-  const s = new Intl.NumberFormat(LOCALES[lang], {
+  const s = numberFormatter(LOCALES[lang] ?? 'en-US', {
     notation: 'compact',
     maximumFractionDigits: 1,
   }).format(value);
@@ -62,12 +65,12 @@ export function formatUsdCompact(value: number, lang: Lang = 'en'): string {
 
 /** Short label for legend ticks. */
 export function formatCompact(value: number, metric?: MetricMeta, lang: Lang = 'en'): string {
-  const s = new Intl.NumberFormat(LOCALES[lang], {
+  const s = numberFormatter(LOCALES[lang] ?? 'en-US', {
     notation: Math.abs(value) >= 10000 ? 'compact' : 'standard',
     maximumFractionDigits: 1,
   }).format(value);
   if (!metric) return s;
   if (metric.format === 'percent') return `${s} %`;
-  if (metric.format === 'years') return lang === 'de' ? `${s} J.` : `${s} yr`;
+  if (metric.format === 'years') return `${s} yr`;
   return s;
 }

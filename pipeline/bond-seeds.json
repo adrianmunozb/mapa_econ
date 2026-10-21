@@ -1,0 +1,32 @@
+{
+  "EGY": {
+    "currency": "EGP",
+    "date": "2026-10-06",
+    "source": "Central Bank of Egypt · EGP T-Bills Secondary Market",
+    "url": "https://www.cbe.org.eg/en/economic-research/statistics/egp-t-bills-secondary-market",
+    "method": "Daily weighted-average secondary-market yields on EGP Treasury bills by CBE residual-maturity bands. The source labels 61–91 days as 3 months, 92–182 days as 6 months and 274–365 days as 12 months; plotted at those corresponding existing app tenors.",
+    "values": { "3": 23.936, "6": 24.746, "12": 25.239 },
+    "retrievedAt": "2026-10-20",
+    "retrieval": "Reviewed the CBE official listing for secondary-market EGP T-bill executions dated 2026-10-06. The browser and build-host requests to the CBE page returned Request Rejected, so these dated values are stored as a reviewed seed until the official source can be fetched directly."
+  },
+  "MYS": {
+    "currency": "MYR",
+    "date": "2026-10-20",
+    "source": "Bank Negara Malaysia · Benchmark Yields",
+    "url": "https://financialmarkets.bnm.gov.my/benchmark-yields",
+    "method": "Daily closing trading yields for conventional Malaysian Government Securities benchmarks at provider-labelled 3-, 5-, 7- and 10-year terms. BNM marks the 5-year observation as last traded.",
+    "values": { "36": 3.44, "60": 3.63, "84": 3.83, "120": 3.84 },
+    "retrievedAt": "2026-10-20",
+    "retrieval": "Reviewed the dated official BNM Benchmark Yields page on 2026-10-20; it labels the table Trading Date 20 Oct 2026. Direct automated downloads returned HTTP 403 from the build host, so the automatic provider preserves this dated seed when blocked."
+  },
+  "NZL": {
+    "currency": "NZD",
+    "date": "2026-10-19",
+    "source": "Reserve Bank of New Zealand · Wholesale Interest Rates (B2)",
+    "url": "https://www.rbnz.govt.nz/statistics/series/%20exchange-and-interest-rates/wholesale-interest-rates",
+    "method": "NZFMA indicative 5:10pm closing yields on benchmark New Zealand Government bonds at 1, 2, 5 and 10 years; daily, published with a one-business-day lag.",
+    "values": { "12": 3.25, "24": 3.91, "60": 4.49, "120": 5.01 },
+    "retrievedAt": "2026-10-20",
+    "retrieval": "Reviewed official B2 public webpage, government-bond columns only. Direct automated downloads returned HTTP 403 on the build host; the automatic provider retains this dated seed on failure."
+  }
+}

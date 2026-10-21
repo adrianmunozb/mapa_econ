@@ -73,8 +73,12 @@ export function useWorldData(regionalIso3: string | null): WorldData {
   const [timeseries, setTimeseries] = useState<TimeseriesData | null>(null);
   const [products, setProducts] = useState<TradeProductsData | null>(null);
   const [regionalIndex, setRegionalIndex] = useState<RegionalIndex | null>(null);
-  const [regionalGeometry, setRegionalGeometry] = useState<unknown | null>(null);
-  const [regionalCountryData, setRegionalCountryData] = useState<RegionalCountryData | null>(null);
+  const [regionalResult, setRegionalResult] = useState<{
+    iso3: string;
+    geometry: unknown;
+    country: RegionalCountryData;
+  } | null>(null);
+  const [regionalError, setRegionalError] = useState<{ iso3: string; message: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -115,9 +119,7 @@ export function useWorldData(regionalIso3: string | null): WorldData {
 
   useEffect(() => {
     let alive = true;
-    setRegionalGeometry(null);
-    setRegionalCountryData(null);
-    if (!regionalIso3) return () => { alive = false; };
+    if (!regionalIso3 || !regionalIndex?.countries[regionalIso3]) return;
     Promise.all([
       loadRegionalAsset<unknown>(
         `regions-${regionalIso3}`,
@@ -130,14 +132,14 @@ export function useWorldData(regionalIso3: string | null): WorldData {
     ])
       .then(([geometry, regional]) => {
         if (!alive) return;
-        setRegionalGeometry(geometry);
-        setRegionalCountryData(regional);
+        setRegionalResult({ iso3: regionalIso3, geometry, country: regional });
+        setRegionalError(null);
       })
       .catch((e) => {
-        if (alive) setError(e instanceof Error ? e.message : String(e));
+        if (alive) setRegionalError({ iso3: regionalIso3, message: e instanceof Error ? e.message : String(e) });
       });
     return () => { alive = false; };
-  }, [regionalIso3]);
+  }, [regionalIso3, regionalIndex]);
 
   return {
     snapshot,
@@ -146,8 +148,8 @@ export function useWorldData(regionalIso3: string | null): WorldData {
     timeseries,
     products,
     regionalIndex,
-    regionalGeometry,
-    regionalCountryData,
-    error,
+    regionalGeometry: regionalResult?.iso3 === regionalIso3 ? regionalResult.geometry : null,
+    regionalCountryData: regionalResult?.iso3 === regionalIso3 ? regionalResult.country : null,
+    error: regionalError?.iso3 === regionalIso3 ? regionalError.message : error,
   };
 }

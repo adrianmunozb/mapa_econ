@@ -25,6 +25,23 @@ import {
   type RegionalMetricId,
   type RegionRecord,
 } from './data/regions';
+import { MarketBar } from './ui/MarketBar';
+import { ChokepointModal } from './ui/ChokepointModal';
+import { SUBMARINE_CABLES, CHOKEPOINTS, type MaritimeChokepoint } from './data/maritime';
+import { MAJOR_MARKETS } from './data/markets';
+import { ALLIANCES, allianceColors, countryAlliances } from './data/alliances';
+import { AlliancePicker } from './ui/AlliancePicker';
+
+import { regionalWebcamCountry, type Webcam } from './data/webcams';
+import { WebcamControls } from './ui/WebcamControls';
+import { WebcamModal } from './ui/WebcamModal';
+import newsSeed from './data/news-snapshot.json';
+import { cleanArticles, countryMatcher, newsHotspots, type NewsSnapshot, type NewsTopic, type NewsGeography } from './data/news';
+import { NewsControls } from './ui/NewsControls';
+import bondsSeed from './data/bonds-snapshot.json';
+import { BOND_TENORS, availableBondCountries, bondMetricId, bondMonths, isBondMetric, withBondMetrics, type BondSnapshot } from './data/bonds';
+
+const BONDS = bondsSeed as BondSnapshot;
 
 const MAX_COMPARE = 4;
 const CHANGE_PERIODS = [2004, 2014]; // baked into the geojson for fast development-mode coloring
@@ -33,17 +50,17 @@ type ViewMode = 'current' | 'change';
 
 /** Read shareable state from the URL hash. */
 function readHash() {
-  if (typeof location === 'undefined') return { m: null as string | null, c: null as string | null, t: false, v: null as string | null, fy: null as string | null, r: false, rm: null as string | null };
+  if (typeof location === 'undefined') return { m: null as string | null, c: null as string | null, t: false, v: null as string | null, fy: null as string | null, r: false, rm: null as string | null, a: null as string | null, dn: false };
   const p = new URLSearchParams(location.hash.replace(/^#/, ''));
-  return { m: p.get('m'), c: p.get('c'), t: p.get('t') === '1', v: p.get('v'), fy: p.get('fy'), r: p.get('r') === '1', rm: p.get('rm') };
+  return { m: p.get('m'), c: p.get('c'), t: p.get('t') === '1', v: p.get('v'), fy: p.get('fy'), r: p.get('r') === '1', rm: p.get('rm'), a: p.get('a'), dn: p.get('dn') === '1' };
 }
 
 export default function App() {
-  const { lang, setLang, t } = useLang();
+  const { lang, t } = useLang();
   const initial = useMemo(() => readHash(), []);
   const [metricId, setMetricId] = useState(initial.m || 'gdp_per_capita');
   const [selectedIso, setSelectedIso] = useState<string | null>(initial.c);
-  const [regionalIso, setRegionalIso] = useState<string | null>(initial.r ? initial.c : null);
+  const [requestedRegionalIso, setRegionalIso] = useState<string | null>(initial.r ? initial.c : null);
   const [regionalMetricId, setRegionalMetricId] = useState<RegionalMetricId>(
     REGIONAL_METRICS.some((metric) => metric.id === initial.rm)
       ? (initial.rm as RegionalMetricId)
@@ -57,10 +74,89 @@ export default function App() {
   const [compare, setCompare] = useState<string[]>([]);
   const [compareOpen, setCompareOpen] = useState(false);
   const [tradeMode, setTradeMode] = useState(initial.t);
-  const [viewMode, setViewMode] = useState<ViewMode>(initial.v === 'change' ? 'change' : 'current');
+  const [viewMode, setViewMode] = useState<ViewMode>(initial.v === 'change' && !isBondMetric(initial.m ?? '') ? 'change' : 'current');
   const [changeFromYear, setChangeFromYear] = useState(initial.fy === '2014' ? 2014 : 2004);
+  const [showDayNight, setShowDayNight] = useState(initial.dn);
+  const [selectedAlliances, setSelectedAlliances] = useState<string[]>(() =>
+    ALLIANCES.filter((alliance) => initial.a?.split(',').includes(alliance.id)).map((alliance) => alliance.id),
+  );
+  const allianceFill = useMemo(() => allianceColors(selectedAlliances), [selectedAlliances]);
+  const allianceMembers = useMemo(() => selectedAlliances.length
+    ? new Set(ALLIANCES.filter((a) => selectedAlliances.includes(a.id)).flatMap((a) => a.members))
+    : null, [selectedAlliances]);
+  const [showWebcams, setShowWebcams] = useState(false);
+  const [showNews, setShowNews] = useState(false);
+  const [newsSnapshot, setNewsSnapshot] = useState<NewsSnapshot>(newsSeed as NewsSnapshot);
+  const [newsHours, setNewsHours] = useState(72);
+  const [selectedNewsIso, setSelectedNewsIso] = useState<string | null>(null);
+  const [newsNow, setNewsNow] = useState(() => Date.now());
+  const [newsImported, setNewsImported] = useState(false);
+  const [newsTopic, setNewsTopic] = useState<NewsTopic | 'all'>('all');
+  const [newsSources, setNewsSources] = useState<string[]>([]);
+  const [newsGeography, setNewsGeography] = useState<NewsGeography>('mentioned');
+  const [newsOffset, setNewsOffset] = useState(0);
+  useEffect(() => {
+    if (!showNews || newsImported || !import.meta.env.DEV) return;
+    const controller = new AbortController();
+    const refresh = async () => {
+      try {
+        const response = await fetch('/api/news-feed', { signal: controller.signal });
+        if (!response.ok) throw new Error('RSS unavailable');
+        const data = await response.json() as NewsSnapshot;
+        if (!Array.isArray(data.articles)) throw new Error('Invalid feed');
+        const articles = cleanArticles(data.articles);
+        if (controller.signal.aborted) return;
+        setNewsSnapshot({ ...data, articles });
+        setNewsNow(Date.now());
+      } catch {
+        if (!controller.signal.aborted) setNewsSnapshot(current => ({ ...current, warnings: ['No se pudo actualizar RSS; se conserva la última carga.'] }));
+      }
+    };
+    void refresh();
+    const timer = window.setInterval(() => { void refresh(); }, 15 * 60_000);
+    return () => { controller.abort(); window.clearInterval(timer); };
+  }, [showNews, newsImported]);
+  useEffect(() => {
+    if (!showNews) return;
+    const timer = window.setInterval(() => setNewsNow(Date.now()), 60_000);
+    return () => window.clearInterval(timer);
+  }, [showNews]);
+  const [selectedWebcam, setSelectedWebcam] = useState<Webcam | null>(null);
+  const [selectedWebcamCluster, setSelectedWebcamCluster] = useState<Webcam[] | null>(null);
+  const toggleWebcams = () => {
+    setShowWebcams((value) => !value);
+    setSelectedWebcam(null);
+    setSelectedWebcamCluster(null);
+  };
+  const openWebcam = useCallback((camera: Webcam) => {
+    setHover(null);
+    setRegionHover(null);
+    setSelectedWebcam(camera);
+  }, []);
+  const openWebcamFromMapOrCatalog = useCallback((camera: Webcam) => {
+    setSelectedWebcamCluster(null);
+    openWebcam(camera);
+  }, [openWebcam]);
+  const openWebcamCluster = useCallback((cameras: Webcam[]) => {
+    setSelectedWebcam(null);
+    setSelectedWebcamCluster(cameras);
+  }, []);
+  const clearWebcamCluster = useCallback(() => setSelectedWebcamCluster(null), []);
+  const [showCables, setShowCables] = useState(false);
+  const [showChokepoints, setShowChokepoints] = useState(true);
+  const [showMaritimeRoutes, setShowMaritimeRoutes] = useState(true);
+  const [showMarkets, setShowMarkets] = useState(true);
+  const [selectedChokepoint, setSelectedChokepoint] = useState<MaritimeChokepoint | null>(null);
+  const closeChokepoint = useCallback(() => setSelectedChokepoint(null), [setSelectedChokepoint]);
+  const toggleMaritimeRoutes = useCallback(() => setShowMaritimeRoutes(value => !value), []);
+
+  const flyToCoord = useCallback((coord: [number, number]) => {
+    const delta = 1.6;
+    setFocusBbox([coord[0] - delta, coord[1] - delta, coord[0] + delta, coord[1] + delta]);
+    setFocusNonce((n) => n + 1);
+  }, []);
   const {
-    snapshot,
+    snapshot: rawSnapshot,
     geojson,
     trade,
     timeseries,
@@ -69,12 +165,25 @@ export default function App() {
     regionalGeometry,
     regionalCountryData,
     error,
-  } = useWorldData(regionalIso);
+  } = useWorldData(requestedRegionalIso);
+  const snapshot = useMemo(() => rawSnapshot ? withBondMetrics(rawSnapshot, BONDS) : null, [rawSnapshot]);
+  const curveCountries = useMemo(() => availableBondCountries(snapshot?.countries ?? [], BONDS), [snapshot]);
+  const selectMetric = useCallback((id: string) => {
+    setMetricId(id);
+    if (isBondMetric(id)) setViewMode('current');
+  }, []);
+  const selectBondMaturity = useCallback((months: number) => selectMetric(bondMetricId(months)), [selectMetric]);
+  const panelMetrics = useMemo(() => snapshot?.metrics.filter(m => !isBondMetric(m.id)
+    || m.id === (isBondMetric(metricId) ? metricId : bondMetricId(120))) ?? [], [snapshot, metricId]);
+  const regionalIso = requestedRegionalIso && (!regionalIndex || regionalIndex.countries[requestedRegionalIso])
+    ? requestedRegionalIso : null;
 
   // Keep the URL hash in sync so the current view is shareable.
   useEffect(() => {
     const p = new URLSearchParams();
     p.set('m', metricId);
+    if (selectedAlliances.length) p.set('a', selectedAlliances.join(','));
+    if (showDayNight) p.set('dn', '1');
     if (selectedIso) p.set('c', selectedIso);
     if (regionalIso) p.set('r', '1');
     if (regionalMetricId !== 'gdpPerCapitaUsd2015') p.set('rm', regionalMetricId);
@@ -85,7 +194,7 @@ export default function App() {
     }
     const hash = `#${p.toString()}`;
     if (location.hash !== hash) history.replaceState(null, '', hash);
-  }, [metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, viewMode, changeFromYear]);
+  }, [metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, viewMode, changeFromYear, selectedAlliances, showDayNight]);
 
   const byIso = useMemo(() => {
     const map = new Map<string, CountryData>();
@@ -138,6 +247,23 @@ export default function App() {
     },
     [centroids, bboxes],
   );
+
+  const matchNewsCountry = useMemo(() => countryMatcher(snapshot?.countries ?? []), [snapshot]);
+  const newsReference = newsNow - newsOffset * 3_600_000;
+  const newsActivity = useMemo(() => newsHotspots(newsSnapshot.articles, matchNewsCountry, snapshot?.countries ?? [], centroids, newsHours, newsReference,
+    { topic: newsTopic, sources: newsSources, baselineSources: newsSnapshot.sources?.map(source => source.id), geography: newsGeography, observations: newsSnapshot.observations }),
+    [newsSnapshot, matchNewsCountry, snapshot, centroids, newsHours, newsReference, newsTopic, newsSources, newsGeography]);
+  const selectNews = useCallback((id: string | null) => {
+    setSelectedNewsIso(id);
+    setHover(null);
+    if (!id) return;
+    const spot = newsActivity.hotspots.find(spot => spot.id === id);
+    if (!spot) return;
+    const [longitude, latitude] = spot.coordinates;
+    const box = newsGeography === 'occurrence' && id.includes(':') && !id.endsWith(spot.iso3.toLowerCase())
+      ? [longitude - 2, latitude - 2, longitude + 2, latitude + 2] as BBox : bboxes.get(spot.iso3);
+    if (box) { setFocusBbox(box); setFocusNonce(value => value + 1); }
+  }, [bboxes, newsActivity.hotspots, newsGeography]);
 
   // Bake raw values + change-over-period values into each feature once. Switching
   // metric / mode / period then only swaps the paint expression (no GeoJSON re-parse).
@@ -202,28 +328,89 @@ export default function App() {
     [viewMode, metric, lang],
   );
 
-  // Trade arcs from the selected country to its top export partners.
+  // Trade arcs: selected-country exports and partner-reported imports, or top global export corridors.
   const arcs = useMemo<Arc[]>(() => {
-    if (!tradeMode || !selectedIso || !trade) return [];
-    const flow = trade.flows[selectedIso];
-    const src = centroid(selectedIso);
-    if (!flow || !src) return [];
-    const reporterName = byIso.get(selectedIso)?.name ?? selectedIso;
-    const maxV = Math.max(...flow.partners.map((p) => p.v), 1);
-    const out: Arc[] = [];
-    for (const p of flow.partners) {
-      const tgt = centroid(p.p);
-      if (!tgt) continue;
-      const pname = byIso.get(p.p)?.name ?? p.p;
-      const share = flow.total ? (p.v / flow.total) * 100 : 0;
-      out.push({
+    if (!tradeMode || !trade) return [];
+
+    // Case 1: Specific country selected
+    if (selectedIso) {
+      const flow = trade.flows[selectedIso];
+      const selectedPoint = centroid(selectedIso);
+      if (!selectedPoint) return [];
+      const selectedName = byIso.get(selectedIso)?.name ?? selectedIso;
+      const out: Arc[] = [];
+
+      if (flow) {
+        const maxExport = Math.max(...flow.partners.map((p) => p.v), 1);
+        for (const partner of flow.partners) {
+          const target = centroid(partner.p);
+          if (!target) continue;
+          const partnerName = byIso.get(partner.p)?.name ?? partner.p;
+          const share = flow.total ? (partner.v / flow.total) * 100 : 0;
+          out.push({
+            source: selectedPoint,
+            target,
+            width: 2 + 6 * (partner.v / maxExport),
+            flowType: 'export',
+            label: `${selectedName} → ${partnerName} (export): ${formatUsdCompact(partner.v, lang)}${share ? ` (${share.toFixed(1)} %)` : ''}`,
+          });
+        }
+      }
+
+      // IMF data contains reporter exports, not a separate import series. Treat another
+      // country's reported exports to this country as a partner-reported import flow.
+      const inbound = Object.entries(trade.flows)
+        .flatMap(([reporter, reporterFlow]) => reporter === selectedIso
+          ? []
+          : reporterFlow.partners
+            .filter((partner) => partner.p === selectedIso)
+            .map((partner) => ({ reporter, value: partner.v })))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 15);
+      const maxImport = Math.max(...inbound.map((item) => item.value), 1);
+
+      for (const item of inbound) {
+        const source = centroid(item.reporter);
+        if (!source) continue;
+        const reporterName = byIso.get(item.reporter)?.name ?? item.reporter;
+        out.push({
+          source,
+          target: selectedPoint,
+          width: 2 + 6 * (item.value / maxImport),
+          flowType: 'import',
+          label: `${reporterName} → ${selectedName} (partner-reported import): ${formatUsdCompact(item.value, lang)}`,
+        });
+      }
+      return out;
+    }
+
+    // Case 2: No country selected -> Show the Top 35 largest trade corridors on the planet
+    const allPartners: Array<{ from: string; to: string; v: number }> = [];
+    for (const [fromIso, flow] of Object.entries(trade.flows)) {
+      for (const partner of flow.partners) {
+        allPartners.push({ from: fromIso, to: partner.p, v: partner.v });
+      }
+    }
+    allPartners.sort((a, b) => b.v - a.v);
+    const topCorridors = allPartners.slice(0, 35);
+    const maxGlobalV = topCorridors[0]?.v || 1;
+
+    const globalArcs: Arc[] = [];
+    for (const item of topCorridors) {
+      const src = centroid(item.from);
+      const tgt = centroid(item.to);
+      if (!src || !tgt) continue;
+      const fromName = byIso.get(item.from)?.name ?? item.from;
+      const toName = byIso.get(item.to)?.name ?? item.to;
+      globalArcs.push({
         source: src,
         target: tgt,
-        width: 1.5 + 7 * (p.v / maxV),
-        label: `${reporterName} → ${pname}: ${formatUsdCompact(p.v, lang)}${share ? ` (${share.toFixed(1)} %)` : ''}`,
+        width: 2 + 7 * (item.v / maxGlobalV),
+        flowType: 'export',
+        label: `Exportación global: ${fromName} → ${toName}: ${formatUsdCompact(item.v, lang)}`,
       });
     }
-    return out;
+    return globalArcs;
   }, [tradeMode, selectedIso, trade, centroid, byIso, lang]);
 
   const tradeSummary = useMemo<TradeSummary | null>(() => {
@@ -293,26 +480,25 @@ export default function App() {
       features: fc.features.map((feature) => {
         const properties: Record<string, unknown> = { ...(feature.properties ?? {}) };
         const regionId = typeof properties.regionId === 'string' ? properties.regionId : null;
-        const value = latestRegionalValue(regionId ? regionsById.get(regionId) : undefined, regionalMetricId);
-        if (value) {
-          properties.metricValue = value.value;
-          properties.metricYear = value.year;
-        } else {
-          delete properties.metricValue;
-          delete properties.metricYear;
+        for (const metric of REGIONAL_METRICS) {
+          const value = latestRegionalValue(regionId ? regionsById.get(regionId) : undefined, metric.id);
+          if (value) {
+            properties[metric.id] = value.value;
+            properties[`${metric.id}Year`] = value.year;
+          }
         }
         return { ...feature, properties };
       }),
     };
-  }, [regionalGeometry, regionalCountryData, regionsById, regionalMetricId]);
+  }, [regionalGeometry, regionalCountryData, regionsById]);
 
   const regionalScale = useMemo(() => {
     const features = (enrichedRegional as { features: Array<{ properties: Record<string, unknown> }> } | null)?.features ?? [];
     const values = features
-      .map((feature) => feature.properties.metricValue)
+      .map((feature) => feature.properties[regionalMetricId])
       .filter((value): value is number => typeof value === 'number' && Number.isFinite(value));
-    return buildColorScale(values, 'metricValue');
-  }, [enrichedRegional]);
+    return buildColorScale(values, regionalMetricId);
+  }, [enrichedRegional, regionalMetricId]);
 
   const regionalBbox = useMemo(() => {
     const bboxMap = { features: (regionalGeometry as { features?: Array<{ geometry: unknown }> } | null)?.features ?? [] };
@@ -325,12 +511,22 @@ export default function App() {
   }, [regionalGeometry]);
 
   const selectWorldCountry = useCallback((iso3: string | null) => {
+    // The first map click selects the country and shows its national panel.
+    // A second click on that same country opens its regional drill-down.
+    if (iso3 && iso3 === selectedIso && (!regionalIndex || regionalIndex.countries[iso3])) {
+      setRegionalIso(iso3);
+      setSelectedRegion(null);
+      setHover(null);
+      setRegionHover(null);
+      return;
+    }
+
     setSelectedIso(iso3);
     setHover(null);
     setRegionHover(null);
     setSelectedRegion(null);
-    setRegionalIso(iso3 && regionalIndex?.countries[iso3] ? iso3 : null);
-  }, [regionalIndex]);
+    setRegionalIso(null);
+  }, [regionalIndex, selectedIso]);
 
   const openRegionalForSelected = useCallback(() => {
     if (!selectedIso || !regionalIndex?.countries[selectedIso]) return;
@@ -353,14 +549,12 @@ export default function App() {
     if (iso3) flyTo(iso3);
   }, [regionalIso, flyTo]);
 
-  useEffect(() => {
-    if (regionalIso && regionalIndex && !regionalIndex.countries[regionalIso]) {
-      setRegionalIso(null);
-    }
-  }, [regionalIso, regionalIndex]);
-
   const ready = enriched && scale && metric;
   const hoverValue = hover ? display.get(hover.iso3) : undefined;
+  const rankingCountries = useMemo(() => allianceMembers
+    ? snapshot?.countries.filter(country => allianceMembers.has(country.iso3)) ?? []
+    : snapshot?.countries ?? [], [snapshot, allianceMembers]);
+  const rankingValue = useCallback((country: CountryData) => display.get(country.iso3), [display]);
 
   return (
     <div className="app">
@@ -368,14 +562,30 @@ export default function App() {
         {!regionalIso ? (
           ready ? (
             <WorldMap
+              newsHotspots={showNews ? newsActivity.hotspots : undefined}
+              selectedNewsIso={selectedNewsIso}
+              onSelectNews={selectNews}
               data={enriched}
-              fillColor={scale.expression}
+              fillColor={selectedAlliances.length ? allianceFill : scale.expression}
+              showDayNight={showDayNight}
               selectedIso={selectedIso}
               focusBbox={focusBbox}
               focusNonce={focusNonce}
               arcs={arcs}
               onHover={setHover}
               onSelect={selectWorldCountry}
+              showCables={showCables}
+              showChokepoints={showChokepoints}
+              selectedChokepoint={selectedChokepoint}
+              showMaritimeRoutes={showMaritimeRoutes}
+              showMarkets={showMarkets}
+              cables={SUBMARINE_CABLES}
+              chokepoints={CHOKEPOINTS}
+              markets={MAJOR_MARKETS}
+              showWebcams={showWebcams}
+              onSelectWebcam={openWebcamFromMapOrCatalog}
+              onSelectWebcamCluster={openWebcamCluster}
+              onSelectChokepoint={setSelectedChokepoint}
             />
           ) : (
             <div className="map-placeholder">
@@ -388,8 +598,13 @@ export default function App() {
             key={regionalIso}
             data={enrichedRegional}
             fillColor={regionalScale.expression}
+            metricId={regionalMetricId}
             selectedShapeId={selectedRegion?.shapeId ?? null}
             focusBbox={regionalBbox}
+            showWebcams={showWebcams && !!regionalWebcamCountry(regionalIso)}
+            webcamCountry={regionalWebcamCountry(regionalIso)}
+            onSelectWebcam={openWebcamFromMapOrCatalog}
+            onSelectWebcamCluster={openWebcamCluster}
             countryName={byIso.get(regionalIso)?.name ?? regionalIso}
             onHover={setRegionHover}
             onSelect={setSelectedRegion}
@@ -402,22 +617,7 @@ export default function App() {
         )}
       </div>
 
-      <div className="hud lang-switch" role="group" aria-label={t.language}>
-        <button
-          type="button"
-          className={`lang-btn${lang === 'en' ? ' lang-btn--on' : ''}`}
-          onClick={() => setLang('en')}
-        >
-          EN
-        </button>
-        <button
-          type="button"
-          className={`lang-btn${lang === 'de' ? ' lang-btn--on' : ''}`}
-          onClick={() => setLang('de')}
-        >
-          DE
-        </button>
-      </div>
+
 
       {!regionalIso && <header className="hud hud--top-left scroll-slim">
         <div className="brand">
@@ -431,10 +631,30 @@ export default function App() {
         {snapshot && metric && scale && (
           <div className="controls">
             <SearchBox countries={snapshot.countries} onPick={flyTo} />
-            <MetricPicker metrics={snapshot.metrics} value={metricId} onChange={setMetricId} />
+            <MetricPicker metrics={snapshot.metrics} value={metricId} onChange={selectMetric} />
+            {isBondMetric(metricId) && <div className="bond-controls">
+              <label className="field">
+                <span>Bond maturity</span>
+                <select className="select" value={bondMonths(metricId)} onChange={e => selectBondMaturity(Number(e.target.value))}>
+                  {BOND_TENORS.map(term => <option key={term.months} value={term.months}>{term.label}</option>)}
+                </select>
+              </label>
+              <label className="field">
+                <span>Explore yield curves · {curveCountries.length} countries</span>
+                <select className="select" value={curveCountries.some(country => country.iso3 === selectedIso) ? selectedIso! : ''}
+                  onChange={e => { if (e.target.value) flyTo(e.target.value); }}>
+                  <option value="">Select a country with a curve</option>
+                  {curveCountries.map(country => <option key={country.iso3} value={country.iso3}>
+                    {country.name} · {BONDS.countries[country.iso3].date}
+                  </option>)}
+                </select>
+              </label>
+              <p>{display.size} countries with this maturity · local currency · observations within 180 days</p>
+              <p>Daily and monthly sources; compare dates and methods in each country’s curve. Click a country to explore all available maturities.</p>
+            </div>}
             <p className="metric-desc">{metricDescription(metric, lang)}</p>
 
-            {timeseries && (
+            {timeseries && !isBondMetric(metricId) && (
               <div className="segmented">
                 <button
                   className={`seg${viewMode === 'current' ? ' seg--on' : ''}`}
@@ -450,7 +670,7 @@ export default function App() {
                 </button>
               </div>
             )}
-            {viewMode === 'change' && (
+            {viewMode === 'change' && !isBondMetric(metricId) && (
               <label className="field">
                 <span>{t.period}</span>
                 <select
@@ -464,33 +684,104 @@ export default function App() {
               </label>
             )}
 
-            <Legend
+            <AlliancePicker selected={selectedAlliances} onChange={setSelectedAlliances} />
+            {selectedAlliances.length === 0 && <Legend
               unit={viewMode === 'current' ? metricUnit(metric, lang) : fmt(t.changeSince, { year: changeFromYear })}
               hint={viewMode === 'current' ? t.hintCurrent : t.hintChange}
               scale={scale}
               formatTick={(v) => (viewMode === 'current' ? formatCompact(v, metric, lang) : formatChange(v, metric, lang))}
-            />
+            />}
 
-            <button
-              className={`btn toggle${tradeMode ? ' toggle--on' : ''}`}
-              onClick={() => setTradeMode((m) => !m)}
-            >
-              {tradeMode ? t.tradeFlowsOn : t.tradeFlowsOff}
-            </button>
+            <div className="layer-toggles">
+              <span className="layer-toggles__title">Capas Estratégicas</span>
+              <div className="layer-toggles__grid">
+                <button
+                  type="button"
+                  className={`btn toggle${tradeMode ? ' toggle--on' : ''}`}
+                  onClick={() => setTradeMode((m) => !m)}
+                  title="Flujos bilaterales de exportación"
+                >
+                  🔄 {tradeMode ? 'Comercio ON' : 'Comercio'}
+                </button>
+                <button
+                  type="button"
+                  className={`btn toggle${showChokepoints ? ' toggle--on' : ''}`}
+                  onClick={() => { setShowChokepoints((v) => !v); setSelectedChokepoint(null); }}
+                  aria-pressed={showChokepoints}
+                  title="Puntos de estrangulamiento marítimo (Suez, Ormuz, Malaca, etc.)"
+                >
+                  ⚓ {showChokepoints ? 'Chokepoints ON' : 'Chokepoints'}
+                </button>
+                {showChokepoints && <button type="button" className="btn" onClick={() => setSelectedChokepoint(CHOKEPOINTS[0])}>Explorar pasos marítimos</button>}
+                <button
+                  type="button"
+                  className={`btn toggle cable-toggle${showCables ? ' toggle--on' : ''}`}
+                  onClick={() => setShowCables((v) => !v)}
+                  aria-pressed={showCables}
+                  aria-controls="cable-network-legend"
+                  title="Cables submarinos de telecomunicaciones intercontinentales"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M3 17C7 17 7 7 12 7s5 10 9 10"/><circle cx="3" cy="17" r="2"/><circle cx="21" cy="17" r="2"/></svg>
+                  Cables submarinos
+                </button>
+                <button
+                  type="button"
+                  className={`btn toggle${showMarkets ? ' toggle--on' : ''}`}
+                  onClick={() => setShowMarkets((v) => !v)}
+                  title="Centros financieros y bolsas de valores en vivo"
+                >
+                  📈 {showMarkets ? 'Bolsas ON' : 'Bolsas'}
+                </button>
+                <button type="button" className={`btn toggle daynight-toggle${showDayNight ? ' toggle--on' : ''}`}
+                  aria-pressed={showDayNight} onClick={() => setShowDayNight((value) => !value)}>
+                  <span aria-hidden="true">◐</span> Ciclo día/noche <span className="daynight-toggle__state">{showDayNight ? 'EN VIVO' : 'Activar'}</span>
+                </button>
+              </div>
+              {showDayNight && <p className="solar-hint">Sombra y crepúsculo según la hora UTC. Luces urbanas ilustrativas sobre ciudades de <a href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/" target="_blank" rel="noreferrer">Natural Earth</a> · cálculo <a href="https://gml.noaa.gov/grad/solcalc/solareqns.PDF" target="_blank" rel="noreferrer">NOAA</a>. Actualización cada 30 s.</p>}
+              <WebcamControls enabled={showWebcams} onToggle={toggleWebcams} onSelect={openWebcamFromMapOrCatalog}
+                clusterCameras={selectedWebcamCluster} onSelectClusterCamera={openWebcam} onClearCluster={clearWebcamCluster} />
+              <NewsControls enabled={showNews} onToggle={() => { setShowNews(value => !value); setNewsNow(Date.now()); }}
+                snapshot={newsSnapshot} hotspots={newsActivity.hotspots} total={newsActivity.total} unmapped={newsActivity.unmapped}
+                eventCount={newsActivity.eventCount} sourceCount={newsActivity.sourceCount} baselineReady={newsActivity.baselineReady}
+                topic={newsTopic} onTopic={setNewsTopic} geography={newsGeography} onGeography={setNewsGeography}
+                sources={newsSources} onSources={setNewsSources} offset={newsOffset} onOffset={setNewsOffset}
+                hours={newsHours} onHours={setNewsHours} selected={selectedNewsIso} onSelect={selectNews}
+                automatic={import.meta.env.DEV && !newsImported} now={newsNow}
+                onImport={articles => { setNewsImported(true); setNewsSnapshot({ generatedAt: new Date().toISOString(), articles }); setNewsSources([]); setNewsOffset(0); setNewsNow(Date.now()); setSelectedNewsIso(null); }}
+                onReset={() => { setNewsImported(false); setNewsSnapshot(newsSeed as NewsSnapshot); setNewsSources([]); setNewsOffset(0); setSelectedNewsIso(null); setNewsNow(Date.now()); }} />
+              {showCables && (
+                <div className="cable-network" id="cable-network-legend">
+                  <div className="cable-network__heading"><span className="cable-network__status" aria-hidden="true" />Red submarina<span className="cable-network__badge">Flujo animado</span></div>
+                  <div className="cable-network__preview" aria-hidden="true"><span /><i /><i /></div>
+                  <div className="cable-network__key"><span><b className="cable-network__line" />Cable</span><span><b className="cable-network__packet" />Pulso de datos</span><span><b className="cable-network__node" />Conexión</span></div>
+                  <p>Rutas esquemáticas · movimiento ilustrativo, sin datos de tráfico en tiempo real.</p>
+                </div>
+              )}
+            </div>
             {tradeMode && (
-              <p className="hud__hint">
-                {selectedIso && trade?.flows[selectedIso]
-                  ? t.arcsHintSelected
-                  : t.arcsHintNone}
-              </p>
+              <>
+                <p className="hud__hint">
+                  {selectedIso
+                    ? arcs.length
+                      ? t.arcsHintSelected
+                      : t.arcsHintNone
+                    : 'Showing the 35 largest reported export flows. Select a country to compare exports and partner-reported imports.'}
+                </p>
+                <div className="hud__trade-legend" role="group" aria-label={t.tradeDirection}>
+                  <span><i className="hud__trade-swatch hud__trade-swatch--export" aria-hidden="true" />{t.tradeExports}</span>
+                  {selectedIso && (
+                    <span><i className="hud__trade-swatch hud__trade-swatch--import" aria-hidden="true" />{t.tradeImports}</span>
+                  )}
+                </div>
+              </>
             )}
 
             <RankingList
-              countries={snapshot.countries}
-              getValue={(c) => display.get(c.iso3)}
+              countries={rankingCountries}
+              getValue={rankingValue}
               format={formatValue}
               ascending={viewMode === 'current' ? metric.higherIsBetter === false : false}
-              label={viewMode === 'current' ? t.ranking : t.biggestChange}
+              label={selectedAlliances.length ? 'Indicador · grupos seleccionados' : viewMode === 'current' ? t.ranking : t.biggestChange}
               selectedIso={selectedIso}
               onPick={flyTo}
             />
@@ -501,6 +792,8 @@ export default function App() {
       {regionalIso && regionalIndex?.countries[regionalIso] && (
         <header className="hud hud--top-left regional-controls scroll-slim">
           <button className="btn" onClick={backToWorldMap}>{t.regionalBack}</button>
+          {regionalWebcamCountry(regionalIso) && <WebcamControls country={regionalWebcamCountry(regionalIso)} enabled={showWebcams} onToggle={toggleWebcams} onSelect={openWebcamFromMapOrCatalog}
+            clusterCameras={selectedWebcamCluster} onSelectClusterCamera={openWebcam} onClearCluster={clearWebcamCluster} />}
           <h2 className="regional-controls__title">{byIso.get(regionalIso)?.name ?? regionalIso}</h2>
           <p className="regional-controls__country">{t.regionalHint}</p>
           <label className="field">
@@ -508,7 +801,7 @@ export default function App() {
             <select
               className="select"
               value={regionalMetricId}
-              onChange={(event) => setRegionalMetricId(event.target.value as RegionalMetricId)}
+              onChange={(event) => { setRegionalMetricId(event.target.value as RegionalMetricId); setRegionHover(null); }}
             >
               {REGIONAL_METRICS.map((regionalMetric) => (
                 <option key={regionalMetric.id} value={regionalMetric.id}>{regionalMetric.label[lang]}</option>
@@ -537,9 +830,10 @@ export default function App() {
 
       {!regionalIso && hover && metric && (
         <Tooltip
+          detail={isBondMetric(metricId) ? byIso.get(hover.iso3)?.metrics[metricId]?.period : undefined}
           x={hover.x}
           y={hover.y}
-          name={hover.name}
+          name={selectedAlliances.length ? `${hover.name} · ${countryAlliances(hover.iso3).map((a) => a.name).join(' / ') || 'Sin grupo'}` : hover.name}
           metricLabel={`${viewMode === 'change' ? 'Δ ' : ''}${metricShortLabel(metric, lang)}`}
           value={typeof hoverValue === 'number' ? formatValue(hoverValue) : t.noData}
         />
@@ -564,8 +858,11 @@ export default function App() {
 
       {!regionalIso && selectedIso && snapshot && metric && (
         <CountryPanel
+          bondCurve={BONDS.countries[selectedIso]}
+          bondMaturity={bondMonths(metricId)}
+          onPickBondMaturity={selectBondMaturity}
           country={byIso.get(selectedIso) ?? null}
-          metrics={snapshot.metrics}
+          metrics={panelMetrics}
           activeMetricId={metricId}
           onClose={closeCountryPanel}
           onAddCompare={addCompare}
@@ -576,7 +873,7 @@ export default function App() {
           activeMetric={metric}
           history={timeseries?.data[selectedIso]?.[metricId] ?? null}
           products={products?.data[selectedIso] ?? null}
-          productNames={lang === 'de' ? (products?.names ?? {}) : (products?.namesEn ?? products?.names ?? {})}
+          productNames={products?.namesEn ?? products?.names ?? {}}
           regionalDataLoaded={regionalIndex !== null}
           regionalRegionCount={regionalIndex?.countries[selectedIso]?.regions}
           onExploreRegions={openRegionalForSelected}
@@ -608,6 +905,20 @@ export default function App() {
           onClose={() => setCompareOpen(false)}
         />
       )}
+
+      {/* Ticker superior de bolsas mundiales en tiempo real */}
+      <MarketBar onFlyToCoord={flyToCoord} />
+
+      {showWebcams && selectedWebcam && (!regionalIso || regionalWebcamCountry(regionalIso) === selectedWebcam.country) && <WebcamModal key={selectedWebcam.id} camera={selectedWebcam} onClose={() => setSelectedWebcam(null)} />}
+
+      {/* Modal flotante al inspeccionar un chokepoint marítimo */}
+      {selectedChokepoint && showChokepoints && !regionalIso && <ChokepointModal
+        chokepoint={selectedChokepoint}
+        onClose={closeChokepoint}
+        onSelect={setSelectedChokepoint}
+        showRoutes={showMaritimeRoutes}
+        onToggleRoutes={toggleMaritimeRoutes}
+      />}
     </div>
   );
 }

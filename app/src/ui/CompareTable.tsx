@@ -68,7 +68,9 @@ export function CompareTable({ countries, metrics, onClose }: Props) {
                             const mv = c.metrics[m.id];
                             return (
                               <td key={c.iso3} className={best === c.iso3 ? 'cmp-best' : ''}>
-                                {mv ? formatValueWithUnit(mv.value, m, lang) : <span className="muted">—</span>}
+                                {mv ? <>{formatValueWithUnit(mv.value, m, lang)}
+                                  {m.id.startsWith('bond_yield_') && <span className="metric-row__year">{mv.period}</span>}
+                                </> : <span className="muted">—</span>}
                               </td>
                             );
                           })}

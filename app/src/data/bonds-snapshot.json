@@ -1,0 +1,1525 @@
+{
+  "generatedAt": "2026-10-20T13:28:35.058328+00:00",
+  "countries": {
+    "USA": {
+      "currency": "USD",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "U.S. Treasury",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "license": "Official data; attribution required"
+      },
+      "method": "Treasury par yields at constant maturities.",
+      "points": [
+        {
+          "months": 3,
+          "yield": 4.27
+        },
+        {
+          "months": 6,
+          "yield": 4.37
+        },
+        {
+          "months": 12,
+          "yield": 4.5
+        },
+        {
+          "months": 24,
+          "yield": 4.77
+        },
+        {
+          "months": 36,
+          "yield": 4.85
+        },
+        {
+          "months": 60,
+          "yield": 4.94
+        },
+        {
+          "months": 84,
+          "yield": 5.04
+        },
+        {
+          "months": 120,
+          "yield": 5.15
+        },
+        {
+          "months": 240,
+          "yield": 5.53
+        },
+        {
+          "months": 360,
+          "yield": 5.48
+        }
+      ]
+    },
+    "CAN": {
+      "currency": "CAD",
+      "date": "2026-10-16",
+      "frequency": "daily",
+      "source": {
+        "name": "Bank of Canada",
+        "url": "https://www.bankofcanada.ca/valet/observations/BD.CDN.2YR.DQ.YLD,BD.CDN.3YR.DQ.YLD,BD.CDN.5YR.DQ.YLD,BD.CDN.7YR.DQ.YLD,BD.CDN.10YR.DQ.YLD/json?recent=10",
+        "license": "Official data; attribution required"
+      },
+      "method": "Selected Government of Canada benchmark bond closing yields; approximate maturities.",
+      "points": [
+        {
+          "months": 24,
+          "yield": 3.21
+        },
+        {
+          "months": 36,
+          "yield": 3.32
+        },
+        {
+          "months": 60,
+          "yield": 3.54
+        },
+        {
+          "months": 84,
+          "yield": 3.61
+        },
+        {
+          "months": 120,
+          "yield": 3.84
+        }
+      ]
+    },
+    "ESP": {
+      "currency": "EUR",
+      "date": "2026-07",
+      "frequency": "monthly",
+      "source": {
+        "name": "Banco de España · table 22.7",
+        "url": "https://www.bde.es/webbe/es/estadisticas/compartido/datos/csv/be2207.csv",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly weighted secondary-market yields in residual-maturity bands: 2.5–3.5, 4.5–5.5, 9.5–10.5, 14.5–15.5 and 29.5–30.5 years. Plotted at band centres.",
+      "points": [
+        {
+          "months": 36,
+          "yield": 2.84
+        },
+        {
+          "months": 60,
+          "yield": 3.01
+        },
+        {
+          "months": 120,
+          "yield": 3.53
+        },
+        {
+          "months": 180,
+          "yield": 3.87
+        },
+        {
+          "months": 360,
+          "yield": 4.25
+        }
+      ]
+    },
+    "FRA": {
+      "currency": "EUR",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "Banque de France · CNO-TEC",
+        "url": "https://www.banque-france.fr/fr/statistiques/taux-et-cours/indices-obligataires-2026-10-19",
+        "license": "Official data; attribution required"
+      },
+      "method": "Constant-maturity actuarial Treasury yields (CNO-TEC; interpolated by the provider).",
+      "points": [
+        {
+          "months": 12,
+          "yield": 3.312
+        },
+        {
+          "months": 24,
+          "yield": 3.6
+        },
+        {
+          "months": 36,
+          "yield": 3.82
+        },
+        {
+          "months": 60,
+          "yield": 4.195
+        },
+        {
+          "months": 84,
+          "yield": 4.507
+        },
+        {
+          "months": 120,
+          "yield": 4.853
+        },
+        {
+          "months": 180,
+          "yield": 5.158
+        },
+        {
+          "months": 240,
+          "yield": 5.286
+        },
+        {
+          "months": 300,
+          "yield": 5.275
+        },
+        {
+          "months": 360,
+          "yield": 5.414
+        }
+      ]
+    },
+    "DEU": {
+      "currency": "EUR",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "Deutsche Bundesbank",
+        "url": "https://www.bundesbank.de/en/statistics/money-and-capital-markets/interest-rates-and-yields/daily-term-structure-on-listed-federal-securities-651570",
+        "license": "Official data; attribution required"
+      },
+      "method": "Estimated zero-coupon spot yields on German federal securities, Svensson method.",
+      "points": [
+        {
+          "months": 12,
+          "yield": 2.96
+        },
+        {
+          "months": 24,
+          "yield": 3.1
+        },
+        {
+          "months": 36,
+          "yield": 3.13
+        },
+        {
+          "months": 60,
+          "yield": 3.2
+        },
+        {
+          "months": 84,
+          "yield": 3.32
+        },
+        {
+          "months": 120,
+          "yield": 3.49
+        },
+        {
+          "months": 180,
+          "yield": 3.68
+        },
+        {
+          "months": 240,
+          "yield": 3.78
+        },
+        {
+          "months": 360,
+          "yield": 3.88
+        }
+      ]
+    },
+    "AUS": {
+      "currency": "AUD",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01AUM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 5.283
+        }
+      ]
+    },
+    "AUT": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01ATM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.4125
+        }
+      ]
+    },
+    "BEL": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01BEM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.76
+        }
+      ]
+    },
+    "CZE": {
+      "currency": "CZK",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01CZM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 4.91168761606398
+        }
+      ]
+    },
+    "DNK": {
+      "currency": "DKK",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01DKM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.01
+        }
+      ]
+    },
+    "FIN": {
+      "currency": "EUR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01FIM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.799477273
+        }
+      ]
+    },
+    "GRC": {
+      "currency": "EUR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01GRM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 4.23
+        }
+      ]
+    },
+    "HUN": {
+      "currency": "HUF",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01HUM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 5.46
+        }
+      ]
+    },
+    "IRL": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01IEM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.35
+        }
+      ]
+    },
+    "ITA": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01ITM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.986
+        }
+      ]
+    },
+    "JPN": {
+      "currency": "JPY",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "Ministry of Finance Japan · JGB interest-rate information",
+        "url": "https://www.mof.go.jp/english/policy/jgbs/reference/interest_rate/jgbcme.csv",
+        "license": "Official data; attribution required"
+      },
+      "method": "Daily Japanese Government Bond yields at labelled constant maturities; selected exact tenors only.",
+      "points": [
+        {
+          "months": 12,
+          "yield": 1.642
+        },
+        {
+          "months": 24,
+          "yield": 1.904
+        },
+        {
+          "months": 36,
+          "yield": 2.034
+        },
+        {
+          "months": 60,
+          "yield": 2.313
+        },
+        {
+          "months": 84,
+          "yield": 2.52
+        },
+        {
+          "months": 120,
+          "yield": 2.935
+        },
+        {
+          "months": 180,
+          "yield": 3.477
+        },
+        {
+          "months": 240,
+          "yield": 3.776
+        },
+        {
+          "months": 300,
+          "yield": 4.055
+        },
+        {
+          "months": 360,
+          "yield": 4.028
+        },
+        {
+          "months": 480,
+          "yield": 4.04
+        }
+      ]
+    },
+    "KOR": {
+      "currency": "KRW",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01KRM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 4.454
+        }
+      ]
+    },
+    "NLD": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01NLM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.285
+        }
+      ]
+    },
+    "NZL": {
+      "currency": "NZD",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "Reserve Bank of New Zealand · Wholesale Interest Rates (B2)",
+        "url": "https://www.rbnz.govt.nz/statistics/series/%20exchange-and-interest-rates/wholesale-interest-rates",
+        "license": "Official data; attribution required"
+      },
+      "method": "NZFMA indicative 5:10pm closing yields on benchmark New Zealand Government bonds at 1, 2, 5 and 10 years; daily, published with a one-business-day lag.",
+      "points": [
+        {
+          "months": 12,
+          "yield": 3.25
+        },
+        {
+          "months": 24,
+          "yield": 3.91
+        },
+        {
+          "months": 60,
+          "yield": 4.49
+        },
+        {
+          "months": 120,
+          "yield": 5.01
+        }
+      ],
+      "retrieval": "Reviewed official B2 public webpage, government-bond columns only. Direct automated downloads returned HTTP 403 on the build host; the automatic provider retains this dated seed on failure.",
+      "retrievedAt": "2026-10-20"
+    },
+    "NOR": {
+      "currency": "NOK",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "Norges Bank · Generic yields",
+        "url": "https://www.norges-bank.no/en/topics/Statistics/norwegian-government-securities/generiske-statsrenter/",
+        "license": "Official data; attribution required"
+      },
+      "method": "Generic effective yields on the government security closest to each stated maturity; market mid-yields at close.",
+      "points": [
+        {
+          "months": 3,
+          "yield": 4.518
+        },
+        {
+          "months": 6,
+          "yield": 4.723
+        },
+        {
+          "months": 12,
+          "yield": 4.811
+        },
+        {
+          "months": 36,
+          "yield": 4.799
+        },
+        {
+          "months": 60,
+          "yield": 4.67
+        },
+        {
+          "months": 84,
+          "yield": 4.587
+        },
+        {
+          "months": 120,
+          "yield": 4.568
+        }
+      ]
+    },
+    "POL": {
+      "currency": "PLN",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01PLM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 6.23
+        }
+      ]
+    },
+    "PRT": {
+      "currency": "EUR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01PTM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.85
+        }
+      ]
+    },
+    "SVK": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01SKM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.849571
+        }
+      ]
+    },
+    "SVN": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01SIM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.54
+        }
+      ]
+    },
+    "SWE": {
+      "currency": "SEK",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "Sveriges Riksbank · SWEA API",
+        "url": "https://api.riksbank.se/swea/v1/Observations/Latest/ByGroup/7",
+        "license": "Official data; attribution required"
+      },
+      "method": "Published Swedish government bond yields at 2, 5, 7 and 10 years; exact source tenors, no interpolation.",
+      "points": [
+        {
+          "months": 24,
+          "yield": 2.772
+        },
+        {
+          "months": 60,
+          "yield": 3.023
+        },
+        {
+          "months": 84,
+          "yield": 3.097
+        },
+        {
+          "months": 120,
+          "yield": 3.22
+        }
+      ]
+    },
+    "CHE": {
+      "currency": "CHF",
+      "date": "2026-09-30",
+      "frequency": "daily",
+      "source": {
+        "name": "Swiss National Bank · data portal",
+        "url": "https://data.snb.ch/en/topics/ziredev/cube/rendeiduebd",
+        "license": "Official data; attribution required"
+      },
+      "method": "Daily Swiss Confederation spot yields estimated by the SNB with the Nelson–Siegel–Svensson model; exact published maturities.",
+      "points": [
+        {
+          "months": 12,
+          "yield": 0.17
+        },
+        {
+          "months": 24,
+          "yield": 0.287
+        },
+        {
+          "months": 36,
+          "yield": 0.359
+        },
+        {
+          "months": 60,
+          "yield": 0.453
+        },
+        {
+          "months": 84,
+          "yield": 0.519
+        },
+        {
+          "months": 120,
+          "yield": 0.586
+        },
+        {
+          "months": 240,
+          "yield": 0.627
+        },
+        {
+          "months": 360,
+          "yield": 0.553
+        }
+      ]
+    },
+    "GBR": {
+      "currency": "GBP",
+      "date": "2026-10-16",
+      "frequency": "daily",
+      "source": {
+        "name": "Bank of England · UK nominal yield curve",
+        "url": "https://www.bankofengland.co.uk/statistics/yield-curves",
+        "license": "Official data; attribution required"
+      },
+      "method": "Fitted nominal gilt spot yields, continuously compounded and annualised by the Bank of England; exact workbook maturities.",
+      "points": [
+        {
+          "months": 6,
+          "yield": 4.218337612646473
+        },
+        {
+          "months": 12,
+          "yield": 4.412071693353141
+        },
+        {
+          "months": 24,
+          "yield": 4.642924770883354
+        },
+        {
+          "months": 36,
+          "yield": 4.753815081832899
+        },
+        {
+          "months": 60,
+          "yield": 4.905412930803602
+        },
+        {
+          "months": 84,
+          "yield": 5.071974464285367
+        },
+        {
+          "months": 120,
+          "yield": 5.337349813385479
+        },
+        {
+          "months": 180,
+          "yield": 5.688034230918478
+        },
+        {
+          "months": 240,
+          "yield": 5.863404091476241
+        },
+        {
+          "months": 300,
+          "yield": 5.90634705221048
+        },
+        {
+          "months": 360,
+          "yield": 5.851336980028031
+        },
+        {
+          "months": 480,
+          "yield": 5.477223464570841
+        }
+      ]
+    },
+    "LUX": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01LUM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.401
+        }
+      ]
+    },
+    "ISL": {
+      "currency": "ISK",
+      "date": "2022-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01ISM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 1.0
+        }
+      ]
+    },
+    "ISR": {
+      "currency": "ILS",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01ILM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 4.08
+        }
+      ]
+    },
+    "ZAF": {
+      "currency": "ZAR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01ZAM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 8.94714285714286
+        }
+      ]
+    },
+    "SGP": {
+      "currency": "SGD",
+      "date": "2026-10-20",
+      "frequency": "daily",
+      "source": {
+        "name": "Monetary Authority of Singapore · Daily SGS Prices",
+        "url": "https://eservices.mas.gov.sg/Statistics/fdanet/SgsBenchmarkIssuePrices.aspx",
+        "license": "Official data; attribution required"
+      },
+      "method": "Daily closing bid yields quoted by SGS primary dealers. Includes 6-month and 1-year Government Treasury Bills, then SGS benchmark bonds at labelled 2-, 5-, 10-, 15-, 20-, 30- and 50-year tenors.",
+      "points": [
+        {
+          "months": 6,
+          "yield": 1.88
+        },
+        {
+          "months": 12,
+          "yield": 1.91
+        },
+        {
+          "months": 24,
+          "yield": 1.89
+        },
+        {
+          "months": 60,
+          "yield": 2.18
+        },
+        {
+          "months": 120,
+          "yield": 2.4
+        },
+        {
+          "months": 180,
+          "yield": 2.45
+        },
+        {
+          "months": 240,
+          "yield": 2.4
+        },
+        {
+          "months": 360,
+          "yield": 2.42
+        },
+        {
+          "months": 600,
+          "yield": 2.63
+        }
+      ]
+    },
+    "CHN": {
+      "currency": "CNY",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "MOF-China Government Bond Yield Curve · ChinaBond",
+        "url": "https://yield.chinabond.com.cn/cbweb-czb-web/czb/czbChartSearch",
+        "license": "Official data; attribution required"
+      },
+      "method": "Official China Government Bond curve; points are the provider’s estimated curve yields at exact displayed tenors, not individual-security quotes.",
+      "points": [
+        {
+          "months": 3,
+          "yield": 1.175
+        },
+        {
+          "months": 6,
+          "yield": 1.1752
+        },
+        {
+          "months": 12,
+          "yield": 1.1813
+        },
+        {
+          "months": 24,
+          "yield": 1.2522
+        },
+        {
+          "months": 36,
+          "yield": 1.2674
+        },
+        {
+          "months": 60,
+          "yield": 1.377
+        },
+        {
+          "months": 84,
+          "yield": 1.4673
+        },
+        {
+          "months": 120,
+          "yield": 1.6497
+        },
+        {
+          "months": 180,
+          "yield": 1.9159
+        },
+        {
+          "months": 240,
+          "yield": 2.061
+        },
+        {
+          "months": 300,
+          "yield": 2.061
+        },
+        {
+          "months": 360,
+          "yield": 2.061
+        }
+      ]
+    },
+    "CHL": {
+      "currency": "CLP",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01CLM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 6.01
+        }
+      ]
+    },
+    "MEX": {
+      "currency": "MXN",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/IRLTLT01MXM156N",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 9.35
+        }
+      ]
+    },
+    "COL": {
+      "currency": "COP",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/COLIRLTLT01STM",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 12.73
+        }
+      ]
+    },
+    "CRI": {
+      "currency": "CRC",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/CRIIRLTLT01STM",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 6.28056594
+        }
+      ]
+    },
+    "IND": {
+      "currency": "INR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/INDIRLTLT01STM",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 7.06
+        }
+      ]
+    },
+    "LVA": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/LVAIRLTLT01STM",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.82
+        }
+      ]
+    },
+    "LTU": {
+      "currency": "EUR",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "OECD · Main Economic Indicators via FRED",
+        "url": "https://fred.stlouisfed.org/series/LTUIRLTLT01STM",
+        "license": "Official data; attribution required"
+      },
+      "method": "10-year government benchmark yield, monthly average. Other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 2.88
+        }
+      ]
+    },
+    "THA": {
+      "currency": "THB",
+      "date": "2026-10-20",
+      "frequency": "daily",
+      "source": {
+        "name": "ThaiBMA · Government bond yield curve",
+        "url": "https://www.thaibma.or.th/EN/Market/YieldCurve/Government.aspx",
+        "license": "Official data; attribution required"
+      },
+      "method": "Daily provider-published government yield curve based on primary-dealer bid quotes, trimmed at both tails; provider points are matched to the nearest supported standard tenor within 0.005 years. Short Treasury-bill yields use the provider’s bond-equivalent conversion.",
+      "points": [
+        {
+          "months": 3,
+          "yield": 0.967391
+        },
+        {
+          "months": 6,
+          "yield": 0.979984
+        },
+        {
+          "months": 12,
+          "yield": 0.999787
+        },
+        {
+          "months": 24,
+          "yield": 1.33726
+        },
+        {
+          "months": 36,
+          "yield": 1.46768
+        },
+        {
+          "months": 60,
+          "yield": 1.760824
+        },
+        {
+          "months": 84,
+          "yield": 2.039617
+        },
+        {
+          "months": 120,
+          "yield": 2.324015
+        },
+        {
+          "months": 180,
+          "yield": 2.733798
+        },
+        {
+          "months": 240,
+          "yield": 3.132315
+        },
+        {
+          "months": 300,
+          "yield": 3.240601
+        },
+        {
+          "months": 360,
+          "yield": 3.284705
+        },
+        {
+          "months": 480,
+          "yield": 3.435024
+        },
+        {
+          "months": 600,
+          "yield": 3.45853
+        }
+      ]
+    },
+    "BGR": {
+      "currency": "EUR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "Eurostat · EMU convergence criterion bond yields",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/teimf050?lang=en",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly average central-government secondary-market yield, gross of tax, on bonds with around 10 years’ residual maturity; source: ECB.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 4.09
+        }
+      ]
+    },
+    "EST": {
+      "currency": "EUR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "Eurostat · EMU convergence criterion bond yields",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/teimf050?lang=en",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly average central-government secondary-market yield, gross of tax, on bonds with around 10 years’ residual maturity; source: ECB.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 4.09
+        }
+      ]
+    },
+    "HRV": {
+      "currency": "EUR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "Eurostat · EMU convergence criterion bond yields",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/teimf050?lang=en",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly average central-government secondary-market yield, gross of tax, on bonds with around 10 years’ residual maturity; source: ECB.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.59
+        }
+      ]
+    },
+    "CYP": {
+      "currency": "EUR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "Eurostat · EMU convergence criterion bond yields",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/teimf050?lang=en",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly average central-government secondary-market yield, gross of tax, on bonds with around 10 years’ residual maturity; source: ECB.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.92
+        }
+      ]
+    },
+    "MLT": {
+      "currency": "EUR",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "Eurostat · EMU convergence criterion bond yields",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/teimf050?lang=en",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly average central-government secondary-market yield, gross of tax, on bonds with around 10 years’ residual maturity; source: ECB.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 4.19
+        }
+      ]
+    },
+    "ROU": {
+      "currency": "RON",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "Eurostat · EMU convergence criterion bond yields",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/teimf050?lang=en",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly average central-government secondary-market yield, gross of tax, on bonds with around 10 years’ residual maturity; source: ECB.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 6.71
+        }
+      ]
+    },
+    "MYS": {
+      "currency": "MYR",
+      "date": "2026-10-20",
+      "frequency": "daily",
+      "source": {
+        "name": "Bank Negara Malaysia · Benchmark Yields",
+        "url": "https://financialmarkets.bnm.gov.my/benchmark-yields",
+        "license": "Official data; attribution required"
+      },
+      "method": "Daily closing trading yields for conventional Malaysian Government Securities benchmarks at provider-labelled 3-, 5-, 7- and 10-year terms. BNM marks the 5-year observation as last traded.",
+      "points": [
+        {
+          "months": 36,
+          "yield": 3.44
+        },
+        {
+          "months": 60,
+          "yield": 3.63
+        },
+        {
+          "months": 84,
+          "yield": 3.83
+        },
+        {
+          "months": 120,
+          "yield": 3.84
+        }
+      ],
+      "retrieval": "Reviewed the dated official BNM Benchmark Yields page on 2026-10-20; it labels the table Trading Date 20 Oct 2026. Direct automated downloads returned HTTP 403 from the build host, so the automatic provider preserves this dated seed when blocked.",
+      "retrievedAt": "2026-10-20"
+    },
+    "HKG": {
+      "currency": "HKD",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "Hong Kong Monetary Authority",
+        "url": "https://www.hkma.gov.hk/eng/data-publications-and-research/data-and-statistics/economic-financial-data-for-hong-kong",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly reported government-bond yield at the provider-labelled 10-year term, in percent per annum; other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 3.987
+        }
+      ]
+    },
+    "TWN": {
+      "currency": "TWD",
+      "date": "2026-08",
+      "frequency": "monthly",
+      "source": {
+        "name": "Central Bank of the Republic of China (Taiwan) · statistical database",
+        "url": "https://cpx.cbc.gov.tw/API/DataAPI/Get?FileName=EG43M01en",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly secondary-market 10-year government-bond rate. The central bank defines its long-term yield as the weighted average yield on the most actively traded 10-year government bonds; other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 1.96
+        }
+      ]
+    },
+    "RUS": {
+      "currency": "RUB",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "Bank of Russia · government bond zero-coupon yield curve",
+        "url": "https://www.cbr.ru/eng/hd_base/zcyc_params/",
+        "license": "Official data; attribution required"
+      },
+      "method": "Daily estimated zero-coupon government-bond spot yields at exact source maturities; only terms in the existing app grid are included.",
+      "points": [
+        {
+          "months": 3,
+          "yield": 12.26
+        },
+        {
+          "months": 6,
+          "yield": 12.88
+        },
+        {
+          "months": 12,
+          "yield": 13.86
+        },
+        {
+          "months": 24,
+          "yield": 15.14
+        },
+        {
+          "months": 36,
+          "yield": 15.84
+        },
+        {
+          "months": 60,
+          "yield": 16.37
+        },
+        {
+          "months": 84,
+          "yield": 16.48
+        },
+        {
+          "months": 120,
+          "yield": 16.47
+        },
+        {
+          "months": 180,
+          "yield": 16.43
+        },
+        {
+          "months": 240,
+          "yield": 16.4
+        },
+        {
+          "months": 360,
+          "yield": 16.37
+        }
+      ]
+    },
+    "PER": {
+      "currency": "PEN",
+      "date": "2026-09",
+      "frequency": "monthly",
+      "source": {
+        "name": "BCRPData · Ministry of Economy and Finance",
+        "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/api/PD31895MM/json/2020-1/2026-10/ing",
+        "license": "Official data; attribution required"
+      },
+      "method": "Monthly 10-year Peruvian government-bond yield in soles, sourced from the Ministry of Economy and Finance; other maturities unavailable.",
+      "points": [
+        {
+          "months": 120,
+          "yield": 6.52190909090909
+        }
+      ]
+    },
+    "BWA": {
+      "currency": "BWP",
+      "date": "2026-10-19",
+      "frequency": "daily",
+      "source": {
+        "name": "Bank of Botswana · daily government securities yields",
+        "url": "https://www.bankofbotswana.bw/sites/default/files/Bond-Yields%2019%20October%202026.xlsx",
+        "license": "Official data; attribution required"
+      },
+      "method": "Daily 3-, 6- and 12-month Treasury-bill yields, plus on-the-run bond yields only when the issue’s actual remaining maturity is within 45 days of an existing app tenor. Other maturities are omitted.",
+      "points": [
+        {
+          "months": 3,
+          "yield": 6.087999999999999
+        },
+        {
+          "months": 6,
+          "yield": 6.3260000000000005
+        },
+        {
+          "months": 12,
+          "yield": 6.95
+        },
+        {
+          "months": 36,
+          "yield": 7.9
+        },
+        {
+          "months": 60,
+          "yield": 9.175999999999998
+        }
+      ]
+    },
+    "ZMB": {
+      "currency": "ZMW",
+      "date": "2026-09-25",
+      "frequency": "auction",
+      "source": {
+        "name": "Bank of Zambia · government bond auction 07/2026/BA",
+        "url": "https://www.boz.zm/jsonapi/node/bond_auction?sort=-field_bond_auction_date&page%5Blimit%5D=5&include=field_auction_results,field_results_file",
+        "license": "Official data; attribution required"
+      },
+      "method": "Primary-market yield rates reported by the Bank of Zambia for bonds tendered in one auction; exact issue tenors are shown. This is an auction cross-section, not a secondary-market constant-maturity curve.",
+      "points": [
+        {
+          "months": 24,
+          "yield": 12.0
+        },
+        {
+          "months": 36,
+          "yield": 12.59
+        },
+        {
+          "months": 84,
+          "yield": 13.75
+        },
+        {
+          "months": 120,
+          "yield": 14.5
+        },
+        {
+          "months": 180,
+          "yield": 15.45
+        }
+      ]
+    },
+    "TZA": {
+      "currency": "TZS",
+      "date": "2026-09",
+      "frequency": "auction",
+      "source": {
+        "name": "Bank of Tanzania · Treasury bond auction results",
+        "url": "https://www.bot.go.tz/TBonds?lang=en",
+        "license": "Official data; attribution required"
+      },
+      "method": "Latest weighted-average yield-to-maturity from primary bond auctions for each exact tenor in the observation month. The selected tenor auctions may occur on different days, so this is a monthly auction cross-section, not a same-day secondary-market curve.",
+      "points": [
+        {
+          "months": 60,
+          "yield": 9.5275
+        },
+        {
+          "months": 120,
+          "yield": 10.6924
+        },
+        {
+          "months": 180,
+          "yield": 10.7907
+        }
+      ]
+    },
+    "EGY": {
+      "currency": "EGP",
+      "date": "2026-10-06",
+      "frequency": "daily",
+      "source": {
+        "name": "Central Bank of Egypt · EGP T-Bills Secondary Market",
+        "url": "https://www.cbe.org.eg/en/economic-research/statistics/egp-t-bills-secondary-market",
+        "license": "Official data; attribution required"
+      },
+      "method": "Daily weighted-average secondary-market yields on EGP Treasury bills by CBE residual-maturity bands. The source labels 61–91 days as 3 months, 92–182 days as 6 months and 274–365 days as 12 months; plotted at those corresponding existing app tenors.",
+      "points": [
+        {
+          "months": 3,
+          "yield": 23.936
+        },
+        {
+          "months": 6,
+          "yield": 24.746
+        },
+        {
+          "months": 12,
+          "yield": 25.239
+        }
+      ],
+      "retrieval": "Reviewed the CBE official listing for secondary-market EGP T-bill executions dated 2026-10-06. The browser and build-host requests to the CBE page returned Request Rejected, so these dated values are stored as a reviewed seed until the official source can be fetched directly.",
+      "retrievedAt": "2026-10-20"
+    },
+    "BGD": {
+      "currency": "BDT",
+      "date": "2026-10-14",
+      "frequency": "auction",
+      "source": {
+        "name": "Bangladesh Bank · Cut-off and Standard Tenor Yield of T-Bonds",
+        "url": "https://www.bb.org.bd/en/index.php/monetaryactivity/treasury",
+        "license": "Official data; attribution required"
+      },
+      "method": "Standard-tenor Treasury-bond yields (2, 5, 10, 15 and 20 years) published with Bangladesh Bank auction results.",
+      "points": [
+        {
+          "months": 24,
+          "yield": 8.18
+        },
+        {
+          "months": 60,
+          "yield": 8.46
+        },
+        {
+          "months": 120,
+          "yield": 8.39
+        },
+        {
+          "months": 180,
+          "yield": 9.33
+        },
+        {
+          "months": 240,
+          "yield": 9.35
+        }
+      ]
+    }
+  },
+  "warnings": [
+    "malaysia: 403 Client Error: Forbidden for url: https://financialmarkets.bnm.gov.my/benchmark-yields",
+    "australia: 403 Client Error: Forbidden for url: https://www.rba.gov.au/statistics/tables/csv/f2-data.csv",
+    "new_zealand: 403 Client Error: Forbidden for url: https://www.rbnz.govt.nz/statistics/series/%20exchange-and-interest-rates/wholesale-interest-rates"
+  ]
+}

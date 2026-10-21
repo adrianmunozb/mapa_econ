@@ -1,0 +1,99 @@
+.chokepoint-card {
+  box-sizing: border-box;
+  width: 430px;
+  max-width: calc(100vw - 24px);
+  left: auto;
+  right: 16px;
+  transform: none;
+  max-height: min(78vh, 840px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-color: #334b61;
+  box-shadow: 0 16px 48px #0009;
+  z-index: 65;
+  animation: none;
+  scrollbar-width: thin;
+}
+.maritime-eyebrow { display: block; font-size: 10px; letter-spacing: .08em; color: #5eead4; margin-bottom: 5px; }
+.chokepoint-card__header { position: sticky; top: -16px; background: #0d141d; padding: 10px 0; z-index: 2; }
+.chokepoint-card__badges { flex-wrap: wrap; gap: 6px; }
+.maritime-picker, .maritime-inputs label { display: grid; gap: 5px; font-size: 11px; color: #cbd5e1; }
+.maritime-picker { margin-top: 12px; }
+.chokepoint-card select, .chokepoint-card input {
+  box-sizing: border-box; width: 100%; min-width: 0; border: 1px solid #3d5267; border-radius: 7px;
+  background: #101e2c; color: #f1f5f9; padding: 8px; font: inherit; font-size: 12px;
+}
+.chokepoint-card button:focus-visible, .chokepoint-card a:focus-visible,
+.chokepoint-card select:focus-visible, .chokepoint-card input:focus-visible, .chokepoint-card summary:focus-visible { outline: 2px solid #5eead4; outline-offset: 3px; }
+.maritime-tabs { display: flex; gap: 5px; margin: 12px 0; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+.maritime-tabs button { border: 1px solid transparent; border-radius: 6px; padding: 7px 9px; background: transparent; color: #b3c5d8; cursor: pointer; font: inherit; font-size: 12px; }
+.maritime-tabs button[aria-pressed=true] { background: #163631; color: #99f6e4; border-color: #2a6257; }
+.maritime-content { font-size: 12px; line-height: 1.55; }
+.maritime-muted { color: #a5b5c6; font-size: 11px; line-height: 1.6; margin: 10px 0; }
+.maritime-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 12px 0; }
+.maritime-tags span { background: #1e293b; padding: 3px 8px; border-radius: 12px; color: #cbd5e1; font-size: 11px; }
+.maritime-metric { background: #142230; border: 1px solid #2a4054; padding: 12px; border-radius: 9px; margin: 12px 0; }
+.maritime-metric > span { display: block; color: #b4c4d5; font-size: 11px; }
+.maritime-metric strong { display: block; font-size: 27px; line-height: 1.5; color: #f8fafc; }
+.maritime-metric small { font-size: 12px; font-weight: 400; color: #cbd5e1; }
+.maritime-metric p { margin: 6px 0; }
+.chokepoint-card a { color: #7dd3fc; overflow-wrap: anywhere; }
+.maritime-details dt { color: #e2e8f0; font-weight: 600; margin-top: 13px; }
+.maritime-details dd { color: #b4c4d5; margin: 3px 0 0; }
+.maritime-route-toggle { width: 100%; margin-top: 6px; }
+.maritime-key { display: inline-block; width: 15px; height: 3px; vertical-align: middle; }
+.maritime-key--main { background: #5eead4; }
+.maritime-key--alternative { background: #c084fc; }
+.chokepoint-card details { border-top: 1px solid #334155; margin-top: 12px; padding-top: 10px; }
+.chokepoint-card summary { cursor: pointer; color: #d3dfec; }
+.maritime-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+.maritime-search { position: relative; min-width: 0; display: grid; gap: 5px; }
+.maritime-suggestions { position: absolute; top: 100%; left: 0; width: max(100%, 270px); max-width: calc(100vw - 64px); box-sizing: border-box; margin: 4px 0 0; padding: 4px; list-style: none; background: #101e2c; border: 1px solid #3d6475; border-radius: 8px; box-shadow: 0 8px 24px #0008; z-index: 5; }
+.maritime-suggestions li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px; border-radius: 5px; cursor: pointer; color: #e2e8f0; font-size: 12px; }
+.maritime-suggestions li[aria-selected=true] { background: #1b403c; color: #99f6e4; }
+.maritime-suggestions small { color: #a5b5c6; font-size: 10px; flex-shrink: 0; }
+.maritime-search-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.maritime-search-help { margin: 8px 0 12px; color: #cbd5e1; font-size: 12px; }
+.maritime-results-summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 14px 0 10px; }
+.maritime-results-summary p { margin: 0; color: #f1f5f9; font-size: 13px; font-weight: 600; }
+.maritime-results-summary button { background: none; border: none; color: #7dd3fc; font: inherit; font-size: 11px; padding: 4px 0; cursor: pointer; flex-shrink: 0; }
+.maritime-search-examples { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; color: #94a3b8; font-size: 11px; }
+.maritime-search-examples button { border: 1px solid #334b61; background: #152333; color: #cbd5e1; padding: 4px 8px; border-radius: 12px; cursor: pointer; font: inherit; }
+.maritime-results { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.maritime-result { border: 1px solid #334b61; border-radius: 10px; padding: 13px; background: #111e2b; }
+.maritime-result__type { font-size: 10px; color: #a5b5c6; }
+.maritime-result h4 { margin: 4px 0 9px; color: #f1f5f9; font-size: 16px; }
+.maritime-match-reasons { display: flex; flex-wrap: wrap; gap: 5px; }
+.maritime-match-reasons > span { background: #174139; color: #99f6e4; border: 1px solid #286354; border-radius: 6px; padding: 3px 7px; font-size: 11px; }
+.maritime-result__context { margin: 9px 0; color: #b4c4d5; font-size: 12px; }
+.maritime-result__traffic { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; color: #94a3b8; font-size: 10px; margin-bottom: 12px; }
+.maritime-result__traffic strong { font-size: 14px; color: #cbd5e1; }
+.maritime-result__open { width: 100%; display: flex; align-items: center; justify-content: space-between; background: #1b403c; border-color: #357568; color: #b6fff0; padding: 9px 11px; }
+.maritime-empty { border: 1px dashed #3d5267; border-radius: 8px; padding: 16px; color: #cbd5e1; }
+.chokepoint-card.chokepoint-card--search { max-height: calc(100dvh - 32px); bottom: 16px; }
+.maritime-traffic-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.maritime-traffic-stats > div { background: #152333; border-radius: 8px; padding: 9px; }
+.maritime-traffic-stats span, .maritime-traffic-stats small { display: block; color: #b4c4d5; font-size: 10px; }
+.maritime-traffic-stats strong { display: block; font-size: 21px; color: #f1f5f9; margin: 6px 0; overflow-wrap: anywhere; }
+.maritime-chart { margin: 14px 0; padding: 10px; background: #101e2c; border-radius: 9px; }
+.maritime-chart svg { display: block; width: 100%; }
+.maritime-chart figcaption { color: #a5b5c6; font-size: 10px; }
+.maritime-table-scroll { max-height: 320px; overflow: auto; }
+.chokepoint-card table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.chokepoint-card caption { text-align: left; color: #b4c4d5; padding: 8px 0; }
+.chokepoint-card th, .chokepoint-card td { text-align: left; padding: 9px 5px; border-bottom: 1px solid #28394c; }
+.chokepoint-card td { white-space: nowrap; }
+.chokepoint-card th { color: #cbd5e1; }
+.chokepoint-card th small { display: block; color: #a5b5c6; font-size: 10px; font-weight: 400; }
+.chokepoint-card th button { padding: 2px 0; background: none; border: none; color: #7dd3fc; cursor: pointer; font: inherit; text-align: left; }
+.chokepoint-card tr[aria-current=true] { background: #15302f; }
+@media (max-width: 1279px) {
+  .chokepoint-card { right: 12px; bottom: 12px; }
+}
+@media (max-width: 480px) {
+  .chokepoint-card { padding: 12px; max-height: 76vh; }
+  .maritime-inputs { grid-template-columns: 1fr; }
+  .maritime-traffic-stats { gap: 4px; }
+  .maritime-traffic-stats > div { padding: 7px; }
+  .maritime-traffic-stats strong { font-size: 17px; }
+}

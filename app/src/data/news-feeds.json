@@ -1,0 +1,7 @@
+[
+  {"id":"bbc","name":"BBC News","url":"https://feeds.bbci.co.uk/news/world/rss.xml","language":"en","region":"Reino Unido / internacional"},
+  {"id":"guardian","name":"The Guardian","url":"https://www.theguardian.com/world/rss","language":"en","region":"Reino Unido / internacional"},
+  {"id":"dw","name":"DW Español","url":"https://rss.dw.com/rdf/rss-sp-all","language":"es","region":"Alemania / internacional"},
+  {"id":"france24","name":"France 24 Español","url":"https://www.france24.com/es/rss","language":"es","region":"Francia / internacional"},
+  {"id":"aljazeera","name":"Al Jazeera","url":"https://www.aljazeera.com/xml/rss/all.xml","language":"en","region":"Catar / Oriente Medio"}
+]

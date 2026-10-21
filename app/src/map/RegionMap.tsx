@@ -1,4 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { WebcamMarkers } from './WebcamMarkers';
+import type { Webcam } from '../data/webcams';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { SmoothFill } from './SmoothFill';
+import { frameCoalescer } from './interaction';
+import type { RegionalMetricId } from '../data/regions';
 import { Map as MapGL, Source, Layer } from '@vis.gl/react-maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { StyleSpecification } from 'maplibre-gl';
@@ -32,8 +37,13 @@ export interface RegionSelection {
 }
 
 interface Props {
+  webcamCountry?: Webcam['country'];
+  showWebcams?: boolean;
+  onSelectWebcam?: (camera: Webcam) => void;
+  onSelectWebcamCluster?: (cameras: Webcam[]) => void;
   data: unknown;
   fillColor: unknown;
+  metricId: RegionalMetricId;
   selectedShapeId: string | null;
   focusBbox: BBox | null;
   countryName: string;
@@ -49,9 +59,14 @@ const OFFLINE_STYLE: StyleSpecification = {
   layers: [{ id: 'wem-bg', type: 'background', paint: { 'background-color': '#0d1117' } }],
 };
 
-export function RegionMap({
+export const RegionMap = memo(function RegionMap({
+  webcamCountry,
+  showWebcams = false,
+  onSelectWebcam,
+  onSelectWebcamCluster,
   data,
   fillColor,
+  metricId,
   selectedShapeId,
   focusBbox,
   countryName,
@@ -62,6 +77,8 @@ export function RegionMap({
   const hoveredRef = useRef<string | null>(null);
   const offlineChecked = useRef(false);
   const { t } = useLang();
+  const hoverQueue = useMemo(() => frameCoalescer(onHover, requestAnimationFrame, cancelAnimationFrame), [onHover]);
+  useEffect(() => () => hoverQueue.cancel(), [hoverQueue]);
   const [style, setStyle] = useState<string | StyleSpecification>(() =>
     typeof navigator !== 'undefined' && navigator.onLine === false ? OFFLINE_STYLE : BASEMAP,
   );
@@ -111,30 +128,33 @@ export function RegionMap({
   const onMouseMove = useCallback((event: MapEvt) => {
     const feature = event.features?.[0];
     const properties = feature?.properties;
-    clearHover(event.target);
     const shapeId = typeof properties?.shapeId === 'string' ? properties.shapeId : null;
+    if (hoveredRef.current !== shapeId) {
+      clearHover(event.target);
+      if (shapeId) event.target.setFeatureState({ source: 'regions', id: shapeId }, { hover: true });
+      hoveredRef.current = shapeId;
+    }
     if (!shapeId) {
       event.target.getCanvas().style.cursor = '';
-      onHover(null);
+      hoverQueue.push(null);
       return;
     }
-    event.target.setFeatureState({ source: 'regions', id: shapeId }, { hover: true });
-    hoveredRef.current = shapeId;
     event.target.getCanvas().style.cursor = 'pointer';
-    onHover({
+    hoverQueue.push({
       name: (properties?.name as string) ?? countryName,
-      value: typeof properties?.metricValue === 'number' ? properties.metricValue : null,
-      year: typeof properties?.metricYear === 'number' ? properties.metricYear : null,
+      value: typeof properties?.[metricId] === 'number' ? properties[metricId] as number : null,
+      year: typeof properties?.[`${metricId}Year`] === 'number' ? properties[`${metricId}Year`] as number : null,
       x: event.point.x,
       y: event.point.y,
     });
-  }, [clearHover, countryName, onHover]);
+  }, [clearHover, countryName, hoverQueue, metricId]);
 
   const onMouseOut = useCallback((event: MapEvt) => {
     clearHover(event.target);
+    hoverQueue.cancel();
     event.target.getCanvas().style.cursor = '';
     onHover(null);
-  }, [clearHover, onHover]);
+  }, [clearHover, onHover, hoverQueue]);
 
   const onClick = useCallback((event: MapEvt) => {
     const properties = event.features?.[0]?.properties;
@@ -148,6 +168,7 @@ export function RegionMap({
 
   return (
     <MapGL
+      reuseMaps
       ref={mapRef as never}
       initialViewState={{ longitude: 0, latitude: 25, zoom: 2 }}
       minZoom={0.7}
@@ -155,18 +176,14 @@ export function RegionMap({
       dragRotate={false}
       mapStyle={style}
       style={{ position: 'absolute', inset: 0 }}
-      interactiveLayerIds={['region-fill']}
+      interactiveLayerIds={['region-fill', 'region-fill-fade']}
       onMouseMove={onMouseMove}
       onMouseOut={onMouseOut}
       onClick={onClick}
       attributionControl={{ compact: true, customAttribution: t.sourcesFooter }}
     >
       <Source id="regions" type="geojson" data={data as never} promoteId="shapeId">
-        <Layer
-          id="region-fill"
-          type="fill"
-          paint={{ 'fill-color': fillColor as never, 'fill-opacity': 0.87 }}
-        />
+        <SmoothFill id="region-fill" color={fillColor} opacity={0.87} />
         <Layer
           id="region-border"
           type="line"
@@ -182,7 +199,8 @@ export function RegionMap({
           paint={{ 'line-color': '#ffd166', 'line-width': 2.4 }}
         />
       </Source>
+      {showWebcams && onSelectWebcam && onSelectWebcamCluster && <WebcamMarkers country={webcamCountry} onSelect={onSelectWebcam} onSelectCluster={onSelectWebcamCluster} />}
     </MapGL>
   );
-}
+});
 

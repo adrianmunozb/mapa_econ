@@ -4,9 +4,9 @@
 
 /** Where a number comes from — shown in the UI so every value is traceable. */
 export interface SourceRef {
-  name: string; // e.g. "World Bank Open Data"
+  name: string; // e.g. "World Bank"
   url: string; // link to the dataset / indicator page
-  license: string; // e.g. "CC BY 4.0"
+  license: string; // e.g. "Official Data"
 }
 
 export type MetricDomain =
