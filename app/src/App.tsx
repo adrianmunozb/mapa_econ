@@ -31,6 +31,7 @@ import { SUBMARINE_CABLES, CHOKEPOINTS, type MaritimeChokepoint } from './data/m
 import { MAJOR_MARKETS } from './data/markets';
 import { ALLIANCES, allianceColors, countryAlliances } from './data/alliances';
 import { AlliancePicker } from './ui/AlliancePicker';
+import { Section } from './ui/Section';
 
 import { regionalWebcamCountry, type Webcam } from './data/webcams';
 import { WebcamControls } from './ui/WebcamControls';
@@ -630,6 +631,7 @@ export default function App() {
 
         {snapshot && metric && scale && (
           <div className="controls">
+            <span className="panel__group-title">Indicador</span>
             <SearchBox countries={snapshot.countries} onPick={flyTo} />
             <MetricPicker metrics={snapshot.metrics} value={metricId} onChange={selectMetric} />
             {isBondMetric(metricId) && <div className="bond-controls">
@@ -684,7 +686,12 @@ export default function App() {
               </label>
             )}
 
-            <AlliancePicker selected={selectedAlliances} onChange={setSelectedAlliances} />
+            <Section
+              title="Grupos geopolíticos"
+              badge={selectedAlliances.length ? String(selectedAlliances.length) : undefined}
+            >
+              <AlliancePicker selected={selectedAlliances} onChange={setSelectedAlliances} />
+            </Section>
             {selectedAlliances.length === 0 && <Legend
               unit={viewMode === 'current' ? metricUnit(metric, lang) : fmt(t.changeSince, { year: changeFromYear })}
               hint={viewMode === 'current' ? t.hintCurrent : t.hintChange}
