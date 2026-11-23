@@ -5,7 +5,7 @@ World Bank data:
   • Policy rate — BIS WS_CBPOL, latest central-bank policy rate, daily.
 
 Both are keyless and use ISO codes. Each patched value carries a precise ``period``
-(e.g. "Mai 2026") so the UI shows how fresh it is. Idempotent — safe to re-run.
+(ISO, e.g. "2026-05") so the UI shows how fresh it is. Idempotent — safe to re-run.
 Requires the ``snapshot`` step to have run first.
 """
 

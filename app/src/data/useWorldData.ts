@@ -73,8 +73,12 @@ export function useWorldData(regionalIso3: string | null): WorldData {
   const [timeseries, setTimeseries] = useState<TimeseriesData | null>(null);
   const [products, setProducts] = useState<TradeProductsData | null>(null);
   const [regionalIndex, setRegionalIndex] = useState<RegionalIndex | null>(null);
-  const [regionalGeometry, setRegionalGeometry] = useState<unknown | null>(null);
-  const [regionalCountryData, setRegionalCountryData] = useState<RegionalCountryData | null>(null);
+  // Tagged with its country so a stale load is ignored without resetting state in an effect.
+  const [regionalAsset, setRegionalAsset] = useState<{
+    iso3: string;
+    geometry: unknown;
+    data: RegionalCountryData;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -115,8 +119,6 @@ export function useWorldData(regionalIso3: string | null): WorldData {
 
   useEffect(() => {
     let alive = true;
-    setRegionalGeometry(null);
-    setRegionalCountryData(null);
     if (!regionalIso3) return () => { alive = false; };
     Promise.all([
       loadRegionalAsset<unknown>(
@@ -130,14 +132,15 @@ export function useWorldData(regionalIso3: string | null): WorldData {
     ])
       .then(([geometry, regional]) => {
         if (!alive) return;
-        setRegionalGeometry(geometry);
-        setRegionalCountryData(regional);
+        setRegionalAsset({ iso3: regionalIso3, geometry, data: regional });
       })
       .catch((e) => {
         if (alive) setError(e instanceof Error ? e.message : String(e));
       });
     return () => { alive = false; };
   }, [regionalIso3]);
+
+  const regional = regionalAsset && regionalAsset.iso3 === regionalIso3 ? regionalAsset : null;
 
   return {
     snapshot,
@@ -146,8 +149,8 @@ export function useWorldData(regionalIso3: string | null): WorldData {
     timeseries,
     products,
     regionalIndex,
-    regionalGeometry,
-    regionalCountryData,
+    regionalGeometry: regional?.geometry ?? null,
+    regionalCountryData: regional?.data ?? null,
     error,
   };
 }

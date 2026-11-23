@@ -2,7 +2,7 @@
 
 Adds English metric fields (labelEn, shortLabelEn, unitEn, descriptionEn) to
 snapshot.json and English HS2 names (namesEn) to trade_products.json, using the
-catalog as the source of truth. Idempotent.
+catalog as the source of truth. Idempotent; existing values that differ from the catalog are corrected.
 """
 
 from __future__ import annotations
@@ -32,7 +32,7 @@ def patch_snapshot(paths: Paths) -> int:
     for m in snap["metrics"]:
         for f in EN_FIELDS:
             val = english.get(m["id"], {}).get(f)
-            if val and not m.get(f):
+            if val and m.get(f) != val:  # the catalog is authoritative: also heals wrong values
                 m[f] = val
                 n += 1
     write_json(paths.snapshot, snap, allow_nan=False)

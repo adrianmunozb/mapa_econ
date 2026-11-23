@@ -80,7 +80,7 @@ class CurrentDataTest(unittest.TestCase):
         text = "REF_AREA,OBS_VALUE,TIME_PERIOD\nXM,2.0,2026-06-11\nDE,1.0,2026-06-01\nUS,4.5,2026-06-16\nGB,4.0,2026-06-18\n"
         out = bis.parse_policy_rates(text, {"US": "USA"})
         self.assertEqual(out["DEU"]["value"], 2.0)
-        self.assertEqual(out["USA"], {"value": 4.5, "year": 2026, "period": "Jun 2026"})
+        self.assertEqual(out["USA"], {"value": 4.5, "year": 2026, "period": "2026-06"})
         self.assertEqual(out["GBR"]["value"], 4.0)
 
     def test_imf_cpi_maps_kosovo_and_skips_nulls(self):
@@ -90,7 +90,7 @@ class CurrentDataTest(unittest.TestCase):
                 "series": [{"id": "COUNTRY", "values": [{"id": "UVK"}, {"id": "USA"}]}],
                 "observation": [{"values": [{"value": "2026-M05"}]}]}}],
         }}
-        self.assertEqual(imf.parse_cpi(root), {"XKX": {"value": 1.5, "year": 2026, "period": "Mai 2026"}})
+        self.assertEqual(imf.parse_cpi(root), {"XKX": {"value": 1.5, "year": 2026, "period": "2026-05"}})
 
 
 class TradeTest(unittest.TestCase):

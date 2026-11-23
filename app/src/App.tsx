@@ -43,7 +43,7 @@ export default function App() {
   const initial = useMemo(() => readHash(), []);
   const [metricId, setMetricId] = useState(initial.m || 'gdp_per_capita');
   const [selectedIso, setSelectedIso] = useState<string | null>(initial.c);
-  const [regionalIso, setRegionalIso] = useState<string | null>(initial.r ? initial.c : null);
+  const [requestedRegionalIso, setRegionalIso] = useState<string | null>(initial.r ? initial.c : null);
   const [regionalMetricId, setRegionalMetricId] = useState<RegionalMetricId>(
     REGIONAL_METRICS.some((metric) => metric.id === initial.rm)
       ? (initial.rm as RegionalMetricId)
@@ -69,7 +69,12 @@ export default function App() {
     regionalGeometry,
     regionalCountryData,
     error,
-  } = useWorldData(regionalIso);
+  } = useWorldData(requestedRegionalIso);
+  // A requested country without regional data (e.g. from a stale URL) falls back to the world map.
+  const regionalIso =
+    requestedRegionalIso && regionalIndex && !regionalIndex.countries[requestedRegionalIso]
+      ? null
+      : requestedRegionalIso;
 
   // Keep the URL hash in sync so the current view is shareable.
   useEffect(() => {
@@ -352,12 +357,6 @@ export default function App() {
     setRegionHover(null);
     if (iso3) flyTo(iso3);
   }, [regionalIso, flyTo]);
-
-  useEffect(() => {
-    if (regionalIso && regionalIndex && !regionalIndex.countries[regionalIso]) {
-      setRegionalIso(null);
-    }
-  }, [regionalIso, regionalIndex]);
 
   const ready = enriched && scale && metric;
   const hoverValue = hover ? display.get(hover.iso3) : undefined;
