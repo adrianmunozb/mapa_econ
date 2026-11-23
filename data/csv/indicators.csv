@@ -15,7 +15,7 @@ poverty,Extreme Armut,Extreme poverty,social,% der Bevölkerung,% of population,
 education_expenditure,Bildungsausgaben,Education expenditure,social,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,SE.XPD.TOTL.GD.ZS,2004,2024,199
 fertility,Geburtenrate,Fertility rate,health,Kinder/Frau,children/woman,World Bank Open Data,CC BY 4.0,SP.DYN.TFRT.IN,2004,2024,217
 urban_population,Stadtbevölkerung,Urban population,demographics,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,SP.URB.TOTL.IN.ZS,2004,2024,217
-co2_per_capita,CO₂ pro Kopf,Urban population,environment,t pro Jahr,% of population,World Bank Open Data,CC BY 4.0,EN.GHG.CO2.PC.CE.AR5,2004,2024,203
+co2_per_capita,CO₂ pro Kopf,CO₂ per capita,environment,t pro Jahr,t per year,World Bank Open Data,CC BY 4.0,EN.GHG.CO2.PC.CE.AR5,2004,2024,203
 internet_users,Internetnutzer,Internet users,infrastructure,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,IT.NET.USER.ZS,2004,2024,210
 electricity_access,Stromzugang,Electricity access,infrastructure,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,EG.ELC.ACCS.ZS,2004,2023,215
 mobile_subscriptions,Mobilfunkverträge,Mobile subscriptions,infrastructure,pro 100 Einw.,per 100 people,World Bank Open Data,CC BY 4.0,IT.CEL.SETS.P2,2004,2024,214
