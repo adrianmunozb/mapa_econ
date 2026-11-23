@@ -62,9 +62,10 @@ class EndToEndTest(unittest.TestCase):
         self.assertLessEqual(usa["metrics"]["gov_debt_gdp"]["year"], date.today().year - 1)  # no forecasts
         kos = next(c for c in snap["countries"] if c["iso3"] == "XKX")
         self.assertIn("gov_debt_gdp", kos["metrics"])  # UVK -> XKX
-        ts = load(self.paths.timeseries)
-        self.assertIn("gov_debt_gdp", ts["data"]["USA"])
-        self.assertNotIn("savings_gdp", ts["sources"])
+        index = load(self.paths.timeseries_dir / "index.json")
+        self.assertIn("gov_debt_gdp", index["metrics"])
+        self.assertNotIn("savings_gdp", index["metrics"])
+        self.assertEqual(index["sources"]["gov_debt_gdp"]["name"], "IMF – DataMapper (World Economic Outlook)")
 
     def test_csv_export(self):
         csv_dir = self.paths.csv_dir
@@ -92,7 +93,9 @@ class EndToEndTest(unittest.TestCase):
         self.assertIn("XKX", feats)  # Kosovo override joined
 
     def test_timeseries_trade_and_products(self):
-        self.assertIn("gdp_total", load(self.paths.timeseries)["data"]["USA"])
+        gdp = load(self.paths.timeseries_dir / "gdp_total.json")
+        self.assertEqual(set(gdp["USA"]), {str(y) for y in range(2004, 2025) if gdp["USA"].get(str(y)) is not None})
+        self.assertFalse((self.paths.timeseries_dir / "policy_rate.json").exists())  # latest-only metric
         flows = load(self.paths.trade)["flows"]
         self.assertTrue(all(p["p"] != iso for iso, f in flows.items() for p in f["partners"]))
         products = load(self.paths.trade_products)

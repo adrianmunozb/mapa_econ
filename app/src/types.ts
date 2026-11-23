@@ -86,13 +86,18 @@ export interface TradeData {
   flows: Record<string, TradeFlow>;
 }
 
-/** Yearly history: data[iso3][metricId][year] = value (sparse). */
-export interface TimeseriesData {
+/** What yearly history exists. Each metric's series lives in its own file
+ *  (`/data/timeseries/<metricId>.json`) and is loaded on demand. */
+export interface TimeseriesIndex {
   startYear: number;
   endYear: number;
   source: SourceRef;
-  data: Record<string, Record<string, Record<string, number>>>;
+  sources?: Record<string, SourceRef>; // per-metric provenance
+  metrics: string[]; // metric ids that have a history file
 }
+
+/** One metric's history: iso3 → year → value (sparse). */
+export type MetricHistory = Record<string, Record<string, number>>;
 
 /** One exported product category: { c: HS2 code, v: value in USD }. */
 export interface ProductShare {

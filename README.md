@@ -109,7 +109,7 @@ python -m wem list            # list the steps
 # …or run a single step (the old `python build_snapshot.py` style scripts still work):
 python -m wem snapshot        # World Bank indicators + Natural Earth borders
 python -m wem regions         # reported regional GDP/population + ADM1 boundaries
-python -m wem timeseries      # 2004–2024 history
+python -m wem timeseries      # 2004–2024 history → timeseries/<indicator>.json (loaded on demand by the app)
 python -m wem current         # current inflation (IMF) + policy rates (BIS)
 python -m wem trade           # bilateral trade flows (IMF IMTS)
 python -m wem products        # export products (UN Comtrade)

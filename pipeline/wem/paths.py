@@ -38,8 +38,9 @@ class Paths:
         return self.out_dir / "countries.geojson"
 
     @property
-    def timeseries(self) -> Path:
-        return self.out_dir / "timeseries.json"
+    def timeseries_dir(self) -> Path:
+        """``index.json`` + one ``<metric_id>.json`` per metric with yearly history."""
+        return self.out_dir / "timeseries"
 
     @property
     def trade(self) -> Path:

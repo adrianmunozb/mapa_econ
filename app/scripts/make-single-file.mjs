@@ -5,8 +5,8 @@
  *
  *   - all JS chunks and CSS are inlined into <script>/<style> tags
  *   - core app data is embedded as <script type="application/json">
- *   - regional geometry/history files are gzip-compressed and embedded by
- *     country, then inflated only when a regional map is opened
+ *   - regional geometry files and per-metric history files are gzip-compressed and
+ *     embedded, then inflated only when a country / metric is opened
  *   - the resulting index.html opens offline directly from file://
  *
  * Run after `vite build` (wired up as `npm run build`).
@@ -23,7 +23,7 @@ const DIST = resolve(ROOT, 'dist');
 const DATA_FILES = [
   ['snapshot', 'data/snapshot.json'],
   ['trade', 'data/trade.json'],
-  ['timeseries', 'data/timeseries.json'],
+  ['timeseries-index', 'data/timeseries/index.json'],
   ['products', 'data/trade_products.json'],
   ['countries', 'data/countries.geojson'],
   ['regional-index', 'data/regional-index.json'],
@@ -73,15 +73,17 @@ const tags = DATA_FILES.map(([id, rel]) => {
 
 // Regional files stay compressed and are inflated only when a country is
 // opened, so the offline single-file build does not eagerly parse every map.
+// Per-metric history files follow the same scheme (index.json is embedded uncompressed above).
 const compressedDirs = [
   ['regions', 'data/regions'],
   ['regional-data', 'data/regional-data'],
+  ['timeseries', 'data/timeseries'],
 ];
 const compressedTags = compressedDirs.flatMap(([prefix, rel]) => {
   const dir = resolve(DIST, rel);
   if (!existsSync(dir)) return [];
   return readdirSync(dir)
-    .filter((name) => /\.(json|geojson)$/.test(name))
+    .filter((name) => /\.(json|geojson)$/.test(name) && name !== 'index.json')
     .sort()
     .map((name) => {
       const country = name.replace(/\.(json|geojson)$/, '');

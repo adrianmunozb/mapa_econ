@@ -1,6 +1,6 @@
-"""Export the committed JSON data as CSV files for spreadsheets / R / pandas.
+"""Export the committed JSON data (snapshot + timeseries/) as CSV files for spreadsheets / R / pandas.
 
-Written to ``data/csv/`` (a pure function of snapshot.json + timeseries.json, so it needs
+Written to ``data/csv/`` (a pure function of snapshot.json + timeseries/, so it needs
 no network and is safe to re-run):
 
   indicators.csv         one row per metric: label, unit, domain, source, licence, coverage
@@ -14,6 +14,7 @@ import csv
 import shutil
 from pathlib import Path
 
+from .. import timeseries_store as store
 from ..jsonio import read_json
 from ..paths import Paths
 
@@ -30,11 +31,11 @@ def _write(path: Path, header: list[str], rows) -> None:
         writer.writerows(rows)
 
 
-def history_rows(countries: list[dict], series: dict, metric_id: str, years: range) -> list[list]:
+def history_rows(countries: list[dict], by_country: dict, years: range) -> list[list]:
     """Wide rows ``[iso3, country, <value per year>]`` for countries with any value."""
     rows = []
     for c in sorted(countries, key=lambda c: c["iso3"]):
-        by_year = series.get(c["iso3"], {}).get(metric_id)
+        by_year = by_country.get(c["iso3"])
         if not by_year:
             continue
         by_year = {int(y): v for y, v in by_year.items()}  # JSON keys are strings
@@ -44,10 +45,9 @@ def history_rows(countries: list[dict], series: dict, metric_id: str, years: ran
 
 def run(paths: Paths, args=()) -> int:
     snap = read_json(paths.snapshot)
-    ts = read_json(paths.timeseries)
+    ts = store.read(paths)
     countries, metrics = snap["countries"], snap["metrics"]
-    years = range(ts["startYear"], ts["endYear"] + 1)
-    series = ts["data"]
+    years = ts.years
 
     out = paths.csv_dir
     history_dir = out / "history"
@@ -56,7 +56,7 @@ def run(paths: Paths, args=()) -> int:
 
     written, coverage = 0, {}
     for m in metrics:
-        rows = history_rows(countries, series, m["id"], years)
+        rows = history_rows(countries, ts.series.get(m["id"], {}), years)
         if not rows:
             continue  # snapshot-only metric (e.g. policy_rate): no annual history
         _write(history_dir / f"{m['id']}.csv", ["iso3", "country", *map(str, years)], rows)
