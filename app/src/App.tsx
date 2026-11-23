@@ -15,6 +15,7 @@ import { RegionalPanel } from './ui/RegionalPanel';
 import { buildColorScale, buildDivergingScale } from './lib/colors';
 import { formatValueWithUnit, formatUsdCompact, formatCompact, formatChange } from './lib/format';
 import { changeSince } from './lib/timeseries';
+import { useMetricHistories } from './data/useMetricHistories';
 import { bboxOf, mergeBBox, largestPolygonCentroid, type BBox } from './lib/geo';
 import { fmt, metricDescription, metricShortLabel, metricUnit, useLang } from './i18n';
 import type { CountryData } from './types';
@@ -75,7 +76,7 @@ export default function App() {
   const [compare, setCompare] = useState<string[]>([]);
   const [compareOpen, setCompareOpen] = useState(false);
   const [tradeMode, setTradeMode] = useState(initial.t);
-  const [viewMode, setViewMode] = useState<ViewMode>(initial.v === 'change' && !isBondMetric(initial.m ?? '') ? 'change' : 'current');
+  const [requestedViewMode, setViewMode] = useState<ViewMode>(initial.v === 'change' && !isBondMetric(initial.m ?? '') ? 'change' : 'current');
   const [changeFromYear, setChangeFromYear] = useState(initial.fy === '2014' ? 2014 : 2004);
   const [showDayNight, setShowDayNight] = useState(initial.dn);
   const [selectedAlliances, setSelectedAlliances] = useState<string[]>(() =>
@@ -160,7 +161,7 @@ export default function App() {
     snapshot: rawSnapshot,
     geojson,
     trade,
-    timeseries,
+    timeseriesIndex,
     products,
     regionalIndex,
     regionalGeometry,
@@ -189,13 +190,13 @@ export default function App() {
     if (regionalIso) p.set('r', '1');
     if (regionalMetricId !== 'gdpPerCapitaUsd2015') p.set('rm', regionalMetricId);
     if (tradeMode) p.set('t', '1');
-    if (viewMode === 'change') {
+    if (requestedViewMode === 'change') {
       p.set('v', 'change');
       p.set('fy', String(changeFromYear));
     }
     const hash = `#${p.toString()}`;
     if (location.hash !== hash) history.replaceState(null, '', hash);
-  }, [metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, viewMode, changeFromYear, selectedAlliances, showDayNight]);
+  }, [metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, requestedViewMode, changeFromYear, selectedAlliances, showDayNight]);
 
   const byIso = useMemo(() => {
     const map = new Map<string, CountryData>();
@@ -204,6 +205,12 @@ export default function App() {
   }, [snapshot]);
 
   const metric = useMemo(() => snapshot?.metrics.find((m) => m.id === metricId), [snapshot, metricId]);
+
+  // Yearly history is loaded per metric, on demand. The "Trend" view only exists for
+  // metrics that have a history file.
+  const histories = useMetricHistories(metric?.id, timeseriesIndex);
+  const hasHistory = !!metric && !!timeseriesIndex?.metrics.includes(metric.id);
+  const viewMode: ViewMode = hasHistory ? requestedViewMode : 'current';
 
   // Per-country bounding boxes → fly-to.
   const bboxes = useMemo(() => {
@@ -271,7 +278,6 @@ export default function App() {
   const enriched = useMemo(() => {
     if (!snapshot || !geojson) return null;
     const fc = geojson as { features: Array<{ geometry: unknown; properties: Record<string, unknown> | null }> };
-    const tdata = timeseries?.data;
     const features = fc.features.map((f) => {
       const iso3 = f.properties?.iso3 as string | undefined;
       const country = iso3 ? byIso.get(iso3) : undefined;
@@ -280,7 +286,7 @@ export default function App() {
         for (const m of snapshot.metrics) {
           const raw = country.metrics[m.id]?.value;
           if (typeof raw === 'number') props[m.id] = raw;
-          const hist = iso3 ? tdata?.[iso3]?.[m.id] : undefined;
+          const hist = iso3 ? histories[m.id]?.[iso3] : undefined;
           if (hist) {
             for (const fy of CHANGE_PERIODS) {
               const ch = changeSince(hist, fy, m.format);
@@ -292,7 +298,7 @@ export default function App() {
       return { type: 'Feature', geometry: f.geometry, properties: props };
     });
     return { type: 'FeatureCollection', features };
-  }, [snapshot, geojson, byIso, timeseries]);
+  }, [snapshot, geojson, byIso, histories]);
 
   // The value shown per country for the active metric + view mode.
   const display = useMemo(() => {
@@ -304,14 +310,14 @@ export default function App() {
         if (typeof v === 'number') m.set(c.iso3, v);
       }
     } else {
-      const tdata = timeseries?.data;
+      const history = histories[metric.id];
       for (const c of snapshot.countries) {
-        const ch = changeSince(tdata?.[c.iso3]?.[metric.id], changeFromYear, metric.format);
+        const ch = changeSince(history?.[c.iso3], changeFromYear, metric.format);
         if (ch != null) m.set(c.iso3, ch);
       }
     }
     return m;
-  }, [viewMode, metric, changeFromYear, snapshot, timeseries]);
+  }, [viewMode, metric, changeFromYear, snapshot, histories]);
 
   const scale = useMemo(() => {
     if (!metric) return null;
@@ -658,7 +664,7 @@ export default function App() {
             </div>}
             <p className="metric-desc">{metricDescription(metric, lang)}</p>
 
-            {timeseries && !isBondMetric(metricId) && (
+            {hasHistory && (
               <div className="segmented">
                 <button
                   className={`seg${viewMode === 'current' ? ' seg--on' : ''}`}
@@ -882,7 +888,7 @@ export default function App() {
           trade={tradeSummary}
           onPickPartner={flyTo}
           activeMetric={metric}
-          history={timeseries?.data[selectedIso]?.[metricId] ?? null}
+          history={histories[metricId]?.[selectedIso] ?? null}
           products={products?.data[selectedIso] ?? null}
           productNames={products?.namesEn ?? products?.names ?? {}}
           regionalDataLoaded={regionalIndex !== null}

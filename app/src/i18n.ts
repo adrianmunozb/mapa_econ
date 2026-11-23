@@ -18,7 +18,7 @@ export const DOMAIN_LABELS: Record<string, string> = {
   governance: 'Governance',
 };
 
-// German month abbreviations (used in some legacy data fields) → English.
+// Legacy German month abbreviations (pre-ISO data files) → English.
 const EN_MONTHS: Record<string, string> = {
   Jan: 'Jan', Feb: 'Feb', Mär: 'Mar', Apr: 'Apr', Mai: 'May', Jun: 'Jun',
   Jul: 'Jul', Aug: 'Aug', Sep: 'Sep', Okt: 'Oct', Nov: 'Nov', Dez: 'Dec',
@@ -108,9 +108,15 @@ export function domainLabel(domain: string, _lang?: Lang): string {
   return DOMAIN_LABELS[domain] ?? domain;
 }
 
-/** Translate German month abbreviations in data periods ("Mär 2026" → "Mar 2026"). */
-export function tPeriod(period: string | undefined, _lang?: Lang): string | undefined {
+/** Format a data period for display. The pipeline emits ISO months ("2026-05"), shown as
+ *  "May 2026". Legacy German labels ("Mär 2026") are still translated for older data files. */
+export function tPeriod(period: string | undefined, lang: Lang): string | undefined {
   if (!period) return period;
+  const iso = /^(\d{4})-(\d{2})$/.exec(period);
+  if (iso) {
+    const date = new Date(Date.UTC(Number(iso[1]), Number(iso[2]) - 1, 1));
+    return new Intl.DateTimeFormat(LOCALES[lang], { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date);
+  }
   return period.replace(/^(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)\b/, (m) => EN_MONTHS[m] ?? m);
 }
 

@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pipeline:
+    name: Data pipeline (tests + CSV in sync)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+      - run: pip install -r requirements.txt
+      - name: Unit + offline end-to-end tests
+        run: python -m unittest discover -s tests -t . -v
+      - name: Committed CSVs match the committed JSON data
+        working-directory: .
+        run: |
+          (cd pipeline && python -m wem export)
+          git diff --exit-code -- data/csv || {
+            echo "::error::data/csv is out of date — run 'python -m wem export' in pipeline/ and commit."
+            exit 1
+          }
+
+  app:
+    name: App (typecheck, lint, build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - name: Typecheck + build (single-file HTML)
+        run: npm run build
