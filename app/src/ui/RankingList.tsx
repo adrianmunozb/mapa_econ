@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import type { CountryData } from '../types';
-import { flagEmoji } from '../lib/flag';
+import { Flag } from './Flag';
 import { useLang } from '../i18n';
 
 interface Props {
@@ -20,7 +20,7 @@ interface Row {
   value: number;
 }
 
-export function RankingList({ countries, getValue, format, ascending, label, selectedIso, onPick }: Props) {
+export const RankingList = memo(function RankingList({ countries, getValue, format, ascending, label, selectedIso, onPick }: Props) {
   const [open, setOpen] = useState(true);
   const { t } = useLang();
   const activeRef = useRef<HTMLButtonElement | null>(null);
@@ -33,12 +33,15 @@ export function RankingList({ countries, getValue, format, ascending, label, sel
     }
   }, [selectedIso, open, label]);
 
-  const rows: Row[] = [];
-  for (const c of countries) {
-    const v = getValue(c);
-    if (typeof v === 'number') rows.push({ iso3: c.iso3, name: c.name, iso2: c.iso2, value: v });
-  }
-  rows.sort((a, b) => (ascending ? a.value - b.value : b.value - a.value));
+  const rows = useMemo(() => {
+    const rows: Row[] = [];
+    for (const c of countries) {
+      const v = getValue(c);
+      if (typeof v === 'number') rows.push({ iso3: c.iso3, name: c.name, iso2: c.iso2, value: v });
+    }
+    rows.sort((a, b) => (ascending ? a.value - b.value : b.value - a.value));
+    return rows;
+  }, [countries, getValue, ascending]);
 
   const values = rows.map((r) => r.value);
   const min = values.length ? Math.min(...values) : 0;
@@ -68,7 +71,7 @@ export function RankingList({ countries, getValue, format, ascending, label, sel
                 >
                   <span className="rank-row__bar" style={{ width: `${Math.max(2, w)}%` }} />
                   <span className="rank-row__pos">{i + 1}</span>
-                  <span className="rank-row__flag">{flagEmoji(r.iso2)}</span>
+                  <Flag iso2={r.iso2} className="rank-row__flag" />
                   <span className="rank-row__name">{r.name}</span>
                   <span className="rank-row__val">{format(r.value)}</span>
                 </button>
@@ -79,4 +82,4 @@ export function RankingList({ countries, getValue, format, ascending, label, sel
       )}
     </div>
   );
-}
+});

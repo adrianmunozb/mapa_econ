@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-20T08:02:30.665Z",
+  "note": "Headless Chromium, development build, local empty basemap; frame timings are smoke evidence, not a hardware-independent FPS guarantee.",
+  "world": {
+    "layers": [
+      "background",
+      "country-fill",
+      "country-fill-fade",
+      "country-border",
+      "country-selected"
+    ]
+  },
+  "worldResults": {
+    "setDataCalls": [],
+    "frameP95Ms": 483.2999999999993,
+    "frames": 70
+  },
+  "region": {
+    "layers": [
+      "background",
+      "region-fill",
+      "region-fill-fade",
+      "region-border",
+      "region-selected"
+    ]
+  },
+  "regionalResults": {
+    "setDataCalls": [],
+    "fillLayers": [
+      {
+        "id": "region-fill",
+        "paint": {
+          "fill-color": [
+            "case",
+            [
+              "has",
+              "gdpTotalUsd"
+            ],
+            [
+              "interpolate",
+              [
+                "linear"
+              ],
+              [
+                "get",
+                "gdpTotalUsd"
+              ],
+              3791396606.7110996,
+              "#16385a",
+              20240001250.098682,
+              "#1f6f8b",
+              36542490614.93325,
+              "#2aa39a",
+              51823075231.01802,
+              "#5cc26b",
+              101981495209.85895,
+              "#a9d949",
+              268801208591.29523,
+              "#f4e733"
+            ],
+            "#27314d"
+          ],
+          "fill-color-transition": {
+            "duration": 0,
+            "delay": 0
+          },
+          "fill-opacity": 0,
+          "fill-opacity-transition": {
+            "duration": 220,
+            "delay": 0
+          }
+        }
+      },
+      {
+        "id": "region-fill-fade",
+        "paint": {
+          "fill-color": [
+            "case",
+            [
+              "has",
+              "population"
+            ],
+            [
+              "interpolate",
+              [
+                "linear"
+              ],
+              [
+                "get",
+                "population"
+              ],
+              169518,
+              "#16385a",
+              622624,
+              "#1f6f8b",
+              1214693.2,
+              "#2aa39a",
+              2149279.4,
+              "#5cc26b",
+              3610252.2000000007,
+              "#a9d949",
+              8427405,
+              "#f4e733"
+            ],
+            "#27314d"
+          ],
+          "fill-color-transition": {
+            "duration": 0,
+            "delay": 0
+          },
+          "fill-opacity": 0.87,
+          "fill-opacity-transition": {
+            "duration": 220,
+            "delay": 0
+          }
+        }
+      }
+    ]
+  },
+  "checks": {
+    "noGeometryReload": true,
+    "reducedMotion": true,
+    "reusedOnReturn": true,
+    "reusedOnDrilldown": true
+  },
+  "errors": []
+}

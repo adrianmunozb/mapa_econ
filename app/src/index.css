@@ -12,6 +12,38 @@
   --accent-2: #38d39f;
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
   --radius: 14px;
+  --radius-xs: 4px;
+  --radius-sm: 7px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  --ok: #22c55e;
+  --ok-text: #4ade80;
+  --ok-soft: rgba(34, 197, 94, 0.18);
+  --danger: #ef4444;
+  --danger-text: #f87171;
+  --danger-soft: rgba(239, 68, 68, 0.15);
+  --warn: #ffd166;
+  --warn-soft: rgba(255, 209, 102, 0.14);
+
+  /* Critically damped spring (damping 1.0, response 0.35s), sampled from
+     x(t) = 1 - e^(-wt)(1+wt), w = 2*pi/0.35, 24 points over 0.42s. */
+  --ease-spring: linear(0.0000 0.0%, 0.0401 4.2%, 0.1313 8.3%, 0.2431 12.5%, 0.3577 16.7%,
+    0.4656 20.8%, 0.5620 25.0%, 0.6452 29.2%, 0.7154 33.3%, 0.7736 37.5%, 0.8210 41.7%,
+    0.8594 45.8%, 0.8900 50.0%, 0.9144 54.2%, 0.9336 58.3%, 0.9487 62.5%, 0.9605 66.7%,
+    0.9696 70.8%, 0.9767 75.0%, 0.9822 79.2%, 0.9864 83.3%, 0.9896 87.5%, 0.9921 91.7%,
+    0.9940 95.8%, 1.0000 100.0%);
+  --ease-spring-duration: 0.42s;
+
+  /* Material weight encodes hierarchy: thin = discreet floating badge,
+     regular = structural panel, thick = alert/modal emphasis layer. */
+  --material-thin-bg: rgba(10, 21, 38, 0.85);
+  --material-thin-blur: 8px;
+  --material-regular-bg: rgba(20, 27, 46, 0.92);
+  --material-regular-blur: 12px;
+  --material-thick-bg: rgba(10, 13, 23, 0.96);
+  --material-thick-blur: 16px;
 
   color-scheme: dark;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
@@ -59,6 +91,24 @@ a:hover {
 button {
   font: inherit;
   cursor: pointer;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --material-thin-bg: rgb(10, 21, 38);
+    --material-thin-blur: 0px;
+    --material-regular-bg: rgb(20, 27, 46);
+    --material-regular-blur: 0px;
+    --material-thick-bg: rgb(10, 13, 23);
+    --material-thick-blur: 0px;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --panel-border: rgba(255, 255, 255, 0.35);
+    --text-faint: #c3cbdc;
+  }
 }
 
 /* Thin, unobtrusive scrollbars inside panels */

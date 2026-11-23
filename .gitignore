@@ -4,6 +4,7 @@ app/node_modules/
 
 # Build output
 app/dist/
+app/.news-cache/
 dist/
 
 # Python

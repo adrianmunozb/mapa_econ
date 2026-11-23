@@ -1,0 +1,17 @@
+.bond-curve__intro, .bond-curve__method { color: #a7b6ca; font-size: 11px; line-height: 1.5; margin: 6px 0; }
+.bond-curve__summary { display: flex; flex-direction: column; gap: 8px; font-size: 11px; color: #b7c6dc; }
+.bond-curve__summary strong { font-size: 20px; color: #66e1d4; font-variant-numeric: tabular-nums; }
+.bond-curve svg { width: 100%; display: block; margin-top: 8px; overflow: visible; }
+.bond-curve svg text { fill: #a7b6ca; font-size: 10px; }
+.bond-curve__grid { stroke: #8ca7c5; stroke-opacity: .17; stroke-dasharray: 3 4; }
+.bond-curve__points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin: 10px 0; }
+.bond-point { display: flex; flex-direction: column; gap: 3px; background: #122538; color: #c5d4e6; border: 1px solid #2b415b; border-radius: 7px; padding: 8px 4px; cursor: pointer; font-size: 11px; }
+.bond-point strong { font-variant-numeric: tabular-nums; font-size: 13px; }
+.bond-point:hover, .bond-point--active { border-color: #57d9ce; background: #183a42; color: #93f3e7; }
+.bond-point:focus-visible { outline: 2px solid #f4cf77; outline-offset: 2px; }
+.bond-curve__source { color: #82c9ff; font-size: 11px; overflow-wrap: anywhere; }
+.bond-curve__slope { color: #66e1d4; font-size: 11px; }
+.bond-curve__slope--inverted { color: #ffb48d; }
+.bond-curve__notice { font-size: 12px; line-height: 1.5; color: #d5c499; padding: 10px; background: #cda6500d; border-radius: 6px; }
+.bond-controls { display: flex; flex-direction: column; gap: 7px; border: 1px solid #37516a; border-radius: 8px; padding: 10px; margin-top: 8px; }
+.bond-controls p { font-size: 11px; line-height: 1.5; margin: 0; color: #acbdd1; }

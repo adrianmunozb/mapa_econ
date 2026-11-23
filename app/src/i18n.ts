@@ -1,31 +1,21 @@
 import { createContext, useContext } from 'react';
 import type { MetricMeta } from './types';
 
-export type Lang = 'en' | 'de';
+export type Lang = 'en';
 
 export const STORAGE_KEY = 'wem-lang';
 
-export const LOCALES: Record<Lang, string> = { en: 'en-US', de: 'de-DE' };
+export const LOCALES: Record<Lang, string> = { en: 'en-US' };
 
-export const DOMAIN_LABELS: Record<Lang, Record<string, string>> = {
-  en: {
-    economy: 'Economy',
-    social: 'Society',
-    health: 'Health',
-    demographics: 'Demographics',
-    environment: 'Environment',
-    infrastructure: 'Infrastructure',
-    trade: 'Trade',
-  },
-  de: {
-    economy: 'Wirtschaft',
-    social: 'Soziales',
-    health: 'Gesundheit',
-    demographics: 'Demografie',
-    environment: 'Umwelt',
-    infrastructure: 'Infrastruktur',
-    trade: 'Handel',
-  },
+export const DOMAIN_LABELS: Record<string, string> = {
+  economy: 'Economy',
+  social: 'Society',
+  health: 'Health',
+  demographics: 'Demographics',
+  environment: 'Environment',
+  infrastructure: 'Infrastructure',
+  trade: 'Trade',
+  governance: 'Governance',
 };
 
 // Legacy German month abbreviations (pre-ISO data files) → English.
@@ -34,7 +24,7 @@ const EN_MONTHS: Record<string, string> = {
   Jul: 'Jul', Aug: 'Aug', Sep: 'Sep', Okt: 'Oct', Nov: 'Nov', Dez: 'Dec',
 };
 
-const STRINGS_EN = {
+export const STRINGS_EN = {
   loading: 'Loading data …',
   loadError: 'Error loading: {error}',
   brandSub: 'Country indicators & reported regional data · every number with its source',
@@ -49,8 +39,11 @@ const STRINGS_EN = {
   hintChange: 'red ↓ · blue ↑',
   tradeFlowsOn: '🔗 Trade flows on',
   tradeFlowsOff: '🔗 Trade flows off',
-  arcsHintSelected: 'Arcs show exports of the selected country.',
-  arcsHintNone: 'Select a country → top export partners shown as arcs.',
+  arcsHintSelected: 'Amber arcs: exports reported by the selected country. Violet arcs: imports inferred from partners’ reported exports.',
+  arcsHintNone: 'No export or partner-reported import flows are available for this country.',
+  tradeDirection: 'Trade flow direction',
+  tradeExports: 'Exports',
+  tradeImports: 'Imports (partner-reported)',
   ranking: 'Ranking',
   biggestChange: 'Biggest change',
   noData: 'No data',
@@ -59,7 +52,7 @@ const STRINGS_EN = {
   compareTitle: 'Compare countries',
   close: 'Close',
   metricCol: 'Metric',
-  compareFooter: 'Best value per row highlighted in green · Source: World Bank Open Data (CC BY 4.0)',
+  compareFooter: 'Best value per row highlighted in green · Source: World Bank',
   noOfficialData: 'No official data available for this area.',
   inCompare: '✓ In comparison',
   compareFull: 'Comparison full (max 4)',
@@ -68,7 +61,7 @@ const STRINGS_EN = {
   topExportPartners: 'Top export partners ({year})',
   goTo: 'Go to {name}',
   topExportGoods: 'Top export goods ({year})',
-  sourcesFooter: 'Sources: World Bank · IMF · BIS · UN Comtrade · regional data: DOSE · regional boundaries: geoBoundaries · countries: Natural Earth',
+  sourcesFooter: 'Sources: World Bank · IMF · BIS · UN Comtrade · Regional & National Statistical Offices',
   compareBar: 'Compare',
   remove: 'Remove',
   compareBtn: 'Compare ({n})',
@@ -84,65 +77,11 @@ const STRINGS_EN = {
   regionalNoDataRegion: 'No macro data have been matched to this boundary.',
   regionalSelectRegion: 'Select a region',
   regionalMacroData: 'Macro data',
-  regionalSourceNote: 'Reported data · DOSE v2.11 · up to 2020. Years vary by region. USD GDP totals are calculated from reported GDP per capita × population. Boundaries: geoBoundaries (CC BY 4.0).',
+  regionalSourceNote: 'Reported regional data up to 2020. USD GDP totals calculated from reported GDP per capita × population.',
   regionalHint: 'Regional GDP and population · reported values through 2020',
 };
 
-const STRINGS_DE: typeof STRINGS_EN = {
-  loading: 'Daten werden geladen …',
-  loadError: 'Fehler beim Laden: {error}',
-  brandSub: 'Länderindikatoren & gemeldete Regionaldaten · jede Zahl mit Quelle',
-  metricPickerLabel: 'Kennzahl (Heatmap)',
-  viewCurrent: 'Aktuell',
-  viewChange: 'Entwicklung',
-  period: 'Zeitraum',
-  since2004: 'seit 2004 (20 Jahre)',
-  since2014: 'seit 2014 (10 Jahre)',
-  changeSince: 'Veränderung seit {year}',
-  hintCurrent: 'heller = höher',
-  hintChange: 'rot ↓ · blau ↑',
-  tradeFlowsOn: '🔗 Handelsströme an',
-  tradeFlowsOff: '🔗 Handelsströme aus',
-  arcsHintSelected: 'Bögen zeigen Exporte des gewählten Landes.',
-  arcsHintNone: 'Land wählen → Top-Exportpartner als Bögen.',
-  ranking: 'Rangliste',
-  biggestChange: 'Größte Veränderung',
-  noData: 'keine Daten',
-  countries: 'Länder',
-  rank: 'Platz',
-  compareTitle: 'Ländervergleich',
-  close: 'Schließen',
-  metricCol: 'Kennzahl',
-  compareFooter: 'Bester Wert je Zeile grün hervorgehoben · Quelle: World Bank Open Data (CC BY 4.0)',
-  noOfficialData: 'Für dieses Gebiet liegen keine offiziellen Daten vor.',
-  inCompare: '✓ Im Vergleich',
-  compareFull: 'Vergleich voll (max. 4)',
-  addCompare: '＋ Zum Vergleich hinzufügen',
-  trendOf: 'Entwicklung · {label}',
-  topExportPartners: 'Top-Exportpartner ({year})',
-  goTo: 'Zu {name}',
-  topExportGoods: 'Top-Exportgüter ({year})',
-  sourcesFooter: 'Quellen: World Bank · IMF · BIS · UN Comtrade · Regionaldaten: DOSE · Regionsgrenzen: geoBoundaries · Länder: Natural Earth',
-  compareBar: 'Vergleich',
-  remove: 'Entfernen',
-  compareBtn: 'Vergleichen ({n})',
-  clear: 'Leeren',
-  searchPlaceholder: '🔍  Land suchen …',
-  trendAria: 'Verlauf {label}',
-  language: 'Sprache',
-  regionalMetricPicker: 'Kennzahl der Regionskarte',
-  regionalBack: '← Weltkarte',
-  regionalOpen: 'Regionskarte öffnen · {count} Regionen',
-  regionalCoverage: 'Makrodaten für {matched} von {total} gemeldeten Regionen zugeordnet. Nicht zugeordnete Gebiete sind grau.',
-  regionalNoDataCountry: 'Für dieses Land liegen noch keine regionalen Makrodaten vor.',
-  regionalNoDataRegion: 'Dieser Gebietsgrenze konnten keine Makrodaten zugeordnet werden.',
-  regionalSelectRegion: 'Region auswählen',
-  regionalMacroData: 'Makrodaten',
-  regionalSourceNote: 'Gemeldete Daten · DOSE v2.11 · bis 2020. Die Jahre variieren nach Region. USD-BIP-Gesamtwerte werden aus gemeldetem BIP pro Kopf × Bevölkerung berechnet. Grenzen: geoBoundaries (CC BY 4.0).',
-  regionalHint: 'Regionales BIP und Bevölkerung · gemeldete Werte bis 2020',
-};
-
-export const STRINGS: Record<Lang, typeof STRINGS_EN> = { en: STRINGS_EN, de: STRINGS_DE };
+export const STRINGS: Record<Lang, typeof STRINGS_EN> = { en: STRINGS_EN };
 
 export type Strings = typeof STRINGS_EN;
 
@@ -151,27 +90,26 @@ export function fmt(template: string, vars: Record<string, string | number>): st
   return template.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? String(vars[k]) : `{${k}}`));
 }
 
-/** English (default) or German label for a metric. */
-export function metricLabel(m: MetricMeta, lang: Lang): string {
-  return lang === 'de' ? m.label : (m.labelEn ?? m.label);
+/** English label for a metric. */
+export function metricLabel(m: MetricMeta, _lang?: Lang): string {
+  return m.labelEn ?? m.label;
 }
-export function metricShortLabel(m: MetricMeta, lang: Lang): string {
-  return lang === 'de' ? (m.shortLabel ?? m.label) : (m.shortLabelEn ?? m.labelEn ?? m.label);
+export function metricShortLabel(m: MetricMeta, _lang?: Lang): string {
+  return m.shortLabelEn ?? m.labelEn ?? m.label;
 }
-export function metricUnit(m: MetricMeta, lang: Lang): string {
-  return lang === 'de' ? m.unit : (m.unitEn ?? m.unit);
+export function metricUnit(m: MetricMeta, _lang?: Lang): string {
+  return m.unitEn ?? m.unit;
 }
-export function metricDescription(m: MetricMeta, lang: Lang): string {
-  return lang === 'de' ? m.description : (m.descriptionEn ?? m.description);
-}
-
-export function domainLabel(domain: string, lang: Lang): string {
-  return DOMAIN_LABELS[lang][domain] ?? domain;
+export function metricDescription(m: MetricMeta, _lang?: Lang): string {
+  return m.descriptionEn ?? m.description;
 }
 
-/** Format a data period for display. The pipeline emits ISO months ("2026-05"), shown in
- *  the UI language ("May 2026" / "Mai 2026"). Legacy German labels ("Mär 2026") are still
- *  translated so older data files keep working. */
+export function domainLabel(domain: string, _lang?: Lang): string {
+  return DOMAIN_LABELS[domain] ?? domain;
+}
+
+/** Format a data period for display. The pipeline emits ISO months ("2026-05"), shown as
+ *  "May 2026". Legacy German labels ("Mär 2026") are still translated for older data files. */
 export function tPeriod(period: string | undefined, lang: Lang): string | undefined {
   if (!period) return period;
   const iso = /^(\d{4})-(\d{2})$/.exec(period);
@@ -179,7 +117,6 @@ export function tPeriod(period: string | undefined, lang: Lang): string | undefi
     const date = new Date(Date.UTC(Number(iso[1]), Number(iso[2]) - 1, 1));
     return new Intl.DateTimeFormat(LOCALES[lang], { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date);
   }
-  if (lang === 'de') return period;
   return period.replace(/^(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)\b/, (m) => EN_MONTHS[m] ?? m);
 }
 

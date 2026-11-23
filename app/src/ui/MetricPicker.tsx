@@ -1,9 +1,11 @@
 import type { MetricMeta } from '../types';
 import { domainLabel, useLang } from '../i18n';
+import { bondMetricId, isBondMetric } from '../data/bonds';
 
 const DOMAIN_ORDER = [
   'economy',
   'social',
+  'governance',
   'health',
   'demographics',
   'environment',
@@ -21,7 +23,7 @@ export function MetricPicker({ metrics, value, onChange }: Props) {
   const { lang, t } = useLang();
   const groups = DOMAIN_ORDER.map((domain) => ({
     domain,
-    items: metrics.filter((m) => m.domain === domain),
+    items: metrics.filter((m) => m.domain === domain && (!isBondMetric(m.id) || m.id === (isBondMetric(value) ? value : bondMetricId(120)))),
   })).filter((g) => g.items.length > 0);
 
   return (
@@ -32,7 +34,7 @@ export function MetricPicker({ metrics, value, onChange }: Props) {
           <optgroup key={g.domain} label={domainLabel(g.domain, lang)}>
             {g.items.map((m) => (
               <option key={m.id} value={m.id}>
-                {lang === 'de' ? m.label : (m.labelEn ?? m.label)}
+                {m.labelEn ?? m.label}
               </option>
             ))}
           </optgroup>

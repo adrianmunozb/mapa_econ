@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { CountryData } from '../types';
-import { flagEmoji } from '../lib/flag';
+import { Flag } from './Flag';
 import { useLang } from '../i18n';
 
 interface Props {
@@ -49,7 +49,7 @@ export function SearchBox({ countries, onPick }: Props) {
           {results.map((c) => (
             <li key={c.iso3}>
               <button className="search__row" onMouseDown={() => pick(c.iso3)}>
-                <span className="search__flag">{flagEmoji(c.iso2)}</span>
+                <Flag iso2={c.iso2} className="search__flag" />
                 <span className="search__name">{c.name}</span>
                 <span className="search__region">{c.region}</span>
               </button>

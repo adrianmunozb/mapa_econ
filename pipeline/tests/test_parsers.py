@@ -60,7 +60,7 @@ class CatalogTest(unittest.TestCase):
         for m in ALL_METRICS:
             self.assertTrue(m.indicator_code and m.label and m.label_en and m.description_en, m.id)
             self.assertIn(m.format, {"currency", "number", "percent", "years", "index"}, m.id)
-            self.assertIn(m.domain, {"economy", "health", "social", "demographics", "environment", "infrastructure", "trade"}, m.id)
+            self.assertIn(m.domain, {"economy", "health", "social", "demographics", "environment", "infrastructure", "trade", "governance"}, m.id)
         pool = ProviderPool(http=None)
         for name in {m.provider for m in ALL_METRICS}:
             self.assertTrue(pool.get(name).source.name)

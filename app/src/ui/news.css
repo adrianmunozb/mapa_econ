@@ -1,0 +1,66 @@
+.news-controls { margin-top: 12px; border-top: 1px solid #ffffff1a; padding-top: 12px; }
+.news-toggle { width: 100%; display: flex; align-items: center; gap: 8px; }
+.news-toggle > span:last-child { margin-left: auto; font-size: 10px; }
+.news-dot { width: 8px; height: 8px; border-radius: 50%; background: #fa5555; box-shadow: 0 0 9px #ff474780; }
+.news-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; margin: 14px 0 10px; color: #f3c7c3; }
+.news-heading > span, .news-caption { font-size: 11px; color: #aeb9c8; line-height: 1.6; }
+.news-window { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; }
+.news-window select { background: #152334; border: 1px solid #ffffff25; color: #e5edf6; border-radius: 6px; padding: 5px; }
+.news-import { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.news-import input { display: block; max-width: 220px; margin-top: 6px; font-size: 10px; }
+.news-caption summary { cursor: pointer; }
+.news-warning, .news-empty { color: #f8bc84; font-size: 12px; line-height: 1.6; }
+.news-ranking { max-height: 190px; overflow-y: auto; margin-top: 10px; }
+.news-country { display: flex; gap: 8px; align-items: center; width: 100%; background: transparent; border: 0; border-bottom: 1px solid #ffffff12; color: #d8e5ef; text-align: left; padding: 9px 4px; cursor: pointer; font-size: 12px; }
+.news-country > span:first-child { flex: 1; }
+.news-country--active, .news-country:hover { background: #f45e491a; color: #ffc7bc; }
+.news-meter { width: 60px; height: 4px; background: #ffffff10; border-radius: 6px; overflow: hidden; }
+.news-meter i { display: block; background: linear-gradient(90deg,#fa9e55,#ff4545); height: 100%; }
+.news-stories { margin-top: 12px; border-top: 1px solid #ff787833; }
+.news-stories article { padding: 10px 0; border-bottom: 1px solid #ffffff12; }
+.news-stories a { color: #ebeff8; font-size: 12px; line-height: 1.6; text-decoration: none; }
+.news-stories a:hover { text-decoration: underline; }
+.news-stories small { display: block; color: #9aaabc; font-size: 10px; margin-top: 5px; }
+.news-marker { border: 1px solid #ffd4c9; border-radius: 50%; color: white; font-size: 12px; font-weight: 700; cursor: pointer; box-shadow: 0 0 0 7px #ff514124, 0 0 25px #ff453d66; transition: width .3s,height .3s,box-shadow .2s; }
+.news-marker:hover, .news-marker--selected { box-shadow: 0 0 0 10px #ff51413d, 0 0 32px #ff453d99; outline: 2px solid #fff; outline-offset: 3px; }
+.news-marker:focus-visible, .news-country:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .news-marker { transition: none; } }
+.news-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin: 12px 0; }
+.news-stats span { background: #ffffff06; border: 1px solid #ffffff0e; border-radius: 8px; padding: 9px 3px; text-align: center; color: #9eafc0; font-size: 9px; }
+.news-stats b { display: block; color: #f5dfbe; font-size: 21px; margin-bottom: 4px; }
+.news-filters { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.news-filters .news-window { display: grid; gap: 6px; }
+.news-geography { margin-top: 10px; }
+.news-controls select { max-width: 190px; min-width: 0; }
+.news-history { border: 1px solid #ffffff15; border-radius: 9px; padding: 0 10px 10px; background: #ffffff03; }
+.news-history input { display: block; width: 100%; accent-color: #eda759; margin: 10px 0; }
+.news-days { display: flex; gap: 5px; align-items: end; padding: 4px 0 10px; }
+.news-days button { display: grid; gap: 5px; flex: 1; height: 58px; align-content: end; justify-items: center; border: 0; background: transparent; color: #9eafc0; cursor: pointer; }
+.news-days i { width: 100%; max-width: 22px; background: #b17735; border-radius: 3px; }
+.news-days button:hover i { background: #f0b05e; }
+.news-days small { font-size: 9px; }
+.news-key { display: flex; flex-wrap: wrap; gap: 9px; margin: 12px 0 6px; font-size: 9px; color: #b8c1cd; }
+.news-key span { display: flex; align-items: center; gap: 5px; }
+.news-key i { width: 7px; height: 7px; border-radius: 50%; background: #c98228; }
+.news-key .news-key__volume { width: 24px; border-radius: 3px; background: linear-gradient(90deg, rgb(255,226,58), rgb(255,140,32), rgb(239,44,44)); }
+.news-key .news-key__surge { background: transparent; border: 2px solid #ffe2c2; }
+.news-key .news-key__new { background: transparent; border: 1px solid #ffd7a3; box-shadow: 0 0 4px #edb36b; }
+.news-source-panel, .news-import-panel { color: #c6d2df; font-size: 11px; margin-top: 12px; border-top: 1px solid #ffffff15; padding-top: 10px; }
+.news-source-panel summary, .news-import-panel summary { cursor: pointer; margin-bottom: 8px; }
+.news-source { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; border-bottom: 1px solid #ffffff0c; padding: 9px 0; }
+.news-source label { flex: 1; display: flex; align-items: center; gap: 6px; }
+.news-source > span { color: #99c6a7; font-size: 9px; }
+.news-source > .news-source--error { color: #f4bb75; }
+.news-source small { flex-basis: 100%; font-size: 9px; color: #94a5b8; line-height: 1.5; }
+.news-source a { color: #b9d8f8; font-size: 9px; }
+.news-country small { display: block; font-size: 9px; color: #93a4b6; margin-top: 5px; }
+.news-country .news-trend--up { color: #ff8c7c; }
+.news-event { border: 1px solid #ffffff14; border-radius: 8px; padding: 10px; margin: 8px 0; }
+.news-event summary { cursor: pointer; font-size: 12px; color: #e0e8ef; line-height: 1.6; }
+.news-event summary > small { display: block; color: #b99a72; font-size: 10px; margin-top: 5px; }
+.news-marker--fresh { animation: news-arrival 2s ease-out 3; }
+.news-marker { box-shadow: 0 0 0 6px #f3a94922, 0 0 23px #e49c3b55; }
+.news-marker--surge { border: 3px solid #ffe2c2; box-shadow: 0 0 0 7px #ff514124, 0 0 25px #ff453d66; }
+@keyframes news-arrival { 0% { box-shadow: 0 0 0 0 #ffc98caa; } 100% { box-shadow: 0 0 0 18px #ffc98c00; } }
+.news-days button:focus-visible, .news-controls summary:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .news-marker--fresh { animation: none; } }

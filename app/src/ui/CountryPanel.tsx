@@ -1,9 +1,13 @@
+import { memo, useEffect, useState } from 'react';
 import type { CountryData, MetricMeta, ProductEntry } from '../types';
 import type { YearMap } from '../lib/timeseries';
 import { formatValueWithUnit, formatUsdCompact } from '../lib/format';
-import { flagEmoji } from '../lib/flag';
+import { Flag } from './Flag';
 import { fmt, domainLabel, metricLabel, tPeriod, useLang } from '../i18n';
 import { TrendChart } from './TrendChart';
+import { getCountryTimeInfo } from '../data/markets';
+import { YieldCurve } from './YieldCurve';
+import type { BondCurve } from '../data/bonds';
 
 export interface TradeSummaryPartner {
   iso3: string;
@@ -35,9 +39,12 @@ interface Props {
   regionalDataLoaded?: boolean;
   regionalRegionCount?: number;
   onExploreRegions?: () => void;
+  bondCurve?: BondCurve;
+  bondMaturity: number;
+  onPickBondMaturity: (months: number) => void;
 }
 
-export function CountryPanel({
+export const CountryPanel = memo(function CountryPanel({
   country,
   metrics,
   activeMetricId,
@@ -54,6 +61,9 @@ export function CountryPanel({
   regionalDataLoaded = false,
   regionalRegionCount,
   onExploreRegions,
+  bondCurve,
+  bondMaturity,
+  onPickBondMaturity,
 }: Props) {
   const { lang, t } = useLang();
 
@@ -68,6 +78,7 @@ export function CountryPanel({
     );
   }
 
+
   // Group metrics by domain for readability, preserving catalog order.
   const domains: string[] = [];
   for (const m of metrics) if (!domains.includes(m.domain)) domains.push(m.domain);
@@ -79,7 +90,7 @@ export function CountryPanel({
       </button>
 
       <div className="panel__head">
-        <span className="panel__flag">{flagEmoji(country.iso2)}</span>
+        <Flag iso2={country.iso2} className="panel__flag" />
         <div>
           <h2 className="panel__name">{country.name}</h2>
           <p className="panel__meta">
@@ -87,6 +98,11 @@ export function CountryPanel({
           </p>
         </div>
       </div>
+
+      <CountryClock iso3={country.iso3} />
+
+      <YieldCurve key={country.iso3} curve={bondCurve} countryName={country.name}
+        months={bondMaturity} onPickMaturity={onPickBondMaturity} />
 
       <button
         className="btn btn--compare"
@@ -157,7 +173,7 @@ export function CountryPanel({
                       className="trade-row__bar"
                       style={{ width: `${Math.max(3, (p.share / maxShare) * 100)}%` }}
                     />
-                    <span className="trade-row__flag">{flagEmoji(p.iso2)}</span>
+                    <Flag iso2={p.iso2} className="trade-row__flag" />
                     <span className="trade-row__name">{p.name}</span>
                     <span className="trade-row__val">{formatUsdCompact(p.value, lang)}</span>
                     <span className="trade-row__share">{p.share.toFixed(0)}%</span>
@@ -197,4 +213,36 @@ export function CountryPanel({
       <div className="panel__source">{t.sourcesFooter}</div>
     </aside>
   );
-}
+});
+
+// A clock tick must not rebuild every metric row and the historical chart.
+const CountryClock = memo(function CountryClock({ iso3 }: { iso3: string }) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const sync = () => {
+      clearInterval(timer);
+      if (!document.hidden) timer = setInterval(() => setNow(new Date()), 1000);
+    };
+    document.addEventListener('visibilitychange', sync);
+    sync();
+    return () => { clearInterval(timer); document.removeEventListener('visibilitychange', sync); };
+  }, []);
+  const info = getCountryTimeInfo(iso3, now);
+  if (!info) return null;
+  return <div className="panel__clock-card">
+    <div className="panel__clock-row">
+      <span className="panel__clock-icon">🕒</span>
+      <div className="panel__clock-details">
+        <span className="panel__clock-city">{info.capital}</span>
+        <span className="panel__clock-time">{info.localTime}</span>
+      </div>
+    </div>
+    {info.market && info.marketStatus && <div className="panel__clock-market">
+      <span className="panel__clock-market-name">{info.market.shortName} ({info.market.indexName})</span>
+      <span className={`panel__clock-market-pill ${info.marketStatus.isOpen ? 'pill--open' : 'pill--closed'}`}>
+        {info.marketStatus.isOpen ? '🟢 MERCADO ABIERTO' : `🔴 ${info.marketStatus.statusText}`}
+      </span>
+    </div>}
+  </div>;
+});

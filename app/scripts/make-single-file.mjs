@@ -39,7 +39,7 @@ if (!existsSync(indexHtml)) {
 
 let html = readFileSync(indexHtml, 'utf-8');
 
-// 1) Inline every referenced JS chunk (single chunk thanks to inlineDynamicImports).
+// 1) Inline every referenced JS chunk (single chunk with codeSplitting disabled).
 const scriptRe = /<script([^>]*)\bsrc="([^"]+\.js)"([^>]*)><\/script>/g;
 html = html.replace(scriptRe, (_m, pre, src, post) => {
   const file = resolve(DIST, src.replace(/^\//, ''));

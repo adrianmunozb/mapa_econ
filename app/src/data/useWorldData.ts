@@ -25,12 +25,12 @@ export function useWorldData(regionalIso3: string | null): WorldData {
   const [timeseriesIndex, setTimeseriesIndex] = useState<TimeseriesIndex | null>(null);
   const [products, setProducts] = useState<TradeProductsData | null>(null);
   const [regionalIndex, setRegionalIndex] = useState<RegionalIndex | null>(null);
-  // Tagged with its country so a stale load is ignored without resetting state in an effect.
-  const [regionalAsset, setRegionalAsset] = useState<{
+  const [regionalResult, setRegionalResult] = useState<{
     iso3: string;
     geometry: unknown;
-    data: RegionalCountryData;
+    country: RegionalCountryData;
   } | null>(null);
+  const [regionalError, setRegionalError] = useState<{ iso3: string; message: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -71,22 +71,21 @@ export function useWorldData(regionalIso3: string | null): WorldData {
 
   useEffect(() => {
     let alive = true;
-    if (!regionalIso3) return () => { alive = false; };
+    if (!regionalIso3 || !regionalIndex?.countries[regionalIso3]) return;
     Promise.all([
       loadRegionGeometry(regionalIso3),
       loadRegionData(regionalIso3),
     ])
       .then(([geometry, regional]) => {
         if (!alive) return;
-        setRegionalAsset({ iso3: regionalIso3, geometry, data: regional });
+        setRegionalResult({ iso3: regionalIso3, geometry, country: regional });
+        setRegionalError(null);
       })
       .catch((e) => {
-        if (alive) setError(e instanceof Error ? e.message : String(e));
+        if (alive) setRegionalError({ iso3: regionalIso3, message: e instanceof Error ? e.message : String(e) });
       });
     return () => { alive = false; };
-  }, [regionalIso3]);
-
-  const regional = regionalAsset && regionalAsset.iso3 === regionalIso3 ? regionalAsset : null;
+  }, [regionalIso3, regionalIndex]);
 
   return {
     snapshot,
@@ -95,8 +94,8 @@ export function useWorldData(regionalIso3: string | null): WorldData {
     timeseriesIndex,
     products,
     regionalIndex,
-    regionalGeometry: regional?.geometry ?? null,
-    regionalCountryData: regional?.data ?? null,
-    error,
+    regionalGeometry: regionalResult?.iso3 === regionalIso3 ? regionalResult.geometry : null,
+    regionalCountryData: regionalResult?.iso3 === regionalIso3 ? regionalResult.country : null,
+    error: regionalError?.iso3 === regionalIso3 ? regionalError.message : error,
   };
 }

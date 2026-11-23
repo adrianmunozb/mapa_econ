@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-20T07:54:37.851Z",
+  "scenario": "Headless Chromium dev build, local basemap, 1280x800. Click-to-first-deck-frame; includes driver/shader initialization and host scheduling. No external APIs.",
+  "runs": [
+    {
+      "index": 0,
+      "start": 4530.600000023842,
+      "staticMs": 71.69999998807907,
+      "flowMs": 3635.399999976158,
+      "frames": 4
+    },
+    {
+      "index": 1,
+      "start": 9193.800000011921,
+      "staticMs": 38.89999997615814,
+      "flowMs": 188,
+      "frames": 3
+    },
+    {
+      "index": 2,
+      "start": 10165.399999976158,
+      "staticMs": 44.40000003576279,
+      "flowMs": 148.5,
+      "frames": 3
+    }
+  ],
+  "errors": []
+}

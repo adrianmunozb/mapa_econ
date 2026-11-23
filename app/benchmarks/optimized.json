@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "reference": false,
+  "date": "2026-10-19T22:59:23.724Z",
+  "node": "v24.19.0",
+  "platform": "win32 x64",
+  "cpu": "Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz",
+  "fixtures": {
+    "cables": 14,
+    "denseVertices": 11854,
+    "countries": 242
+  },
+  "results": [
+    {
+      "name": "cable-frame",
+      "medianMs": 0.03390937500000035,
+      "p95Ms": 0.3611296875000001,
+      "budgetMs": 0.5,
+      "iterations": 64
+    },
+    {
+      "name": "cable-frame-dense",
+      "medianMs": 0.0705519531249994,
+      "p95Ms": 0.13631328125000053,
+      "budgetMs": 2,
+      "iterations": 256
+    },
+    {
+      "name": "solar-geometry",
+      "medianMs": 9.179849999999988,
+      "p95Ms": 12.649650000000065,
+      "budgetMs": 25,
+      "iterations": 4
+    },
+    {
+      "name": "country-geometry",
+      "medianMs": 14.446949999999788,
+      "p95Ms": 23.218224999999848,
+      "budgetMs": 100,
+      "iterations": 4
+    },
+    {
+      "name": "market-status-all",
+      "medianMs": 0.3172078125000013,
+      "p95Ms": 0.8504999999999967,
+      "budgetMs": 1,
+      "iterations": 64
+    }
+  ],
+  "sink": 6025895.172714016
+}

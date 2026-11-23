@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-20T12:55:36.708Z",
+  "node": "v24.19.0",
+  "cpu": "Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "results": [
+    {
+      "name": "catalog",
+      "cameras": 2803,
+      "markers": 38,
+      "medianMs": 0.7690000000002328,
+      "p95Ms": 1.5976999999998043
+    },
+    {
+      "name": "10000",
+      "cameras": 10000,
+      "markers": 172,
+      "medianMs": 3.9547999999999774,
+      "p95Ms": 37.77359999999999
+    },
+    {
+      "name": "50000",
+      "cameras": 50000,
+      "markers": 176,
+      "medianMs": 32.483799999999974,
+      "p95Ms": 88.42029999999977
+    }
+  ],
+  "scope": "Local clustering plus Mercator projection; excludes DOM, MapLibre rendering, GPU and browser FPS."
+}

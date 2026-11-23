@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-20T08:00:59.743Z",
+  "browser": "151.0.7922.34",
+  "node": "v24.19.0",
+  "platform": "win32 x64",
+  "cpu": "Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz",
+  "scenario": "Headless Chromium dev build, local basemap, 1280x800. Click-to-first-deck-frame, with a benchmark-only gl.finish() GPU completion fence for animated flow. Includes driver/shader initialization and host scheduling. No external APIs.",
+  "runs": [
+    {
+      "index": 0,
+      "start": 3744.699999988079,
+      "staticMs": 138.30000001192093,
+      "flowMs": 138.5,
+      "frames": 12
+    },
+    {
+      "index": 1,
+      "start": 7800.800000011921,
+      "staticMs": 41.5,
+      "flowMs": 41.5,
+      "frames": 1
+    },
+    {
+      "index": 2,
+      "start": 8206.899999976158,
+      "staticMs": 25.30000001192093,
+      "flowMs": 25.400000035762787,
+      "frames": 1
+    }
+  ],
+  "budgetMs": [
+    500,
+    150,
+    150
+  ],
+  "geometryChecks": [
+    {
+      "updatesDuringAnimation": 0,
+      "sameModel": true
+    }
+  ],
+  "errors": []
+}
