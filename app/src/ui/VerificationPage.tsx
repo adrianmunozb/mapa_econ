@@ -45,7 +45,7 @@ export function VerificationPage({ onClose, onOpenMap }: Props) {
   return (
     <div className="landing vpage" role="dialog" aria-modal="true" aria-labelledby="vpage-title">
       <header className="landing__nav">
-        <button type="button" className="landing__brand vpage__back" onClick={onClose}>← Mapa económico mundial</button>
+        <button type="button" className="landing__brand vpage__back" onClick={onClose}>← Meridiano</button>
         <button type="button" className="ui-button ui-button--primary" onClick={onOpenMap}>Abrir mapa</button>
       </header>
 

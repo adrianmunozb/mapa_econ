@@ -1,4 +1,8 @@
-# 🌍 World Economic Map
+# Meridiano
+
+**Riesgo soberano y economía mundial en un mapa.** Web: https://mapaecon.vercel.app
+
+*(Based on WorldEconomicMap; see credits below.)*
 
 **Interactive global economy and macroeconomic data platform — official data, every indicator traceable to its source.**
 

@@ -724,7 +724,7 @@ export default function App() {
       {sectionId && !regionalIso && (
         <nav className="topbar" aria-label="Navegación principal">
           <button type="button" className="topbar__brand" onClick={() => enterSection(null)} title="Volver a la portada">
-            Mapa económico mundial
+            Meridiano
           </button>
           <div className="topbar__sections">
             {SECTIONS.filter((s) => !s.noTopBar || s.id === section.id).map((s) => (

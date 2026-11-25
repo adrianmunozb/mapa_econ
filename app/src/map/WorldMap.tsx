@@ -98,7 +98,7 @@ function tintBasemap(map: import('maplibre-gl').Map) {
 // single-file build keeps working from file:// without any network access.
 const OFFLINE_STYLE: StyleSpecification = {
   version: 8,
-  name: 'Mapa económico mundial (sin conexión)',
+  name: 'Meridiano (sin conexión)',
   sources: {},
   layers: [
     { id: 'wem-bg', type: 'background', paint: { 'background-color': MAP_THEME.ocean } },

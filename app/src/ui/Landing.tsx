@@ -15,7 +15,7 @@ export function Landing({ countries, stats, updated, onPick, onVerify }: Props) 
   return (
     <div className="landing">
       <header className="landing__nav">
-        <span className="landing__brand">Mapa económico mundial</span>
+        <span className="landing__brand">Meridiano</span>
         <button type="button" className="landing__navlink" onClick={onVerify}>Cómo verificamos los datos</button>
       </header>
 
