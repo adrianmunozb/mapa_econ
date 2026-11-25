@@ -1,1124 +1,1172 @@
 {
-  "generatedAt": "2026-10-20T08:19:18.575803+00:00",
+  "generatedAt": "2026-11-25T17:32:50.513732+00:00",
   "articles": [
     {
-      "title": "Brendan Nugent’s family say Helen Haines has been their friend for more than 20 years",
-      "url": "https://www.theguardian.com/australia-news/2026/oct/20/brendan-nugent-driver-alleged-attack-helen-haines-ntwnfb",
-      "publishedAt": "2026-10-20T08:04:02+00:00",
+      "title": "Images of asteroid targeted to test Earth's defences reveal stadium-sized crater",
+      "url": "https://www.bbc.co.uk/news/articles/cw8dv112r5gmo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T17:30:16+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Trump open to pardoning Jensen Huang if needed: ‘It’s always an option’",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/trump-open-to-pardoning-jensen-huang-nvidia",
+      "publishedAt": "2026-11-25T17:21:10+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "French cities ‘calm overnight’ after targeted curfews, prime minister says – Europe live",
-      "url": "https://www.theguardian.com/world/live/2026/oct/20/france-protests-paris-curfews-italy-europe-ukraine-latest-news-updates",
-      "publishedAt": "2026-10-20T07:56:54+00:00",
+      "title": "US Army calls Iowa lead detonation a ‘huge success’ and says threat of spontaneous explosions has been ‘eliminated’ – as it happened",
+      "url": "https://www.theguardian.com/us-news/live/2026/nov/25/iowa-lead-azide-detonation-army-explosion-bomb-live-updates",
+      "publishedAt": "2026-11-25T17:20:49+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "Badenoch says Healey’s budget will be worse than Reeves’s if he doesn’t slash spending – UK politics live",
-      "url": "https://www.theguardian.com/politics/live/2026/oct/20/kemi-badenoch-john-healey-capital-gains-tax-budget-covid-inquiry-care-homes-uk-politics-latest-news",
-      "publishedAt": "2026-10-20T07:47:46+00:00",
+      "title": "California beaches close as record-breaking tides and major flooding loom",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/california-flooding-high-tides",
+      "publishedAt": "2026-11-25T17:20:26+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "Israel creará brigada espacial para \"vigilar, defender y atacar desde el espacio\"",
-      "url": "https://www.dw.com/es/israel-creará-brigada-espacial-para-vigilar-defender-y-atacar-desde-el-espacio/a-79708640?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-20T07:42:00+00:00",
+      "title": "Does the rise and fall of Raheem Sterling show football is broken? – The Latest",
+      "url": "https://www.theguardian.com/news/audio/2026/nov/25/does-the-rise-and-fall-of-raheem-sterling-show-football-is-broken-the-latest",
+      "publishedAt": "2026-11-25T17:13:12+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Burnham dismisses Badenoch’s criticism over influencer and declines to apologise for ‘vile video’ – UK politics live",
+      "url": "https://www.theguardian.com/politics/live/2026/nov/25/andy-burnham-kemi-badenoch-pmqs-energy-bills-tiktok-welfare-benefits-timms-reform-brexit-devolution-latest-news-updates",
+      "publishedAt": "2026-11-25T17:11:06+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Maduro turns 64 behind bars, son leads celebrations in Caracas",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/maduro-turns-64-behind-bars-son-leads-celebrations-in-caracas?traffic_source=rss",
+      "publishedAt": "2026-11-25T17:05:35+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Los bosques de Alemania se encogen, pero un tipo de árbol resiste",
+      "url": "https://www.dw.com/es/los-bosques-de-alemania-se-encogen-pero-un-tipo-de-árbol-resiste/a-80052365?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T17:03:00+00:00",
       "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "dw"
     },
     {
-      "title": "Getting Ziggy with it: David Bowie’s alter egos inspire dance show that will transform his songs",
-      "url": "https://www.theguardian.com/stage/2026/oct/20/david-bowie-dance-marcos-morau",
-      "publishedAt": "2026-10-20T07:30:19+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Healey to reject calls to raise capital gains tax in budget",
-      "url": "https://www.theguardian.com/uk-news/2026/oct/20/john-healey-no-capital-gains-tax-rise-budget",
-      "publishedAt": "2026-10-20T07:27:40+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Morocco’s not-so-new government faces new challenges",
-      "url": "https://www.aljazeera.com/opinions/2026/10/20/moroccos-not-so-new-government-faces-new-challenges?traffic_source=rss",
-      "publishedAt": "2026-10-20T06:58:03+00:00",
+      "title": "Sporting Lisbon vs Manchester United LIVE: UEFA Champions League",
+      "url": "https://www.aljazeera.com/sports/liveblog/2026/11/25/sporting-lisbon-vs-manchester-united-live-uefa-champions-league?traffic_source=rss",
+      "publishedAt": "2026-11-25T17:01:26+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "US gave us no warning of Russian strikes on Kyiv power plants, Zelenskyy says",
-      "url": "https://www.theguardian.com/world/2026/oct/19/no-us-warning-russian-strikes-kyiv-power-plants-zelenskyy-ukraine-trump",
-      "publishedAt": "2026-10-20T06:47:18+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Alberta voters reject separation from Canada, early results show",
-      "url": "https://www.aljazeera.com/news/2026/10/20/alberta-voters-reject-separation-from-canada-early-results-show?traffic_source=rss",
-      "publishedAt": "2026-10-20T06:37:32+00:00",
+      "title": "Djibouti: The Man Who Dared",
+      "url": "https://www.aljazeera.com/video/al-jazeera-world/2026/11/25/djibouti-the-man-who-dared?traffic_source=rss",
+      "publishedAt": "2026-11-25T17:00:00+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "French cities calm overnight after curfews imposed to quell violence, PM says",
-      "url": "https://www.bbc.co.uk/news/articles/cw5yn5e8mezvo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-20T06:35:57+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "She was harassed for crude remarks about Modi at a Cockroach protest. Now she can’t leave home",
-      "url": "https://www.theguardian.com/world/2026/oct/19/this-is-india-student-protests-abuse-modi-cockroach-protests",
-      "publishedAt": "2026-10-20T06:30:18+00:00",
+      "title": "Trump says pardon for Nvidia boss Huang ‘always an option’ after accusations of breaking export laws – US politics live",
+      "url": "https://www.theguardian.com/us-news/live/2026/nov/25/donald-trump-jensen-huang-nvidia-pardon-senate-hearing-iowa-abdul-el-sayed-latest-news-updates",
+      "publishedAt": "2026-11-25T16:59:34+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "Helen Haines loses a leg and surgeons fight to save the other after alleged attack outside electorate office – as it happened",
-      "url": "https://www.theguardian.com/australia-news/live/2026/oct/20/helen-haines-independent-mp-alleged-car-attack-wangaratta-melbourne-hospital-ntwnfb",
-      "publishedAt": "2026-10-20T06:30:03+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Surprise drop in UK unemployment to 4.7%",
-      "url": "https://www.theguardian.com/business/2026/oct/20/uk-unemployment-rate-surprise-drop",
-      "publishedAt": "2026-10-20T06:29:57+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "A young life ‘dominated by gambling’: Victorian coroner delivers stinging findings on death of 22-year-old",
-      "url": "https://www.theguardian.com/australia-news/2026/oct/20/kyle-hudson-inquest-victorian-coroner-gambling-online-betting-ntwnfb",
-      "publishedAt": "2026-10-20T06:29:05+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "‘Lack of curiosity’ about family’s religious beliefs was ‘missed opportunity’ to save eight-year-old, inquest hears",
-      "url": "https://www.theguardian.com/australia-news/2026/oct/20/elizabeth-struhs-death-inquest-saints-religious-sect-coroner-evidence-ntwnfb",
-      "publishedAt": "2026-10-20T06:28:57+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Helen Haines loses leg as surgeons fight to save the other after alleged attack in Wangaratta",
-      "url": "https://www.theguardian.com/australia-news/2026/oct/20/helen-haines-mp-alleged-attack-wangaratta-surgery-ntwnfb",
-      "publishedAt": "2026-10-20T06:24:12+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "US-Ukraine relations sour as Trump, Zelenskyy clash over talks, arms",
-      "url": "https://www.aljazeera.com/news/2026/10/20/us-ukraine-relations-sour-as-trump-zelenskyy-clash-over-talks-arms?traffic_source=rss",
-      "publishedAt": "2026-10-20T06:23:44+00:00",
+      "title": "Switzerland forced to close office in North Korea over sanctions feud",
+      "url": "https://www.aljazeera.com/news/2026/11/25/switzerland-regrets-closure-of-north-korea-office-over-sanctions-feud?traffic_source=rss",
+      "publishedAt": "2026-11-25T16:58:49+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "Palestine weekly: Israeli settlers attack journalist and diplomats",
-      "url": "https://www.aljazeera.com/news/2026/10/20/palestine-weekly-israeli-settlers-attack-journalist-and-diplomats?traffic_source=rss",
-      "publishedAt": "2026-10-20T06:22:33+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Egypt’s Hassan and Zico suspended over FIFA World Cup refereeing criticism",
-      "url": "https://www.aljazeera.com/sports/2026/10/20/egypts-hassan-and-zico-suspended-over-fifa-world-cup-refereeing-criticism?traffic_source=rss",
-      "publishedAt": "2026-10-20T06:21:56+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Southeast Asia’s haze crisis will persist until polluters pay",
-      "url": "https://www.aljazeera.com/opinions/2026/10/20/southeast-asias-haze-crisis-will-persist-until-polluters-pay?traffic_source=rss",
-      "publishedAt": "2026-10-20T06:20:23+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "En directo: los toques de queda en París y otras ciudades \"han contribuido a la calma\", afirma Lecornu",
-      "url": "https://www.france24.com/es/francia/20261020-en-directo-los-toques-de-queda-en-par%C3%ADs-y-otras-ciudades-han-contribuido-a-la-calma-afirma-lecornu",
-      "publishedAt": "2026-10-20T06:17:46+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Alberta voters reject plan for referendum to leave Canada, CBC projects",
-      "url": "https://www.theguardian.com/world/2026/oct/20/canada-alberta-rejects-independence-succession-referendum",
-      "publishedAt": "2026-10-20T05:50:03+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Tuesday briefing: Can Andy Burnham beat Britain’s headphone dodgers?",
-      "url": "https://www.theguardian.com/world/2026/oct/20/tuesday-briefing-can-andy-burnham-beat-britains-headphone-dodgers",
-      "publishedAt": "2026-10-20T05:44:25+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Ucrania: Volodímir Zelenski acusa a Washington de retrasar la entrega de misiles interceptores",
-      "url": "https://www.france24.com/es/europa/20261020-ucrania-volod%C3%ADmir-zelenski-acusa-a-washington-de-retrasar-la-entrega-de-misiles-interceptores",
-      "publishedAt": "2026-10-20T05:33:53+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Israel’s elections 2026 explained in maps and charts",
-      "url": "https://www.aljazeera.com/news/2026/10/20/israels-elections-2026-explained-in-maps-and-charts?traffic_source=rss",
-      "publishedAt": "2026-10-20T05:25:31+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Myanmar’s ousted leader Aung San Suu Kyi seen in rare photos after receiving gift from King Charles",
-      "url": "https://www.theguardian.com/world/2026/oct/20/myanmar-aung-san-suu-kyi-rare-photos-gift-king-charles",
-      "publishedAt": "2026-10-20T05:07:00+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "How is the US economy really doing under President Trump?",
-      "url": "https://www.bbc.co.uk/news/articles/cv98ze40jz18o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-20T05:00:45+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Royal Exchange boss unveils new plays two years after damaging censorship row",
-      "url": "https://www.theguardian.com/stage/2026/oct/20/royal-exchange-theatre-boss-selina-cartmell-new-plays-censorship-row",
-      "publishedAt": "2026-10-20T05:00:17+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "US Supreme Court to hear case on race in school admissions",
-      "url": "https://www.aljazeera.com/news/2026/10/20/us-supreme-court-to-hear-case-on-race-in-school-admissions?traffic_source=rss",
-      "publishedAt": "2026-10-20T04:38:07+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "In ruby-red Kansas, Trump contemplates the possibility of a Democratic win in the state",
-      "url": "https://www.theguardian.com/us-news/2026/oct/20/trump-kansas-rally-us-midterm-election-possibility-state-democratic-win",
-      "publishedAt": "2026-10-20T04:13:28+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Japan launches historic mission to bring back Mars moon samples",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/20/japan-launches-historic-mission-to-bring-back-mars-moon-samples?traffic_source=rss",
-      "publishedAt": "2026-10-20T04:08:33+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Régimen militar de Birmania publica nuevas fotos de Nóbel de la Paz detenida",
-      "url": "https://www.dw.com/es/régimen-militar-de-birmania-publica-nuevas-fotos-de-nóbel-de-la-paz-detenida/a-79708069?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-20T04:05:00+00:00",
+      "title": "EE.UU. anuncia nuevos aranceles contra China, Japón y la Unión Europea",
+      "url": "https://www.dw.com/es/ee-uu-anuncia-nuevos-aranceles-contra-china-japón-y-la-unión-europea/a-80053336?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T16:56:00+00:00",
       "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "dw"
     },
     {
-      "title": "Fourteen dead in illegal Colombian gold mine collapse",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/20/fourteen-dead-in-illegal-colombian-gold-mine-collapse?traffic_source=rss",
-      "publishedAt": "2026-10-20T03:55:27+00:00",
+      "title": "Colombian forces rescue all hostages after supermarket siege",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/colombian-forces-rescue-all-hostages-after-supermarket-siege?traffic_source=rss",
+      "publishedAt": "2026-11-25T16:44:22+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "Las protestas en Francia generan preocupación económica e impactan la prima de riesgo",
-      "url": "https://www.france24.com/es/programas/econom%C3%ADa/20261020-econmia-protestas-comercios-francia-saqueos",
-      "publishedAt": "2026-10-20T03:47:48+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
+      "title": "Poundland collapses into administration, putting 12,000 jobs at risk",
+      "url": "https://www.theguardian.com/business/2026/nov/25/poundland-administration-jobs-at-risk-gordon-brothers",
+      "publishedAt": "2026-11-25T16:41:08+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
     },
     {
-      "title": "Cronología de la crisis en Francia: de bloqueos en escuelas a toques de queda por disturbios",
-      "url": "https://www.france24.com/es/europa/20261020-cronolog%C3%ADa-de-la-crisis-en-francia-de-bloqueos-en-escuelas-a-toques-de-queda-por-disturbios",
-      "publishedAt": "2026-10-20T03:35:30+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Directo midterms y Texas, el estado donde casi 19 millones de votantes ya pueden ir a las urnas",
-      "url": "https://www.france24.com/es/video/20261020-directo-midterms-y-texas-el-estado-donde-casi-19-millones-de-votantes-ya-pueden-ir-a-las-urnas",
-      "publishedAt": "2026-10-20T03:31:07+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Ted Henken: “No hay ningún resultado práctico ni legal de la orden de detención contra Raúl Castro”",
-      "url": "https://www.france24.com/es/video/20261020-ted-henken-no-hay-ning%C3%BAn-resultado-pr%C3%A1ctico-ni-legal-de-la-orden-de-detenci%C3%B3n-contra-ra%C3%BAl-castro",
-      "publishedAt": "2026-10-20T03:30:46+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Informe desde París: Inician toques de queda parciales en Francia tras masivas protestas",
-      "url": "https://www.france24.com/es/video/20261020-informe-desde-par%C3%ADs-inician-toques-de-queda-parciales-en-francia-tras-masivas-protestas",
-      "publishedAt": "2026-10-20T03:29:57+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "El costo de los saqueos y disturbios para los comerciantes en Francia",
-      "url": "https://www.france24.com/es/video/20261020-el-costo-de-los-saqueos-y-disturbios-para-los-comerciantes-en-francia",
-      "publishedAt": "2026-10-20T03:27:50+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Inician toques de queda en ciudades de Francia tras violencia y saqueos en medio de protestas",
-      "url": "https://www.france24.com/es/video/20261020-inician-toques-de-queda-en-ciudades-de-francia-tras-violencia-y-saqueos-en-medio-de-protestas",
-      "publishedAt": "2026-10-20T03:25:04+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "‘Deliberate’ car ramming of Australian MP an isolated incident, police say",
-      "url": "https://www.aljazeera.com/news/2026/10/20/deliberate-car-ramming-of-australian-mp-an-isolated-incident-police-say?traffic_source=rss",
-      "publishedAt": "2026-10-20T03:24:18+00:00",
+      "title": "Why are school shootings continuing to shake the Balkans?",
+      "url": "https://www.aljazeera.com/news/2026/11/25/kragujevac-school-shooting-what-we-know-so-far?traffic_source=rss",
+      "publishedAt": "2026-11-25T16:36:57+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "Tormenta Adam deja muertos y graves inundaciones en el este de España",
-      "url": "https://www.france24.com/es/video/20261020-tormenta-adam-deja-muertos-y-graves-inundaciones-en-el-este-de-espa%C3%B1a",
-      "publishedAt": "2026-10-20T03:23:13+00:00",
+      "title": "¿Cómo se desarrolló la toma y el rescate de rehenes en un supermercado de Colombia?",
+      "url": "https://www.france24.com/es/am%C3%A9rica-latina/20261125-c%C3%B3mo-se-desarroll%C3%B3-la-toma-y-el-rescate-de-rehenes-en-un-supermercado-de-colombia",
+      "publishedAt": "2026-11-25T16:35:34+00:00",
       "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "france24"
     },
     {
-      "title": "Angel Reese scores 30 as Dream stun Valkyries to go level in WNBA Finals",
-      "url": "https://www.aljazeera.com/sports/2026/10/20/angel-reese-scores-30-as-dream-stun-valkyries-to-go-level-in-wnba-finals?traffic_source=rss",
-      "publishedAt": "2026-10-20T03:13:52+00:00",
+      "title": "Why did Israel arrest human rights defender Ghassan Al Najjar?",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/why-did-israel-arrest-human-rights-defender-ghassan-al-najjar?traffic_source=rss",
+      "publishedAt": "2026-11-25T16:34:42+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "Canadian tourist found guilty of animal cruelty after stealing Las Vegas flamingo from enclosure",
-      "url": "https://www.bbc.co.uk/news/articles/cq398rjewd1jo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-20T03:10:39+00:00",
+      "title": "US Army detonates nearly five tonnes of toxic explosives in Iowa",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/us-army-detonates-nearly-five-tonnes-of-toxic-explosives-in-iowa?traffic_source=rss",
+      "publishedAt": "2026-11-25T16:22:04+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "‘Russia wants more than Ukraine,’ Germany’s Merz warns – as it happened",
+      "url": "https://www.theguardian.com/world/live/2026/nov/25/ukraine-russia-energy-strikes-mark-rutte-donald-trump-friedrich-merz-germany-latest-news-updates",
+      "publishedAt": "2026-11-25T16:20:53+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Colombian police storm supermarket to free 20 held hostage for 17 hours",
+      "url": "https://www.bbc.co.uk/news/articles/ckp80mjr9emyo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T16:20:14+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "Japón lanza primera misión mundial a una luna de Marte",
-      "url": "https://www.dw.com/es/japón-lanza-primera-misión-mundial-a-una-luna-de-marte/a-79707815?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-20T02:57:00+00:00",
+      "title": "Kilmar Ábrego García, target of Trump’s immigration crackdown, lands in Spain after ‘leaving happy’",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/kilmar-abrego-garcia-spain",
+      "publishedAt": "2026-11-25T16:16:25+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "US stocks fall further as fears over AI intensify",
+      "url": "https://www.bbc.co.uk/news/articles/cq0md8g14zryo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T16:07:26+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Jerusalem Daily: Israel kills Hamas’s Gaza security chief",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/jerusalem-daily-israel-kills-hamass-gaza-security-chief?traffic_source=rss",
+      "publishedAt": "2026-11-25T16:02:22+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Hundreds complain after Mariella Frostrup calls AJ Odudu ‘aggressive’ on I’m a Celebrity",
+      "url": "https://www.theguardian.com/tv-and-radio/2026/nov/25/hundreds-complain-ofcom-mariella-frostrup-aj-odudu-im-a-celebrity",
+      "publishedAt": "2026-11-25T16:00:19+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Informe desde Beijing: investigan al jefe del Partido en Shanghái por corrupción",
+      "url": "https://www.france24.com/es/video/20261125-informe-desde-beijing-investigan-al-jefe-del-partido-en-shangh%C3%A1i-por-corrupci%C3%B3n",
+      "publishedAt": "2026-11-25T15:58:24+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Hutíes reivindican ataque contra emblemático rascacielos de Arabia Saudita",
+      "url": "https://www.france24.com/es/video/20261125-hut%C3%ADes-reivindican-ataque-contra-emblem%C3%A1tico-rascacielos-de-arabia-saudita",
+      "publishedAt": "2026-11-25T15:54:50+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "España: una economía que crece, pero con salarios que no alcanzan",
+      "url": "https://www.france24.com/es/video/20261125-espa%C3%B1a-una-econom%C3%ADa-que-crece-pero-con-salarios-que-no-alcanzan",
+      "publishedAt": "2026-11-25T15:54:25+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Senegal deny Morocco’s allegations of ‘contact’ with CAS amid AFCON row",
+      "url": "https://www.aljazeera.com/sports/2026/11/25/senegal-deny-moroccos-allegations-of-contact-with-cas-amid-afcon-row?traffic_source=rss",
+      "publishedAt": "2026-11-25T15:51:58+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Directo París y el congreso de alcaldes en Francia de cara a las elecciones presidenciales",
+      "url": "https://www.france24.com/es/video/20261125-directo-par%C3%ADs-y-el-congreso-de-alcaldes-en-francia-de-cara-a-las-elecciones-presidenciales",
+      "publishedAt": "2026-11-25T15:51:44+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Eliminación de la violencia contra las mujeres: ¿por qué siguen siendo agredidas y asesinadas?",
+      "url": "https://www.france24.com/es/video/20261125-eliminaci%C3%B3n-de-la-violencia-contra-las-mujeres-por-qu%C3%A9-siguen-siendo-agredidas-y-asesinadas",
+      "publishedAt": "2026-11-25T15:51:22+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "South Africa's Ramaphosa wins court battle over impeachment threat",
+      "url": "https://www.bbc.co.uk/news/articles/cq4gn6gj3z37o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T15:42:50+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Canadian astronaut welcomes baby girl  from space station",
+      "url": "https://www.bbc.co.uk/news/articles/ckx283y8wwwgo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T15:41:39+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Brussels on split-screen: where it flexes – and where it bends",
+      "url": "https://www.theguardian.com/world/2026/nov/25/this-is-europe-brussels-eu-uk-summit",
+      "publishedAt": "2026-11-25T15:39:54+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Beatles attraction at 3 Savile Row approved – with ban on rooftop gigs",
+      "url": "https://www.theguardian.com/music/2026/nov/25/beatles-attraction-savile-row-approved-ban-rooftop-gigs",
+      "publishedAt": "2026-11-25T15:38:11+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "South Africa court repeals ‘farmgate’ impeachment threat against Ramaphosa",
+      "url": "https://www.aljazeera.com/news/2026/11/25/south-africa-court-repeals-farmgate-impeachment-threat-against-ramaphosa?traffic_source=rss",
+      "publishedAt": "2026-11-25T15:35:33+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Kilmar Abrego Garcia, wrongfully deported from US, arrives in Spain",
+      "url": "https://www.aljazeera.com/news/2026/11/25/kilmar-abrego-garcia-wrongfully-deported-from-us-arrives-in-spain?traffic_source=rss",
+      "publishedAt": "2026-11-25T15:34:59+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Activist confronts ex-Mossad chief over 2024 Lebanon pager attacks",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/activist-confronts-ex-mossad-chief-over-2024-lebanon-pager-attacks?traffic_source=rss",
+      "publishedAt": "2026-11-25T15:15:53+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "US Army detonates toxic lead explosives in Iowa amid health concerns",
+      "url": "https://www.aljazeera.com/news/2026/11/25/us-army-detonates-toxic-lead-stockpile-in-iowa-amid-backlash?traffic_source=rss",
+      "publishedAt": "2026-11-25T15:14:08+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Irán amenaza con romper por la fuerza el bloqueo de EE. UU.",
+      "url": "https://www.france24.com/es/programas/expreso-de-oriente/20261125-ir%C3%A1n-amenaza-con-romper-por-la-fuerza-el-bloqueo-de-ee-uu",
+      "publishedAt": "2026-11-25T15:12:10+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "\"Los líderes de la IA discrepan sobre la renuncia al libre albedrío humano\": 'Axios'",
+      "url": "https://www.france24.com/es/programas/revista-de-prensa/20261125-los-l%C3%ADderes-de-la-ia-discrepan-sobre-la-renuncia-al-libre-albedr%C3%ADo-humano-axios",
+      "publishedAt": "2026-11-25T15:09:02+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Trump announces new trade tariffs: Which countries are affected?",
+      "url": "https://www.aljazeera.com/news/2026/11/25/trump-announces-new-trade-tariffs-which-countries-will-they-target?traffic_source=rss",
+      "publishedAt": "2026-11-25T14:54:44+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Knesset advances October 7 probe despite Netanyahu’s objections",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/knesset-advances-october-7-probe-despite-netanyahus-objections?traffic_source=rss",
+      "publishedAt": "2026-11-25T14:53:49+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Five Russian military jets hit in airfield strike, says Ukraine",
+      "url": "https://www.bbc.co.uk/news/articles/ck9q8xp5r5pgo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T14:46:41+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "La presidenta del Bundestag pone de ejemplo a España por la lucha contra violencia machista",
+      "url": "https://www.dw.com/es/la-presidenta-del-bundestag-pone-de-ejemplo-a-españa-por-la-lucha-contra-violencia-machista/a-80048069?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T14:28:00+00:00",
       "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "dw"
     },
     {
-      "title": "'Our worst nightmare': Threats to Australian politicians were rising before MP hit by car",
-      "url": "https://www.bbc.co.uk/news/articles/cq398rk4p3exo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-20T02:54:05+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
+      "title": "Drogada 13 años y violada por extraños: la Gisèle Pelicot de Reino Unido",
+      "url": "https://www.france24.com/es/programas/ellas-hoy/20261125-drogada-13-a%C3%B1os-y-violada-por-extra%C3%B1os-la-gis%C3%A8le-pelicot-de-reino-unido",
+      "publishedAt": "2026-11-25T14:20:26+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
     },
     {
-      "title": "PSG vs Barcelona: UEFA Champions League – Yamal, Torres, predictions, teams",
-      "url": "https://www.aljazeera.com/sports/2026/10/20/psg-vs-barcelona-uefa-champions-league-yamal-torres-predictions?traffic_source=rss",
-      "publishedAt": "2026-10-20T02:52:50+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Seventh day of violent clashes between Albanian protesters and police",
-      "url": "https://www.bbc.co.uk/news/articles/cmy4xjlpqgd3o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-20T02:45:05+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Man claims arm broken in violent ICE arrest",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/20/man-claims-arm-broken-in-violent-ice-arrest?traffic_source=rss",
-      "publishedAt": "2026-10-20T02:41:05+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Four dead as torrential rain batters eastern Spain",
-      "url": "https://www.aljazeera.com/news/2026/10/20/four-dead-as-torrential-rain-batters-eastern-spain?traffic_source=rss",
-      "publishedAt": "2026-10-20T02:36:34+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Trump attacks ‘migrants and communists’ as he tries to exploit France unrest",
-      "url": "https://www.theguardian.com/us-news/2026/oct/19/trump-france-protests",
-      "publishedAt": "2026-10-20T02:01:22+00:00",
+      "title": "China sends first foreign astronaut to ISS rival as it globalises space operations",
+      "url": "https://www.theguardian.com/science/2026/nov/25/china-sends-first-pakistani-astronaut-into-space",
+      "publishedAt": "2026-11-25T14:18:29+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "At Kansas rally, Trump focuses closing midterm message on anti-Muslim racism – as it happened",
-      "url": "https://www.theguardian.com/us-news/live/2026/oct/19/donald-trump-kansas-roger-marshall-golf-ukraine-midterms-latest-news-updates",
-      "publishedAt": "2026-10-20T01:57:40+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Deadly fire at Canada military base moved a kilometre 'in 30 to 60 seconds'",
-      "url": "https://www.bbc.co.uk/news/articles/ckj0ly6qnp1lo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-20T01:52:43+00:00",
+      "title": "Israeli strike kills senior Hamas security official and family in Gaza City",
+      "url": "https://www.bbc.co.uk/news/articles/cmd718zydz9qo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T14:06:13+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "The human cost of surging US air strikes in Somalia",
-      "url": "https://www.aljazeera.com/news/2026/10/20/us-air-strikes-surge-in-somalia-as-families-seek-answers?traffic_source=rss",
-      "publishedAt": "2026-10-20T01:52:32+00:00",
+      "title": "Swiss tourist killed and British and Americans injured by elephants in Cameroon",
+      "url": "https://www.theguardian.com/environment/2026/nov/25/swiss-tourist-killed-british-americans-injured-elephants-cameroon",
+      "publishedAt": "2026-11-25T14:03:18+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Aidan is one of thousands of students forced to verbally defend his honours thesis as universities take on AI",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/25/australian-universities-tackle-ai-plagiarism-oral-assessment-honours-masters-phd",
+      "publishedAt": "2026-11-25T14:00:29+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "All hostages rescued after Colombian security forces storm supermarket, says president",
+      "url": "https://www.theguardian.com/world/2026/nov/25/hostages-freed-colombia-security-forces-storm-cartagena-supermarket",
+      "publishedAt": "2026-11-25T13:56:55+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Trump propone nuevos aranceles a 14 socios comerciales y reaviva las tensiones económicas",
+      "url": "https://www.france24.com/es/econom%C3%ADa-y-tecnolog%C3%ADa/20261125-trump-propone-nuevos-aranceles-a-14-socios-comerciales-y-reaviva-las-tensiones-econ%C3%B3micas",
+      "publishedAt": "2026-11-25T13:56:48+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Large bushfire threatens homes and properties on Flinders Island off Tasmania",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/25/large-bushfire-threatens-homes-and-properties-on-remote-island-off-tasmania",
+      "publishedAt": "2026-11-25T13:55:42+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Syrian teams clear landmines after deadly explosion",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/syrian-teams-clear-landmines-after-deadly-explosion?traffic_source=rss",
+      "publishedAt": "2026-11-25T13:51:15+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "Zelenskyy seeks answers to why SpaceX Starshield defence is failing",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/20/zelenskyy-seeks-answers-to-why-spacex-starshield-defence-is-failing?traffic_source=rss",
-      "publishedAt": "2026-10-20T01:50:15+00:00",
+      "title": "US court convicts Huawei of theft: A history of Chinese firm’s global woes",
+      "url": "https://www.aljazeera.com/news/2026/11/25/us-court-convicts-huawei-of-theft-a-history-of-chinese-firms-global-woes?traffic_source=rss",
+      "publishedAt": "2026-11-25T13:37:51+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "Beyond money: Why young Tunisians are considering emigration",
-      "url": "https://www.aljazeera.com/news/2026/10/20/beyond-money-why-young-tunisians-are-considering-emigration?traffic_source=rss",
-      "publishedAt": "2026-10-20T01:47:42+00:00",
+      "title": "A una década del Acuerdo en Colombia: ¿logro histórico o paz incompleta?",
+      "url": "https://www.france24.com/es/programas/el-debate/20261125-a-una-d%C3%A9cada-del-acuerdo-en-colombia-logro-hist%C3%B3rico-o-paz-incompleta",
+      "publishedAt": "2026-11-25T13:33:36+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Igualdad y violencia de género, ejes de la disputa electoral en España",
+      "url": "https://www.france24.com/es/europa/20261125-igualdad-y-violencia-de-g%C3%A9nero-ejes-de-la-disputa-electoral-en-espa%C3%B1a",
+      "publishedAt": "2026-11-25T13:33:17+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Number of women killed by men in Ireland almost doubles in a year",
+      "url": "https://www.theguardian.com/society/2026/nov/25/number-of-women-killed-by-men-in-ireland-almost-doubles-in-a-year",
+      "publishedAt": "2026-11-25T13:28:39+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "‘Second home’: Why Israel is celebrating Jensen Huang’s return to Nvidia",
+      "url": "https://www.aljazeera.com/features/2026/11/25/second-home-why-israel-is-celebrating-jensen-huangs-return-to-nvidia?traffic_source=rss",
+      "publishedAt": "2026-11-25T13:04:17+00:00",
       "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "aljazeera"
     },
     {
-      "title": "Netanyahu recibe a Hegseth antes de elecciones en Israel",
-      "url": "https://www.dw.com/es/netanyahu-recibe-a-hegseth-antes-de-elecciones-en-israel/a-79707950?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-20T01:07:00+00:00",
+      "title": "Solomon Islands signs security deal with Australia",
+      "url": "https://www.aljazeera.com/news/2026/11/25/solomon-islands-signs-security-deal-with-australia?traffic_source=rss",
+      "publishedAt": "2026-11-25T13:02:45+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Trump to meet Abdul El-Sayed: Will he agree to a renamed Medicare-for-all?",
+      "url": "https://www.aljazeera.com/news/2026/11/25/trump-to-meet-abdul-el-sayed-will-he-agree-to-a-renamed-medicare-for-all?traffic_source=rss",
+      "publishedAt": "2026-11-25T12:45:16+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Trinity Rodman out of USWNT’s World Cup qualifier due to shoulder injury",
+      "url": "https://www.aljazeera.com/sports/2026/11/25/trinity-rodman-out-of-uswnts-world-cup-qualifier-due-to-shoulder-injury?traffic_source=rss",
+      "publishedAt": "2026-11-25T12:43:25+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Bayern Munich’s Musiala checked for neurological symptoms in April 2025",
+      "url": "https://www.aljazeera.com/sports/2026/11/25/bayern-munichs-musiala-checked-for-neurological-symptoms-in-april-2025?traffic_source=rss",
+      "publishedAt": "2026-11-25T12:42:56+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "The rising cost of Thanksgiving",
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/11/25/the-rising-cost-of-thanksgiving?traffic_source=rss",
+      "publishedAt": "2026-11-25T12:29:09+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Catalan separatist Puigdemont to return to Spain on December 12",
+      "url": "https://www.aljazeera.com/news/2026/11/25/catalan-separatist-puigdemont-to-return-to-spain-on-december?traffic_source=rss",
+      "publishedAt": "2026-11-25T12:25:46+00:00",
+      "source": "Al Jazeera",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "aljazeera"
+    },
+    {
+      "title": "Veteran Nigerian Nollywood actor Pete Edochie dies aged 79",
+      "url": "https://www.bbc.co.uk/news/articles/cqwy0rr4rr4yo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T12:24:12+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Russia's own figures show it has lost nearly 500,000 people in Ukraine war",
+      "url": "https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T12:21:49+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "En directo: El Kremlin cuestiona las estimaciones de más de 700.000 bajas rusas en la guerra de Ucrania",
+      "url": "https://www.france24.com/es/europa/20261125-en-directo-dos-soldados-libios-mueren-en-un-ataque-ucraniano-contra-buques-rusos-en-bengasi",
+      "publishedAt": "2026-11-25T12:12:15+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "UK embassy in Japan warns of rise in drink spiking and credit card fraud at Tokyo bars",
+      "url": "https://www.theguardian.com/world/2026/nov/25/british-embassy-tokyo-warning-tourists-drink-spiking-credit-card-fraud",
+      "publishedAt": "2026-11-25T11:59:22+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Sri Lankan asylum seeker killed himself after being sent by UK to Eswatini",
+      "url": "https://www.theguardian.com/uk-news/2026/nov/25/sri-lanka-asylum-seeker-convicted-sexual-assault-uk-kills-himself-eswatini",
+      "publishedAt": "2026-11-25T11:28:05+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Ejército de Israel mata al jefe de la Seguridad Interna del norte de Gaza y a su familia",
+      "url": "https://www.dw.com/es/ejército-de-israel-mata-al-jefe-de-la-seguridad-interna-del-norte-de-gaza-y-a-su-familia/a-80045727?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T11:25:00+00:00",
       "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "dw"
     },
     {
-      "title": "De chalecos amarillos a estudiantes: los movimientos sociales contra Macron en Francia",
-      "url": "https://www.france24.com/es/de-chalecos-amarillos-a-estudiantes-los-movimientos-sociales-contra-macron-en-francia",
-      "publishedAt": "2026-10-20T01:05:43+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
+      "title": "Indian Cockroach movement leader asks court for permission to fly to UK",
+      "url": "https://www.theguardian.com/world/2026/nov/25/indian-cockroach-movement-leader-asks-court-for-permission-to-fly-to-uk",
+      "publishedAt": "2026-11-25T11:15:35+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
     },
     {
-      "title": "Saudi Arabia cancels 2026 ‘Davos in the Desert’ amid Houthi attacks",
-      "url": "https://www.aljazeera.com/news/2026/10/20/saudi-arabia-cancels-2026-davos-in-the-desert-amid-houthi-attacks?traffic_source=rss",
-      "publishedAt": "2026-10-20T01:05:31+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
+      "title": "China misusing Interpol to target dissidents, says leading UK lawyer",
+      "url": "https://www.theguardian.com/world/2026/nov/25/china-misusing-interpol-target-dissidents-uk-lawyer",
+      "publishedAt": "2026-11-25T11:00:46+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
     },
     {
-      "title": "Donald Trump dispuesto a reunirse con Vladímir Putin y Xi Jinping en China",
-      "url": "https://www.dw.com/es/donald-trump-dispuesto-a-reunirse-con-vladímir-putin-y-xi-jinping-en-china/a-79707835?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-20T00:41:00+00:00",
+      "title": "Pro-Palestine activist sought by US in extradition case: ‘I still have a right to my beliefs’",
+      "url": "https://www.theguardian.com/us-news/2026/nov/25/fergie-chambers-us-extradition-interview",
+      "publishedAt": "2026-11-25T11:00:46+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Huawei found guilty of stealing US trade secrets but acquitted of racketeering",
+      "url": "https://www.bbc.co.uk/news/articles/cmy49ngydqzpo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T10:52:09+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "El expresidente catalán y líder independentista Puigdemont anuncia su regreso a Cataluña el 12 de diciembre",
+      "url": "https://www.dw.com/es/el-expresidente-catalán-y-líder-independentista-puigdemont-anuncia-su-regreso-a-cataluña-el-12-de-diciembre/a-80045772?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T10:43:00+00:00",
       "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "dw"
     },
     {
-      "title": "Protestas en Francia: ¿buscan Trump y J. D. Vance sacar partido de una crisis externa?",
-      "url": "https://www.france24.com/es/ee-uu-y-canad%C3%A1/20261020-protestas-en-francia-buscan-trump-y-j-d-vance-sacar-partido-electoral-de-la-crisis",
-      "publishedAt": "2026-10-20T00:36:43+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "‘Release Epstein files’, protester interrupts JD Vance’s speech",
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/20/release-epstein-files-protester-interrupts-jd-vances-speech?traffic_source=rss",
-      "publishedAt": "2026-10-20T00:18:48+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Rashida Tlaib demands arrest of Israeli soldier tied to Hind Rajab killing",
-      "url": "https://www.aljazeera.com/news/2026/10/20/rashida-tlaib-demands-arrest-of-israeli-soldier-linked-to-hind-rajab-death?traffic_source=rss",
-      "publishedAt": "2026-10-20T00:18:20+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Milan luxury shops close as Italy prepares to deploy troops in the city after days of protests",
-      "url": "https://www.theguardian.com/world/2026/oct/20/milan-luxury-shops-close-italy-to-deploy-troops-youth-protests-europe",
-      "publishedAt": "2026-10-20T00:08:07+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Hegseth meets Netanyahu on unannounced Israel visit",
-      "url": "https://www.aljazeera.com/news/2026/10/20/hegseth-meets-netanyahu-in-unannounced-israel-visit?traffic_source=rss",
-      "publishedAt": "2026-10-20T00:08:01+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Exiled critic of Rwandan president found beheaded in Uganda",
-      "url": "https://www.aljazeera.com/news/2026/10/20/exiled-critic-of-rwandan-president-found-beheaded-in-uganda?traffic_source=rss",
-      "publishedAt": "2026-10-20T00:06:00+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "US church on front line of battle against drug known as 'tranq'",
-      "url": "https://www.bbc.co.uk/news/videos/cqd097z3epvno?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-20T00:02:32+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Iran war live: Qatar says Iran-US talks ongoing",
-      "url": "https://www.aljazeera.com/news/liveblog/2026/10/20/draft-3?traffic_source=rss",
-      "publishedAt": "2026-10-20T00:00:00+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Mahmoud Khalil takes deportation fight to the US Supreme Court",
-      "url": "https://www.aljazeera.com/news/2026/10/19/mahmoud-khalil-takes-deportation-fight-to-the-us-supreme-court?traffic_source=rss",
-      "publishedAt": "2026-10-19T23:56:32+00:00",
-      "source": "Al Jazeera",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "aljazeera"
-    },
-    {
-      "title": "Directo a... Nueva York y lo que está en juego en Alberta sobre su independencia de Canadá",
-      "url": "https://www.france24.com/es/video/20261019-directo-a-nueva-york-y-lo-que-est%C3%A1-en-juego-en-alberta-sobre-su-independencia-de-canad%C3%A1",
-      "publishedAt": "2026-10-19T23:53:59+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "¿Cuál es el tinte electoral de las manifestaciones en Francia?",
-      "url": "https://www.france24.com/es/video/20261019-cu%C3%A1l-es-el-tinte-electoral-de-las-manifestaciones-en-francia",
-      "publishedAt": "2026-10-19T23:53:10+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Midterms: Gina Hinojosa buscar ser la primera gobernadora demócrata de Texas",
-      "url": "https://www.france24.com/es/video/20261019-midterms-gina-hinojosa-buscar-ser-la-primera-gobernadora-democr%C3%A1ta-de-texas",
-      "publishedAt": "2026-10-19T23:52:49+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "De chalecos amarillos a los estudiantes: los movimientos sociales contra Macron en Francia",
-      "url": "https://www.france24.com/es/video/20261019-de-chalecos-amarillos-a-los-estudiantes-los-movimientos-sociales-contra-macron-en-francia",
-      "publishedAt": "2026-10-19T23:50:51+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Los hutíes matan a 53 soldados yemeníes, el peor ataque desde el reactivación de la guerra en Yemen",
-      "url": "https://www.france24.com/es/medio-oriente/20261019-los-hut%C3%ADes-matan-a-53-soldados-yemen%C3%ADes-el-peor-ataque-desde-el-reactivaci%C3%B3n-de-la-guerra-en-yemen",
-      "publishedAt": "2026-10-19T23:42:38+00:00",
-      "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "france24"
-    },
-    {
-      "title": "Más de 100 muertos en ataques con drones en Sudán",
-      "url": "https://www.dw.com/es/más-de-100-muertos-en-ataques-con-drones-en-sudán/a-79707909?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T23:42:00+00:00",
+      "title": "Jóvenes detenidos en redada contra grupo terrorista de extrema derecha en Alemania",
+      "url": "https://www.dw.com/es/jóvenes-detenidos-en-redada-contra-grupo-terrorista-de-extrema-derecha-en-alemania/a-80044766?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T10:13:00+00:00",
       "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "dw"
     },
     {
-      "title": "Morocco's first female prime minister caught between the king, clerics, and feminists",
-      "url": "https://www.bbc.co.uk/news/articles/cmqxn4gggdw4o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T23:30:03+00:00",
+      "title": "Protesters call on Israel to free Palestinian student held without charge",
+      "url": "https://www.bbc.co.uk/news/articles/cw62p8z9edjlo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T10:03:42+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "Colorado wildlife overpass cut vehicle-animal collisions by 91%, report finds",
-      "url": "https://www.theguardian.com/us-news/2026/oct/19/colorado-wildlife-overpass-vehicle-animal-collisions-results",
-      "publishedAt": "2026-10-19T23:17:12+00:00",
+      "title": "China califica la Shenzhou-24, con el primer astronauta extranjero, de \"histórica\"",
+      "url": "https://www.dw.com/es/china-califica-la-shenzhou-24-con-el-primer-astronauta-extranjero-de-histórica/a-80043551?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T08:57:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "IVF, elective abortion, gender-affirming care and VAD to cease under Catholic ownership of private hospitals",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/25/ivf-elective-abortion-assisted-dying-calvary-catholic-ownership-private-hospitals-ntwnfb",
+      "publishedAt": "2026-11-25T08:05:27+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "Five ways El Niño is affecting the weather around the world",
-      "url": "https://www.bbc.co.uk/weather/articles/c6dx07dznpyyo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T23:08:25+00:00",
+      "title": "‘You’re protecting Trump’: Hanson-Young clashes with Liberal senator before digital duty of care legislation passes – as it happened",
+      "url": "https://www.theguardian.com/australia-news/live/2026/nov/25/treasurer-jim-chalmers-myefo-inflation-figures-coalition-one-nation-ntwnfb",
+      "publishedAt": "2026-11-25T07:34:44+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Labor wins Greens support for trust changes in exchange for scrapping jet fuel subsidies for the wealthy",
+      "url": "https://www.theguardian.com/australia-news/2026/nov/25/labor-greens-deal-discretionary-trust-changes-jet-fuel-subsidies-scrapped-for-private-jet-owners",
+      "publishedAt": "2026-11-25T07:16:33+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Two children among six dead after plane crash off Mississippi coast",
+      "url": "https://www.bbc.co.uk/news/articles/c6z74l1017zpo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T07:08:22+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "In pictures: Dussehra celebrated across India as triumph of good over evil",
-      "url": "https://www.bbc.co.uk/news/articles/c98rzynj6e1yo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T23:04:08+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
+      "title": "In charts: how power could shift in Europe’s big year of elections",
+      "url": "https://www.theguardian.com/world/2026/nov/25/charts-europe-big-year-of-elections-eu-far-right",
+      "publishedAt": "2026-11-25T05:00:06+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
     },
     {
-      "title": "Midterms EE. UU. 2026: Gina Hinojosa buscar ser la primera gobernadora democráta de Texas",
-      "url": "https://www.france24.com/es/video/20261019-midterms-ee-uu-2026-gina-hinojosa-buscar-ser-la-primera-gobernadora-democr%C3%A1ta-de-texas",
-      "publishedAt": "2026-10-19T23:00:09+00:00",
+      "title": "‘They don’t believe in freedom’: Yemenis plan their escape as Houthis advance on Aden",
+      "url": "https://www.theguardian.com/world/2026/nov/25/yemen-houthis-advance-aden",
+      "publishedAt": "2026-11-25T05:00:06+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Un jurado en EE.UU. declara culpable a la empresa Huawei por robo de secretos industriales",
+      "url": "https://www.dw.com/es/un-jurado-en-ee-uu-declara-culpable-a-la-empresa-huawei-por-robo-de-secretos-industriales/a-80042319?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T04:24:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "Colombia’s president arrives at scene of supermarket hostage siege in tourist city",
+      "url": "https://www.theguardian.com/world/2026/nov/24/cartagena-colombia-hostages-supermarket",
+      "publishedAt": "2026-11-25T03:57:11+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "El grupo chino Huawei es declarado culpable en EE. UU. de robar secretos comerciales",
+      "url": "https://www.france24.com/es/econom%C3%ADa-y-tecnolog%C3%ADa/20261125-el-grupo-chino-huawei-es-declarado-culpable-de-robar-secretos-comerciales-en-estados-unidos",
+      "publishedAt": "2026-11-25T03:40:13+00:00",
       "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "france24"
     },
     {
-      "title": "US grants deportation reprieve to migrants from Ukraine and Sudan",
-      "url": "https://www.theguardian.com/us-news/2026/oct/19/us-migrants-deportation-ukraine-sudan",
-      "publishedAt": "2026-10-19T22:34:43+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
+      "title": "Moment Chinese space mission lifts off with first Pakistan astronaut aboard",
+      "url": "https://www.bbc.co.uk/news/videos/cmz74l0yzzvyo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T03:28:37+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
     },
     {
-      "title": "New AI tool can predict cancer survival by a single patient selfie, study suggests",
-      "url": "https://www.theguardian.com/technology/2026/oct/19/ai-tool-predict-cancer-survival-patient-selfie",
-      "publishedAt": "2026-10-19T22:30:08+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "La tragedia de Shakahola: cómo el líder de una secta keniana obligó a morir de hambre a 190 niños",
-      "url": "https://www.france24.com/es/%C3%A1frica/20261019-la-tragedia-de-shakahola-c%C3%B3mo-el-l%C3%ADder-de-una-secta-keniana-oblig%C3%B3-a-morir-de-hambre-a-190-ni%C3%B1os",
-      "publishedAt": "2026-10-19T22:04:18+00:00",
+      "title": "Consultoras apuntan a una recesión técnica en Argentina tras dos trimestres seguidos de contracción",
+      "url": "https://www.france24.com/es/programas/econom%C3%ADa/20261125-consultoras-apuntan-a-una-recesi%C3%B3n-t%C3%A9cnica-en-argentina-tras-dos-trimestres-seguidos-de-contracci%C3%B3n",
+      "publishedAt": "2026-11-25T03:13:38+00:00",
       "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "france24"
     },
     {
-      "title": "California to receive $6m settlement after 23andMe data breach",
-      "url": "https://www.theguardian.com/us-news/2026/oct/19/california-settlement-23andme-data-breach",
-      "publishedAt": "2026-10-19T21:34:30+00:00",
+      "title": "The Russian army’s secret death toll – podcast",
+      "url": "https://www.theguardian.com/news/audio/2026/nov/25/the-russian-armys-secret-death-toll-podcast",
+      "publishedAt": "2026-11-25T03:00:03+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "Clean up begins after French riots but police remain",
-      "url": "https://www.bbc.co.uk/news/videos/cwr7y0e57r50o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T21:30:08+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Cristiano Ronaldo es sancionado con 30 días de suspensión por abandonar la concentración de Portugal",
-      "url": "https://www.dw.com/es/cristiano-ronaldo-es-sancionado-con-30-días-de-suspensión-por-abandonar-la-concentración-de-portugal/a-79707614?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T21:28:00+00:00",
-      "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
-      "sourceId": "dw"
-    },
-    {
-      "title": "Francia anuncia toques de queda mientras el gobierno lidia con los disturbios",
-      "url": "https://www.dw.com/es/francia-anuncia-toques-de-queda-mientras-el-gobierno-lidia-con-los-disturbios/a-79707578?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T21:20:00+00:00",
-      "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
-      "sourceId": "dw"
-    },
-    {
-      "title": "Ex-OpenAI worker accused of planting device had Saudi support, says court filing",
-      "url": "https://www.bbc.co.uk/news/articles/c6gel2dlyxvyo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T21:12:30+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Tennis star Svitolina says emotional toll of Ukraine war led to Monfils separation",
-      "url": "https://www.bbc.co.uk/news/articles/ckd7qy12j148o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T21:02:33+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Cristiano Ronaldo es suspendido 30 días y multado con 255 euros por dejar la concentración de Portugal",
-      "url": "https://www.france24.com/es/deportes/20261019-cristiano-ronaldo-es-suspendido-30-d%C3%ADas-y-multado-con-255-euros-por-dejar-la-concentraci%C3%B3n-de-portugal",
-      "publishedAt": "2026-10-19T21:01:31+00:00",
+      "title": "Kilmar Ábrego García, símbolo de la resistencia migrante ante Trump, llegó a España",
+      "url": "https://www.france24.com/es/ee-uu-y-canad%C3%A1/20261125-kilmar-%C3%A1brego-garc%C3%ADa-s%C3%ADmbolo-de-la-resistencia-migrante-ante-trump-va-rumbo-a-espa%C3%B1a",
+      "publishedAt": "2026-11-25T02:42:22+00:00",
       "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "france24"
     },
     {
-      "title": "Ukrainians dying because US restricting intelligence sharing, Zelensky adviser tells BBC",
-      "url": "https://www.bbc.co.uk/news/articles/cmj47yx572z5o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T20:49:00+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
+      "title": "Un gran jurado en EE.UU. acusa a Thomas Markle, padre de Meghan Markle, de posesión de pornografía infantil",
+      "url": "https://www.dw.com/es/un-gran-jurado-en-ee-uu-acusa-a-thomas-markle-padre-de-meghan-markle-de-posesión-de-pornografía-infantil/a-80042280?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-25T02:34:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
     },
     {
-      "title": "Alberta, rica en petróleo, vota sobre su independencia de Canadá bajo la sombra de Trump",
-      "url": "https://www.france24.com/es/ee-uu-y-canad%C3%A1/20261019-alberta-rica-en-petr%C3%B3leo-vota-sobre-su-independencia-de-canad%C3%A1-bajo-la-sombra-de-trump",
-      "publishedAt": "2026-10-19T20:33:18+00:00",
+      "title": "Camilo González: \"Mucha cinematografía, pero no una estrategia contra la violencia en Colombia\"",
+      "url": "https://www.france24.com/es/video/20261125-camilo-gonz%C3%A1lez-mucha-cinematograf%C3%ADa-pero-no-una-estrategia-contra-la-violencia-en-colombia",
+      "publishedAt": "2026-11-25T02:24:22+00:00",
       "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "france24"
     },
     {
-      "title": "De Francia a España: qué impulsa la ola de protestas, disturbios y huelgas en Europa",
-      "url": "https://www.dw.com/es/de-francia-a-españa-qué-impulsa-la-ola-de-protestas-disturbios-y-huelgas-en-europa/a-79707436?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T20:23:00+00:00",
-      "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
-      "sourceId": "dw"
-    },
-    {
-      "title": "Serbia decide el destino de Vucic frente a la Lista de los Estudiantes",
-      "url": "https://www.dw.com/es/serbia-decide-el-destino-de-vucic-frente-a-la-lista-de-los-estudiantes/a-79707182?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T20:22:00+00:00",
-      "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
-      "sourceId": "dw"
-    },
-    {
-      "title": "Deepfakes y bots: la IA transforma las elecciones en Israel",
-      "url": "https://www.dw.com/es/deepfakes-y-bots-la-ia-transforma-las-elecciones-en-israel/a-79705809?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T20:22:00+00:00",
-      "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
-      "sourceId": "dw"
-    },
-    {
-      "title": "Berlín: la posible coalición entre izquierda, verdes y socialdemócratas genera polémica",
-      "url": "https://www.dw.com/es/berlín-la-posible-coalición-entre-izquierda-verdes-y-socialdemócratas-genera-polémica/a-79707489?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T20:15:00+00:00",
-      "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
-      "sourceId": "dw"
-    },
-    {
-      "title": "Directo Latam y el decreto de Sheinbaum que obliga a redes sociales a proteger a menores",
-      "url": "https://www.france24.com/es/video/20261019-directo-latam-y-el-decreto-de-sheinbaum-que-obliga-a-redes-sociales-a-proteger-a-menores",
-      "publishedAt": "2026-10-19T20:10:05+00:00",
+      "title": "Venezuela: sindicatos y empleados públicos salen a las calles para exigir salarios dignos",
+      "url": "https://www.france24.com/es/video/20261125-venezuela-sindicatos-y-empleados-p%C3%BAblicos-salen-a-las-calles-para-exigir-salarios-dignos",
+      "publishedAt": "2026-11-25T02:23:27+00:00",
       "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "france24"
     },
     {
-      "title": "Habitantes de Alberta van a las urnas para decidir si permanecen o se separan de Canadá",
-      "url": "https://www.france24.com/es/video/20261019-habitantes-de-alberta-van-a-las-urnas-para-decidir-si-permanecen-o-se-separan-de-canad%C3%A1",
-      "publishedAt": "2026-10-19T20:09:08+00:00",
+      "title": "La salud de Cuba al borde del colapso: aumentan las muertes y faltan medicamentos",
+      "url": "https://www.france24.com/es/video/20261125-la-salud-de-cuba-al-borde-del-colapso-aumentan-las-muertes-y-faltan-medicamentos",
+      "publishedAt": "2026-11-25T02:22:13+00:00",
       "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "france24"
     },
     {
-      "title": "Ukraine says it carried out first drone airlift of wounded soldier from front line",
-      "url": "https://www.bbc.co.uk/news/videos/c3vgx05p149wo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T20:00:43+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Debate Lula – Bolsonaro: un encuentro cargado de acusaciones mutuas y pocas propuestas",
-      "url": "https://www.france24.com/es/video/20261019-debate-lula-%E2%80%93-bolsonaro-un-encuentro-cargado-de-acusaciones-mutuas-y-pocas-propuestas",
-      "publishedAt": "2026-10-19T19:48:14+00:00",
+      "title": "“Necesitamos seis años más”: Bukele sienta las bases para una larga permanencia en el poder en El Salvador",
+      "url": "https://www.france24.com/es/am%C3%A9rica-latina/20261125-necesitamos-seis-a%C3%B1os-m%C3%A1s-bukele-sienta-las-bases-para-una-larga-permanencia-en-el-poder-en-el-salvador",
+      "publishedAt": "2026-11-25T02:02:38+00:00",
       "source": "France 24 Español",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "france24"
     },
     {
-      "title": "Mission blasts off for Mars to grab a piece of its moon",
-      "url": "https://www.bbc.co.uk/news/articles/cmvgxvkv54w1o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T19:45:46+00:00",
+      "title": "Lies, a disguise and surfboard bags: How a jealous Sydney policeman tried to cover up double murder",
+      "url": "https://www.bbc.co.uk/news/articles/cmrrg749d02do?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T01:51:43+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "El futuro climático del planeta se juega en las elecciones de Brasil",
-      "url": "https://www.dw.com/es/el-futuro-climático-del-planeta-se-juega-en-las-elecciones-de-brasil/a-79706695?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T18:56:00+00:00",
+      "title": "Thomas Markle charged in US for possessing child sex abuse images",
+      "url": "https://www.bbc.co.uk/news/articles/crwy4egxn592o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T01:40:42+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "China investigates politburo star in Xi Jinping’s latest purge",
+      "url": "https://www.theguardian.com/world/2026/nov/25/china-investigates-politburo-chen-jining-xi-jinping-purge",
+      "publishedAt": "2026-11-25T01:31:46+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Trump's rescue of Nvidia's Huang brings political risks",
+      "url": "https://www.bbc.co.uk/news/articles/ckj05m2zdyryo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T01:03:05+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "The rising cost of putting food on the table in India",
+      "url": "https://www.bbc.co.uk/news/articles/cmy0xj41kl50o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T01:02:13+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Shot in the face at 15: The lives shattered by Cameroon's decade of conflict",
+      "url": "https://www.bbc.co.uk/news/articles/crd6128y1qn1o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T01:00:36+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Clashing political visions reflect a divided Spain ahead of election",
+      "url": "https://www.bbc.co.uk/news/articles/cq5y1212y4pwo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T00:58:34+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "My family were killed in Ukraine. My mum blamed Zelensky's troops - the truth is complicated",
+      "url": "https://www.bbc.co.uk/news/articles/cw24e17v9e51o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-25T00:54:13+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Senegal recupera el título de la Copa Africana de Naciones tras fallo del TAS",
+      "url": "https://www.france24.com/es/video/20261125-senegal-recupera-el-t%C3%ADtulo-de-la-copa-africana-de-naciones-tras-fallo-del-tas",
+      "publishedAt": "2026-11-25T00:51:26+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Informe desde Buenos Aires: Argentina entra en recesión técnica, ¿por qué?",
+      "url": "https://www.france24.com/es/video/20261125-informe-desde-buenos-aires-argentina-entra-en-recesi%C3%B3n-t%C3%A9cnica-por-qu%C3%A9",
+      "publishedAt": "2026-11-25T00:50:02+00:00",
+      "source": "France 24 Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "france24"
+    },
+    {
+      "title": "Kilmar Ábrego García, man at center of Trump deportation battle, leaves US",
+      "url": "https://www.theguardian.com/us-news/2026/nov/24/kilmar-abrego-garcia-leaves-us",
+      "publishedAt": "2026-11-24T23:50:31+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Is China behind a wave of AI fake videos targeting Taiwan?",
+      "url": "https://www.bbc.co.uk/news/articles/cv702rw7dzx5o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-24T23:05:11+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "These North Koreans say they were spied on, beaten and jailed for being Christian",
+      "url": "https://www.bbc.co.uk/news/articles/cqgkv8kp7145o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-24T23:03:59+00:00",
+      "source": "BBC News",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "bbc"
+    },
+    {
+      "title": "Lukashenko propone acompañar a Zelenski a Moscú para negociar fin de la guerra con Putin",
+      "url": "https://www.dw.com/es/lukashenko-propone-acompañar-a-zelenski-a-moscú-para-negociar-fin-de-la-guerra-con-putin/a-80042057?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T22:45:00+00:00",
       "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "dw"
     },
     {
-      "title": "Israeli police detain 10 people in rare raid against West Bank settlers",
-      "url": "https://www.theguardian.com/world/2026/oct/19/israeli-police-detain-10-people-in-rare-raid-against-west-bank-settlers",
-      "publishedAt": "2026-10-19T18:05:14+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Kenya cult leader who told parents to starve children guilty of 191 murders",
-      "url": "https://www.bbc.co.uk/news/articles/ckd6d2l3dz4xo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T17:18:04+00:00",
+      "title": "Watch: Flock of turkeys chases woman on Massachusetts pavement",
+      "url": "https://www.bbc.co.uk/news/videos/cknv4mq93gd2o?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-24T22:07:30+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "Houthi attack kills 53 in biggest single loss of life since Yemen civil war reignited",
-      "url": "https://www.theguardian.com/world/2026/oct/19/houthi-attack-yemen-al-alam-camp-biggest-single-loss-of-life-civil-war",
-      "publishedAt": "2026-10-19T17:15:23+00:00",
+      "title": "Canada says it ‘does not report to the US’ after Pentagon criticizes military spending",
+      "url": "https://www.theguardian.com/world/2026/nov/24/canada-sovereign-nation-us-relations-defence-pentagon-memo",
+      "publishedAt": "2026-11-24T22:02:13+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "Dentro de calcetines y en botellas de champú: mexicano intentó ingresar a Alemania con más de 90 animales exóticos",
-      "url": "https://www.dw.com/es/dentro-de-calcetines-y-en-botellas-de-champú-mexicano-intentó-ingresar-a-alemania-con-más-de-90-animales-exóticos/a-79706826?maca=spa-rss-sp-all-1122-rdf",
-      "publishedAt": "2026-10-19T17:10:00+00:00",
+      "title": "La Copa América 2028 se jugará en Estados Unidos con 16 selecciones de la Conmebol y la Concacaf",
+      "url": "https://www.dw.com/es/la-copa-américa-2028-se-jugará-en-estados-unidos-con-16-selecciones-de-la-conmebol-y-la-concacaf/a-80042001?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T21:57:00+00:00",
       "source": "DW Español",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "dw"
     },
     {
-      "title": "Vinted blocks French looters listing stolen goods for sale",
-      "url": "https://www.bbc.co.uk/news/articles/cm8xzrljv72ro?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T16:46:35+00:00",
+      "title": "Cifra récord de víctimas de violencia contra las mujeres en Alemania, según estadísticas policiales",
+      "url": "https://www.dw.com/es/cifra-récord-de-víctimas-de-violencia-contra-las-mujeres-en-alemania-según-estadísticas-policiales/a-80041310?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T21:25:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "El \"Starlink ruso\": ¿una nueva amenaza para Ucrania?",
+      "url": "https://www.dw.com/es/el-starlink-ruso-¿una-nueva-amenaza-para-ucrania/a-80041352?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T20:50:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "Izquierda alemana expulsa a una polémica diputada para facilitar gobierno en Berlín",
+      "url": "https://www.dw.com/es/izquierda-alemana-expulsa-a-una-polémica-diputada-para-facilitar-gobierno-en-berlín/a-80041892?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T20:44:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "29N: ¿Qué supondría para Europa un cambio de Gobierno en España?",
+      "url": "https://www.dw.com/es/29n-¿qué-supondría-para-europa-un-cambio-de-gobierno-en-españa/a-80041734?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T20:28:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "World Chess Championship 2026 Game 1: Gukesh Dommaraju and Javokhir Sindarov play to 38-move draw – as it happened",
+      "url": "https://www.theguardian.com/sport/live/2026/nov/24/chess-world-championship-gukesh-sindarov-game-1-updates",
+      "publishedAt": "2026-11-24T20:04:50+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Life expectancy in Cuba falls for first time since 1950 amid economic crisis",
+      "url": "https://www.theguardian.com/world/2026/nov/24/cuba-life-expectancy-decline",
+      "publishedAt": "2026-11-24T19:07:26+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Venezuela publica el monto de su deuda pública: supera los 237.000 millones de dólares",
+      "url": "https://www.dw.com/es/venezuela-publica-el-monto-de-su-deuda-pública-supera-los-237-000-millones-de-dólares/a-80041726?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T18:58:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "Israel attempts to jail Palestinian student at Hebrew University without trial",
+      "url": "https://www.theguardian.com/world/2026/nov/24/israel-jail-palestinian-student-mahdi-tounsi-hebrew-university-without-trial",
+      "publishedAt": "2026-11-24T18:02:53+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Rusia vuelve a violar el espacio aéreo de Polonia con un dron de vigilancia",
+      "url": "https://www.dw.com/es/rusia-vuelve-a-violar-el-espacio-aéreo-de-polonia-con-un-dron-de-vigilancia/a-80041342?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T17:52:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "Tribunal declara a Senegal campeón legítimo de la Copa de África",
+      "url": "https://www.dw.com/es/tribunal-declara-a-senegal-campeón-legítimo-de-la-copa-de-áfrica/a-80038358?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T16:01:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "More than 300 Russians killed as Moscow props up Mali’s junta, leaked data reveals",
+      "url": "https://www.theguardian.com/world/2026/nov/24/russian-fighters-killed-in-mali-africa-leaked-data",
+      "publishedAt": "2026-11-24T16:00:50+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "El drama de Jamal Musiala: desmayos y millones sacuden al Bayern",
+      "url": "https://www.dw.com/es/el-drama-de-jamal-musiala-desmayos-y-millones-sacuden-al-bayern/a-80035521?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T15:25:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "Gaza issues meningitis epidemic alert after steep rise in cases",
+      "url": "https://www.theguardian.com/world/2026/nov/24/gaza-meningitis-epidemic-alert",
+      "publishedAt": "2026-11-24T14:51:18+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "The Nvidia case is just the latest episode of Trump disregarding intelligence",
+      "url": "https://www.theguardian.com/technology/2026/nov/24/nvidia-trump-huang-intelligence",
+      "publishedAt": "2026-11-24T14:00:48+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Klingbeil defiende el mayor presupuesto de Alemania en \"tiempos desafiantes\"",
+      "url": "https://www.dw.com/es/klingbeil-defiende-el-mayor-presupuesto-de-alemania-en-tiempos-desafiantes/a-80033153?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T12:03:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "Watch: Moment troops raid home and capture Mexican drug lord",
+      "url": "https://www.bbc.co.uk/news/videos/cm62p9y3y04qo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-24T09:09:41+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:19:18.575803+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "Houthi missile strike on Yemen camp kills 50 security recruits, local authorities say",
-      "url": "https://www.bbc.co.uk/news/articles/cv0ld6lrr2zeo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T16:20:51+00:00",
+      "title": "Leader of India’s Cockroach movement says he was stopped from boarding flight to UK",
+      "url": "https://www.theguardian.com/world/2026/nov/24/leader-india-coackroach-movement-says-stopped-from-boarding-flight-to-uk",
+      "publishedAt": "2026-11-24T08:24:26+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Las bolsas asiáticas se disparan tras regreso de Jensen Huang a Nvidia",
+      "url": "https://www.dw.com/es/las-bolsas-asiáticas-se-disparan-tras-regreso-de-jensen-huang-a-nvidia/a-80028562?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-24T08:04:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "After 80 years in Oxford, Naga ancestors are finally going home",
+      "url": "https://www.theguardian.com/world/2026/nov/23/this-is-india-pitt-rivers-museum-oxford-human-remains-repatriation",
+      "publishedAt": "2026-11-24T07:30:10+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Myanmar has been found guilty of genocide. Should Israel be worried? – podcast",
+      "url": "https://www.theguardian.com/news/audio/2026/nov/24/myanmar-found-guilty-genocide-should-israel-be-worried-podcast",
+      "publishedAt": "2026-11-24T03:00:04+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Cheers and applause as Jensen Huang returns to Nvidia office",
+      "url": "https://www.bbc.co.uk/news/videos/ckedq2edqegzo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-24T01:21:41+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "Obama blasts federal probe of Ilhan Omar as 'so appalling'",
-      "url": "https://www.bbc.co.uk/news/articles/cr15jl7dd42vo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T16:16:51+00:00",
+      "title": "Mayoría de los alemanes rechaza enviar armas a Ucrania, según encuesta",
+      "url": "https://www.dw.com/es/mayoría-de-los-alemanes-rechaza-enviar-armas-a-ucrania-según-encuesta/a-80026623?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-23T23:01:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "Iranian singer and four others receive lashes after performance without hijab",
+      "url": "https://www.theguardian.com/world/2026/nov/23/iranian-singer-lashes-performing-without-hijab",
+      "publishedAt": "2026-11-23T20:56:17+00:00",
+      "source": "The Guardian",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "guardian"
+    },
+    {
+      "title": "Así es el plan de ahorro infantil para la jubilación en Alemania",
+      "url": "https://www.dw.com/es/así-es-el-plan-de-ahorro-infantil-para-la-jubilación-en-alemania/a-80026588?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-23T19:57:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "First Lady Melania Trump welcomes this year's White House Christmas tree",
+      "url": "https://www.bbc.co.uk/news/videos/c51k9vp48d2vo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-23T18:49:19+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "Kenyan starvation cult leader guilty of murder of 190 children and one adult",
-      "url": "https://www.theguardian.com/world/2026/oct/19/kenya-starvation-cult-leader-guilty-murder-190-children",
-      "publishedAt": "2026-10-19T16:08:14+00:00",
+      "title": "La FIFA concede a EE. UU., México, Costa Rica y Jamaica el Mundial femenino de 2031",
+      "url": "https://www.dw.com/es/la-fifa-concede-a-ee-uu-méxico-costa-rica-y-jamaica-el-mundial-femenino-de-2031/a-80026415?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-23T18:02:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "La sorprendente vida secreta de \"La ronda de noche\" de Rembrandt",
+      "url": "https://www.dw.com/es/la-sorprendente-vida-secreta-de-la-ronda-de-noche-de-rembrandt/a-80024032?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-23T17:49:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "El futuro del ajedrez mundial se juega en Asia",
+      "url": "https://www.dw.com/es/el-futuro-del-ajedrez-mundial-se-juega-en-asia/a-80023914?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-23T17:05:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "'Mi pobre angelito' prepara su regreso con Macaulay Culkin a 36 años de su estreno",
+      "url": "https://www.dw.com/es/mi-pobre-angelito-prepara-su-regreso-con-macaulay-culkin-a-36-años-de-su-estreno/a-80022127?maca=spa-rss-sp-all-1122-rdf",
+      "publishedAt": "2026-11-23T14:53:00+00:00",
+      "source": "DW Español",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
+      "sourceId": "dw"
+    },
+    {
+      "title": "Ukraine confirms it used naval drones to strike two Russian ships off Libya",
+      "url": "https://www.theguardian.com/world/2026/nov/23/ukraine-naval-drones-strike-russian-warship-libya",
+      "publishedAt": "2026-11-23T11:42:51+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     },
     {
-      "title": "People scour strait of Hormuz for spilt cargo after Iran attacks container ships",
-      "url": "https://www.theguardian.com/world/2026/oct/19/strait-of-hormuz-spilt-cargo-iran-attacks-container-ships",
-      "publishedAt": "2026-10-19T14:48:56+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Drone attack near market kills 80 in Sudan",
-      "url": "https://www.theguardian.com/world/2026/oct/19/drone-attack-market-al-dibab-west-kordofan-sudan",
-      "publishedAt": "2026-10-19T14:45:53+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "US airman dies as daredevil descent goes wrong before Texas college football game",
-      "url": "https://www.bbc.co.uk/news/articles/crd6dn63j2xwo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T14:13:18+00:00",
+      "title": "Ukraine shares video of strikes on Russian ships off Libya",
+      "url": "https://www.bbc.co.uk/news/videos/c6wy93q5wwqvo?at_medium=RSS&at_campaign=rss",
+      "publishedAt": "2026-11-23T11:34:10+00:00",
       "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "bbc"
     },
     {
-      "title": "Ebola cases in Kenya highlight US failures amid Trump cuts to key services",
-      "url": "https://www.theguardian.com/world/2026/oct/19/ebola-cases-kenya-us-quarantine",
-      "publishedAt": "2026-10-19T14:11:08+00:00",
+      "title": "Russian warship sinks in Benghazi after suspected Ukrainian drone attack",
+      "url": "https://www.theguardian.com/world/2026/nov/22/blast-russian-ship-suspected-drone-attack-benghazi-libya",
+      "publishedAt": "2026-11-22T21:33:44+00:00",
       "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Catalonia's former rebel president can return to Spain, court rules",
-      "url": "https://www.bbc.co.uk/news/articles/cvp8gzg4e143o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T14:06:53+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Exiled critic of Rwandan president found beheaded",
-      "url": "https://www.bbc.co.uk/news/articles/c3lylj78777do?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T13:42:41+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Personal attacks fire up debate before Brazil's run-off vote",
-      "url": "https://www.bbc.co.uk/news/articles/ck98zlzyqle3o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T11:41:24+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Italy plans tougher security measures after violent protests",
-      "url": "https://www.bbc.co.uk/news/articles/c6j9kwxxmxydo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T11:23:36+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Hurricane Trudy menaces Mexico’s Pacific coast and Greece hit by deadly floods",
-      "url": "https://www.theguardian.com/news/2026/oct/19/hurricane-trudy-mexico-pacific-coast-greece-floods",
-      "publishedAt": "2026-10-19T10:07:09+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Cuts force World Food Programme to end support for half a million Palestinians in Gaza",
-      "url": "https://www.theguardian.com/world/2026/oct/19/cuts-world-food-programme-end-support-palestinians-gaza",
-      "publishedAt": "2026-10-19T09:54:33+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "China’s economy grows faster than forecast after AI boom boosts exports",
-      "url": "https://www.theguardian.com/world/2026/oct/19/china-economy-grows-faster-than-forecast-after-ai-boom-boosted-exports",
-      "publishedAt": "2026-10-19T09:27:04+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Possible wreckage of Amelia Earhart's plane likely to be trees, say researchers",
-      "url": "https://www.bbc.co.uk/news/articles/cmq5n8x106jdo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T09:11:42+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Three deaths from float crushes raise safety concerns over Japanese festivals",
-      "url": "https://www.theguardian.com/world/2026/oct/19/safety-concerns-japan-traditional-festivals-fatal-accidents",
-      "publishedAt": "2026-10-19T09:08:34+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Bangladesh says it was not informed of its citizens' execution by Saudi Arabia",
-      "url": "https://www.bbc.co.uk/news/articles/cmde83w13p00o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T08:17:19+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Bollywood actor Tiger Shroff survives shooting attempt in Mumbai",
-      "url": "https://www.bbc.co.uk/news/articles/c6jdmy872r7vo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T07:35:06+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Watch: Shops looted and restaurants gutted in Paris riots",
-      "url": "https://www.bbc.co.uk/news/videos/cmn5vey19q3go?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T06:40:35+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Funding shortages force World Food Programme to cut aid to Gaza",
-      "url": "https://www.bbc.co.uk/news/articles/cm79plrvpl4vo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-19T06:00:18+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "‘This is not poker’: Alberta goes to polls in referendum that has exposed divisions, not least among separatists",
-      "url": "https://www.theguardian.com/world/2026/oct/19/alberta-goes-to-polls-in-referendum-divisions-separatists-canada",
-      "publishedAt": "2026-10-19T05:00:22+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Amelia Earhart researchers leave remote atoll empty-handed after ‘plane debris’ found to be a clump of trees",
-      "url": "https://www.theguardian.com/us-news/2026/oct/19/amelia-earhart-purdue-expedition-clump-of-trees-nikumaroro-kiribati",
-      "publishedAt": "2026-10-19T04:43:41+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Four people killed in ‘violent, fast-moving’ fire at Canadian military base",
-      "url": "https://www.theguardian.com/world/2026/oct/18/serious-incident-alberta-military-base-deaths-injuries-canada-carney-cfb-wainwright",
-      "publishedAt": "2026-10-18T23:53:13+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Trump says suspension of Russia sanctions is to keep peace negotiations going",
-      "url": "https://www.bbc.co.uk/news/articles/c9p8gz7zx4peo?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-18T23:20:15+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Guardian reporter filmed masked militants seconds before West Bank attack on French mayor",
-      "url": "https://www.theguardian.com/world/2026/oct/18/guardian-reporter-filmed-masked-militants-seconds-before-west-bank-attack-on-french-mayor",
-      "publishedAt": "2026-10-18T18:39:23+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Pope Leo XIV thanks wellwishers in first event after cancer surgery",
-      "url": "https://www.bbc.co.uk/news/videos/cq70px6pjkg5o?at_medium=RSS&at_campaign=rss",
-      "publishedAt": "2026-10-18T11:09:32+00:00",
-      "source": "BBC News",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "bbc"
-    },
-    {
-      "title": "Hilarious quips and ‘100,000-volt’ energy: the hypemen (and women) redefining Afrobeats music",
-      "url": "https://www.theguardian.com/world/2026/oct/18/lagos-hypemen-redefining-afrobeats-music-afrohype",
-      "publishedAt": "2026-10-18T09:00:55+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "‘4,000 people minding our own business’: four decades on, Falklands again face a hostile Argentina",
-      "url": "https://www.theguardian.com/news/ng-interactive/2026/oct/18/4000-people-minding-our-own-business-four-decades-on-falklands-again-face-a-hostile-argentina",
-      "publishedAt": "2026-10-18T04:00:49+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "No 10 leaves option open to impose Chinese EV tariffs if UK joins EU scheme",
-      "url": "https://www.theguardian.com/politics/2026/oct/16/uk-chinese-electric-vehicle-ev-tariffs-eu-made-in-europe-scheme",
-      "publishedAt": "2026-10-16T18:09:34+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "India’s Cockroach Janta party leader arrested amid crackdown on protests",
-      "url": "https://www.theguardian.com/world/2026/oct/16/india-cockroach-janta-party-leader-detained-amid-crackdown-protests",
-      "publishedAt": "2026-10-16T16:22:32+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Flash floods destroy villages in central Nepal",
-      "url": "https://www.theguardian.com/environment/2026/oct/16/flash-floods-deaths-nepal-high-temperatures-portugal",
-      "publishedAt": "2026-10-16T10:12:48+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Museum releases historical photos of island where Amelia Earhart may have crashed",
-      "url": "https://www.theguardian.com/us-news/2026/oct/16/amelia-earhart-new-zeland-museum-aerial-survey-photos-nikumaroro-island",
-      "publishedAt": "2026-10-16T10:09:14+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
-      "sourceId": "guardian"
-    },
-    {
-      "title": "Pakistan school roof collapse kills at least 34 children and teacher",
-      "url": "https://www.theguardian.com/world/2026/oct/15/pakistan-peshawar-school-roof-collapse-leaves-students-dead",
-      "publishedAt": "2026-10-15T08:25:33+00:00",
-      "source": "The Guardian",
-      "firstSeenAt": "2026-10-20T08:18:21.473027+00:00",
+      "firstSeenAt": "2026-11-25T17:32:50.513732+00:00",
       "sourceId": "guardian"
     }
   ],
@@ -1131,8 +1179,8 @@
       "language": "en",
       "region": "Reino Unido / internacional",
       "status": "ok",
-      "lastSuccessAt": "2026-10-20T08:19:18.575803+00:00",
-      "count": 32
+      "lastSuccessAt": "2026-11-25T17:32:50.513732+00:00",
+      "count": 27
     },
     {
       "id": "guardian",
@@ -1141,7 +1189,7 @@
       "language": "en",
       "region": "Reino Unido / internacional",
       "status": "ok",
-      "lastSuccessAt": "2026-10-20T08:19:18.575803+00:00",
+      "lastSuccessAt": "2026-11-25T17:32:50.513732+00:00",
       "count": 45
     },
     {
@@ -1151,8 +1199,8 @@
       "language": "es",
       "region": "Alemania / internacional",
       "status": "ok",
-      "lastSuccessAt": "2026-10-20T08:19:18.575803+00:00",
-      "count": 14
+      "lastSuccessAt": "2026-11-25T17:32:50.513732+00:00",
+      "count": 27
     },
     {
       "id": "france24",
@@ -1161,7 +1209,7 @@
       "language": "es",
       "region": "Francia / internacional",
       "status": "ok",
-      "lastSuccessAt": "2026-10-20T08:19:18.575803+00:00",
+      "lastSuccessAt": "2026-11-25T17:32:50.513732+00:00",
       "count": 24
     },
     {
@@ -1171,22 +1219,13 @@
       "language": "en",
       "region": "Catar / Oriente Medio",
       "status": "ok",
-      "lastSuccessAt": "2026-10-20T08:19:18.575803+00:00",
+      "lastSuccessAt": "2026-11-25T17:32:50.513732+00:00",
       "count": 25
     }
   ],
   "observations": [
     {
-      "at": "2026-10-20T08:18:21.473027+00:00",
-      "sources": [
-        "bbc",
-        "guardian",
-        "france24",
-        "aljazeera"
-      ]
-    },
-    {
-      "at": "2026-10-20T08:19:18.575803+00:00",
+      "at": "2026-11-25T17:32:50.513732+00:00",
       "sources": [
         "bbc",
         "guardian",
