@@ -3,7 +3,9 @@ import type { CountryData, MetricMeta, ProductEntry } from '../types';
 import type { YearMap } from '../lib/timeseries';
 import { formatValueWithUnit, formatUsdCompact } from '../lib/format';
 import { Flag } from './Flag';
-import { fmt, domainLabel, metricLabel, tPeriod, useLang } from '../i18n';
+import { displayDomain, fmt, domainLabel, metricLabel, metricUnit, orderedDomains, tPeriod, useLang } from '../i18n';
+import { countryCsv, downloadCsv } from '../lib/csv';
+import { groupEs } from '../data/countryNames';
 import { TrendChart } from './TrendChart';
 import { getCountryTimeInfo } from '../data/markets';
 import { YieldCurve } from './YieldCurve';
@@ -82,8 +84,7 @@ export const CountryPanel = memo(function CountryPanel({
 
 
   // Group metrics by domain for readability, preserving catalog order.
-  const domains: string[] = [];
-  for (const m of metrics) if (!domains.includes(m.domain)) domains.push(m.domain);
+  const domains = orderedDomains(metrics);
 
   return (
     <aside className="hud panel-right scroll-slim">
@@ -96,7 +97,7 @@ export const CountryPanel = memo(function CountryPanel({
         <div>
           <h2 className="panel__name">{country.name}</h2>
           <p className="panel__meta">
-            {[country.region, country.incomeGroup].filter(Boolean).join(' · ')}
+            {[groupEs(country.region), groupEs(country.incomeGroup)].filter(Boolean).join(' · ')}
           </p>
         </div>
       </div>
@@ -112,6 +113,12 @@ export const CountryPanel = memo(function CountryPanel({
         onClick={() => onAddCompare(country.iso3)}
       >
         {inCompare ? t.inCompare : compareFull ? t.compareFull : t.addCompare}
+      </button>
+
+      <button type="button" className="btn btn--ghost btn--compare"
+        onClick={() => downloadCsv(`${country.iso3}_datos.csv`,
+          countryCsv(country, metrics, m => metricLabel(m, lang), m => metricUnit(m, lang)))}>
+        {fmt(t.downloadCountry, { name: country.name })}
       </button>
 
       {regionalRegionCount && onExploreRegions ? (
@@ -134,7 +141,7 @@ export const CountryPanel = memo(function CountryPanel({
           <h3 className="panel__group-title">{domainLabel(domain, lang)}</h3>
           <ul className="metric-list">
             {metrics
-              .filter((m) => m.domain === domain)
+              .filter((m) => displayDomain(m) === domain)
               .map((m) => {
                 const mv = country.metrics[m.id];
                 const active = m.id === activeMetricId;
@@ -234,7 +241,7 @@ const CountryClock = memo(function CountryClock({ iso3 }: { iso3: string }) {
   if (!info) return null;
   return <div className="panel__clock-card">
     <div className="panel__clock-row">
-      <span className="panel__clock-icon">🕒</span>
+      <span className="panel__clock-icon" aria-hidden="true">🕒</span>
       <div className="panel__clock-details">
         <span className="panel__clock-city">{info.capital}</span>
         <span className="panel__clock-time">{info.localTime}</span>
@@ -243,7 +250,7 @@ const CountryClock = memo(function CountryClock({ iso3 }: { iso3: string }) {
     {info.market && info.marketStatus && <div className="panel__clock-market">
       <span className="panel__clock-market-name">{info.market.shortName} ({info.market.indexName})</span>
       <span className={`panel__clock-market-pill ${info.marketStatus.isOpen ? 'pill--open' : 'pill--closed'}`}>
-        {info.marketStatus.isOpen ? '🟢 MERCADO ABIERTO' : `🔴 ${info.marketStatus.statusText}`}
+        <span aria-hidden="true">{info.marketStatus.isOpen ? '●' : '○'}</span> {info.marketStatus.isOpen ? 'Mercado abierto' : info.marketStatus.statusText}
       </span>
     </div>}
   </div>;

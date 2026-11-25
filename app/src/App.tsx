@@ -41,6 +41,9 @@ import newsSeed from './data/news-snapshot.json';
 import { cleanArticles, countryMatcher, newsHotspots, type NewsSnapshot, type NewsTopic, type NewsGeography } from './data/news';
 import { NewsControls } from './ui/NewsControls';
 import bondsSeed from './data/bonds-snapshot.json';
+import { withSpanishNames } from './data/countryNames';
+import { DownloadCsv } from './ui/DownloadCsv';
+import { tenorLabelEs } from './data/metricsEs';
 import { BOND_TENORS, availableBondCountries, bondMetricId, bondSnapshotTime, bondMonths, isBondMetric, withBondMetrics, type BondSnapshot } from './data/bonds';
 
 const BONDS = bondsSeed as BondSnapshot;
@@ -61,7 +64,7 @@ function readHash() {
 export default function App() {
   const { lang, t } = useLang();
   const initial = useMemo(() => readHash(), []);
-  const [metricId, setMetricId] = useState(initial.m || 'gdp_per_capita');
+  const [metricId, setMetricId] = useState(initial.m || 'euro_spread_bund');
   const [selectedIso, setSelectedIso] = useState<string | null>(initial.c);
   const [requestedRegionalIso, setRegionalIso] = useState<string | null>(initial.r ? initial.c : null);
   const [regionalMetricId, setRegionalMetricId] = useState<RegionalMetricId>(
@@ -169,7 +172,7 @@ export default function App() {
     regionalCountryData,
     error,
   } = useWorldData(requestedRegionalIso);
-  const snapshot = useMemo(() => rawSnapshot ? withBondMetrics(rawSnapshot, BONDS) : null, [rawSnapshot]);
+  const snapshot = useMemo(() => rawSnapshot ? withSpanishNames(withBondMetrics(rawSnapshot, BONDS)) : null, [rawSnapshot]);
   const curveCountries = useMemo(() => availableBondCountries(snapshot?.countries ?? [], BONDS), [snapshot]);
   const selectMetric = useCallback((id: string) => {
     setMetricId(id);
@@ -360,7 +363,7 @@ export default function App() {
             target,
             width: 2 + 6 * (partner.v / maxExport),
             flowType: 'export',
-            label: `${selectedName} → ${partnerName} (export): ${formatUsdCompact(partner.v, lang)}${share ? ` (${share.toFixed(1)} %)` : ''}`,
+            label: `${selectedName} → ${partnerName} (exportación): ${formatUsdCompact(partner.v, lang)}${share ? ` (${share.toFixed(1)} %)` : ''}`,
           });
         }
       }
@@ -549,6 +552,17 @@ export default function App() {
     setSelectedRegion(null);
   }, []);
 
+  // Escape closes the topmost panel (comparison first), except while typing in a field.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || (e.target as HTMLElement | null)?.closest('input, select, textarea')) return;
+      if (compareOpen) setCompareOpen(false);
+      else closeCountryPanel();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [compareOpen, closeCountryPanel]);
+
   const backToWorldMap = useCallback(() => {
     const iso3 = regionalIso;
     setRegionalIso(null);
@@ -568,7 +582,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <div className="map-root">
+      <main className="map-root" aria-label="Mapa">
         {!regionalIso ? (
           ready ? (
             <WorldMap
@@ -625,45 +639,44 @@ export default function App() {
             <p>{error ? fmt(t.loadError, { error }) : t.loading}</p>
           </div>
         )}
-      </div>
-
-
+      </main>
 
       {!regionalIso && <header className="hud hud--top-left scroll-slim">
         <div className="brand">
-          <span className="brand__globe">🌍</span>
+          <span className="brand__globe" aria-hidden="true">🌍</span>
           <div>
-            <h1 className="brand__title">World Economic Map</h1>
+            <h1 className="brand__title">{t.brandTitle}</h1>
             <p className="brand__sub">{t.brandSub}</p>
           </div>
         </div>
 
         {snapshot && metric && scale && (
           <div className="controls">
-            <span className="panel__group-title">Indicador</span>
+            <span className="panel__group-title">{t.indicator}</span>
             <SearchBox countries={snapshot.countries} onPick={flyTo} />
             <MetricPicker metrics={snapshot.metrics} value={metricId} onChange={selectMetric} />
             {isBondMetric(metricId) && <div className="bond-controls">
               <label className="field">
-                <span>Bond maturity</span>
+                <span>Plazo del bono</span>
                 <select className="select" value={bondMonths(metricId)} onChange={e => selectBondMaturity(Number(e.target.value))}>
-                  {BOND_TENORS.map(term => <option key={term.months} value={term.months}>{term.label}</option>)}
+                  {BOND_TENORS.map(term => <option key={term.months} value={term.months}>{tenorLabelEs(term.months)}</option>)}
                 </select>
               </label>
               <label className="field">
-                <span>Explore yield curves · {curveCountries.length} countries</span>
+                <span>Ver curvas de tipos · {curveCountries.length} países</span>
                 <select className="select" value={curveCountries.some(country => country.iso3 === selectedIso) ? selectedIso! : ''}
                   onChange={e => { if (e.target.value) flyTo(e.target.value); }}>
-                  <option value="">Select a country with a curve</option>
+                  <option value="">Elige un país con curva</option>
                   {curveCountries.map(country => <option key={country.iso3} value={country.iso3}>
                     {country.name} · {BONDS.countries[country.iso3].date}
                   </option>)}
                 </select>
               </label>
-              <p>{display.size} countries with this maturity · local currency · observations within 180 days</p>
-              <p>Daily and monthly sources; compare dates and methods in each country’s curve. Click a country to explore all available maturities.</p>
+              <p>{display.size} países con este plazo · moneda local · observaciones de los 180 días previos a la descarga</p>
+              <p>Fuentes diarias y mensuales: compara fechas y métodos en la curva de cada país. Para comparar países usa la prima de riesgo frente al Bund.</p>
             </div>}
             <p className="metric-desc">{metricDescription(metric, lang)}</p>
+            <DownloadCsv metric={metric} countries={snapshot.countries} history={histories[metric.id]} index={timeseriesIndex} />
 
             {hasHistory && (
               <div className="segmented">
@@ -728,7 +741,7 @@ export default function App() {
                         ? arcs.length
                           ? t.arcsHintSelected
                           : t.arcsHintNone
-                        : 'Showing the 35 largest reported export flows. Select a country to compare exports and partner-reported imports.'}
+                        : 'Se muestran los 35 mayores flujos de exportación declarados. Selecciona un país para comparar exportaciones e importaciones declaradas por sus socios.'}
                     </p>
                     <div className="hud__trade-legend" role="group" aria-label={t.tradeDirection}>
                       <span><i className="hud__trade-swatch hud__trade-swatch--export" aria-hidden="true" />{t.tradeExports}</span>

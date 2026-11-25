@@ -54,7 +54,7 @@ interface Props {
 const BASEMAP = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 const OFFLINE_STYLE: StyleSpecification = {
   version: 8,
-  name: 'World Economic Map (offline)',
+  name: 'Mapa económico mundial (sin conexión)',
   sources: {},
   layers: [{ id: 'wem-bg', type: 'background', paint: { 'background-color': '#0d1117' } }],
 };

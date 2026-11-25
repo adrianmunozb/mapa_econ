@@ -1,5 +1,5 @@
 import type { MetricMeta } from '../types';
-import type { Lang } from '../i18n';
+import { LOCALES, type Lang } from '../i18n';
 
 export type RegionalMetricId =
   | 'gdpPerCapitaUsd2015'
@@ -18,30 +18,30 @@ export interface RegionalMetricMeta {
 export const REGIONAL_METRICS: RegionalMetricMeta[] = [
   {
     id: 'gdpPerCapitaUsd2015',
-    label: { en: 'GDP per capita (2015 US$)' },
-    shortLabel: { en: 'GDP per capita' },
-    unit: { en: '2015 US$' },
+    label: { es: 'PIB per cápita (US$ de 2015)' },
+    shortLabel: { es: 'PIB per cápita' },
+    unit: { es: 'US$ de 2015' },
     format: 'currency',
   },
   {
     id: 'gdpPerCapitaUsd',
-    label: { en: 'GDP per capita (current US$)' },
-    shortLabel: { en: 'GDP per capita' },
-    unit: { en: 'current US$' },
+    label: { es: 'PIB per cápita (US$ corrientes)' },
+    shortLabel: { es: 'PIB per cápita' },
+    unit: { es: 'US$ corrientes' },
     format: 'currency',
   },
   {
     id: 'gdpTotalUsd',
-    label: { en: 'Calculated regional GDP (current US$)' },
-    shortLabel: { en: 'Calculated GDP' },
-    unit: { en: 'current US$' },
+    label: { es: 'PIB regional calculado (US$ corrientes)' },
+    shortLabel: { es: 'PIB calculado' },
+    unit: { es: 'US$ corrientes' },
     format: 'currency',
   },
   {
     id: 'population',
-    label: { en: 'Population' },
-    shortLabel: { en: 'Population' },
-    unit: { en: 'people' },
+    label: { es: 'Población' },
+    shortLabel: { es: 'Población' },
+    unit: { es: 'personas' },
     format: 'number',
   },
 ];
@@ -101,7 +101,7 @@ export function latestRegionalValue(
 export function formatRegionalValue(
   value: number,
   metric: RegionalMetricMeta,
-  lang: Lang = 'en',
+  lang: Lang = 'es',
   compact = false,
 ): string {
   const options: Intl.NumberFormatOptions = metric.format === 'currency'
@@ -115,20 +115,20 @@ export function formatRegionalValue(
         maximumFractionDigits: 0,
         notation: compact ? 'compact' : 'standard',
       };
-  return new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'en-US', options).format(value);
+  return new Intl.NumberFormat(LOCALES[lang], options).format(value);
 }
 
 export function regionalTrendMetric(metric: RegionalMetricMeta): MetricMeta {
   return {
     id: metric.id,
-    label: metric.label.en,
-    labelEn: metric.label.en,
-    shortLabel: metric.shortLabel.en,
-    shortLabelEn: metric.shortLabel.en,
-    unit: metric.unit.en,
-    unitEn: metric.unit.en,
-    description: metric.label.en,
-    descriptionEn: metric.label.en,
+    label: metric.label.es,
+    labelEn: metric.label.es,
+    shortLabel: metric.shortLabel.es,
+    shortLabelEn: metric.shortLabel.es,
+    unit: metric.unit.es,
+    unitEn: metric.unit.es,
+    description: metric.label.es,
+    descriptionEn: metric.label.es,
     domain: metric.id === 'population' ? 'demographics' : 'economy',
     format: metric.format,
     higherIsBetter: metric.id === 'population' ? null : true,

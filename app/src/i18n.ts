@@ -1,123 +1,143 @@
 import { createContext, useContext } from 'react';
 import type { MetricMeta } from './types';
+import { METRICS_ES, bondMetricEs } from './data/metricsEs';
 
-export type Lang = 'en';
+export type Lang = 'es';
 
 export const STORAGE_KEY = 'wem-lang';
 
-export const LOCALES: Record<Lang, string> = { en: 'en-US' };
+export const LOCALES: Record<Lang, string> = { es: 'es-ES' };
 
 export const DOMAIN_LABELS: Record<string, string> = {
-  economy: 'Economy',
-  social: 'Society',
-  health: 'Health',
-  demographics: 'Demographics',
-  environment: 'Environment',
-  infrastructure: 'Infrastructure',
-  trade: 'Trade',
-  governance: 'Governance',
+  finance: 'Tipos y riesgo soberano',
+  economy: 'Economía',
+  social: 'Sociedad',
+  health: 'Salud',
+  demographics: 'Demografía',
+  environment: 'Medio ambiente',
+  infrastructure: 'Infraestructura',
+  trade: 'Comercio',
+  governance: 'Gobernanza',
 };
 
-// Legacy German month abbreviations (pre-ISO data files) → English.
-const EN_MONTHS: Record<string, string> = {
-  Jan: 'Jan', Feb: 'Feb', Mär: 'Mar', Apr: 'Apr', Mai: 'May', Jun: 'Jun',
-  Jul: 'Jul', Aug: 'Aug', Sep: 'Sep', Okt: 'Oct', Nov: 'Nov', Dez: 'Dec',
-};
-
-export const STRINGS_EN = {
-  loading: 'Loading data …',
-  loadError: 'Error loading: {error}',
-  brandSub: 'Country indicators & reported regional data · every number with its source',
-  metricPickerLabel: 'Metric (heatmap)',
-  viewCurrent: 'Current',
-  viewChange: 'Trend',
-  period: 'Period',
-  since2004: 'since 2004 (20 years)',
-  since2014: 'since 2014 (10 years)',
-  changeSince: 'Change since {year}',
-  hintCurrent: 'lighter = higher',
-  hintChange: 'red ↓ · blue ↑',
-  tradeFlowsOn: '🔗 Trade flows on',
-  tradeFlowsOff: '🔗 Trade flows off',
-  arcsHintSelected: 'Amber arcs: exports reported by the selected country. Violet arcs: imports inferred from partners’ reported exports.',
-  arcsHintNone: 'No export or partner-reported import flows are available for this country.',
-  tradeDirection: 'Trade flow direction',
-  tradeExports: 'Exports',
-  tradeImports: 'Imports (partner-reported)',
+export const STRINGS_ES = {
+  loading: 'Cargando datos…',
+  loadError: 'Error al cargar: {error}',
+  brandTitle: 'Mapa económico mundial',
+  brandSub: 'Tipos, riesgo soberano e indicadores oficiales · cada cifra con su fuente',
+  indicator: 'Indicador',
+  metricPickerLabel: 'Métrica del mapa',
+  viewCurrent: 'Actual',
+  viewChange: 'Evolución',
+  period: 'Periodo',
+  since2004: 'desde 2004 (20 años)',
+  since2014: 'desde 2014 (10 años)',
+  changeSince: 'Cambio desde {year}',
+  hintCurrent: 'más claro = más alto',
+  hintChange: 'rojo ↓ · azul ↑',
+  tradeFlowsOn: 'Flujos comerciales: activados',
+  tradeFlowsOff: 'Flujos comerciales: desactivados',
+  arcsHintSelected: 'Arcos ámbar: exportaciones declaradas por el país seleccionado. Arcos violeta: importaciones deducidas de las exportaciones que declaran sus socios.',
+  arcsHintNone: 'No hay flujos de exportación ni importaciones declaradas por socios para este país.',
+  tradeDirection: 'Dirección del flujo comercial',
+  tradeExports: 'Exportaciones',
+  tradeImports: 'Importaciones (declaradas por socios)',
   ranking: 'Ranking',
-  biggestChange: 'Biggest change',
-  noData: 'No data',
-  countries: 'countries',
-  rank: 'Rank',
-  compareTitle: 'Compare countries',
-  close: 'Close',
-  metricCol: 'Metric',
-  compareFooter: 'Best value per row highlighted in green · Source: World Bank',
-  noOfficialData: 'No official data available for this area.',
-  inCompare: '✓ In comparison',
-  compareFull: 'Comparison full (max 4)',
-  addCompare: '＋ Add to comparison',
-  trendOf: 'Trend · {label}',
-  topExportPartners: 'Top export partners ({year})',
-  goTo: 'Go to {name}',
-  topExportGoods: 'Top export goods ({year})',
-  sourcesFooter: 'Sources: World Bank · IMF · BIS · UN Comtrade · Regional & National Statistical Offices',
-  compareBar: 'Compare',
-  remove: 'Remove',
-  compareBtn: 'Compare ({n})',
-  clear: 'Clear',
-  searchPlaceholder: '🔍  Search countries …',
-  trendAria: 'Trend of {label}',
-  language: 'Language',
-  regionalMetricPicker: 'Regional map metric',
-  regionalBack: '← World map',
-  regionalOpen: 'Explore regional map · {count} regions',
-  regionalCoverage: 'Macro data matched for {matched} of {total} reported regions. Unmatched boundaries are grey.',
-  regionalNoDataCountry: 'Regional macro data are not available for this country yet.',
-  regionalNoDataRegion: 'No macro data have been matched to this boundary.',
-  regionalSelectRegion: 'Select a region',
-  regionalMacroData: 'Macro data',
-  regionalSourceNote: 'Reported regional data up to 2020. USD GDP totals calculated from reported GDP per capita × population.',
-  regionalHint: 'Regional GDP and population · reported values through 2020',
+  biggestChange: 'Mayor cambio',
+  noData: 'Sin datos',
+  countries: 'países',
+  rank: 'Puesto',
+  compareTitle: 'Comparar países',
+  close: 'Cerrar',
+  metricCol: 'Métrica',
+  compareFooter: 'En verde, el mejor valor de cada fila · la fuente figura en cada métrica',
+  noOfficialData: 'No hay datos oficiales para esta zona.',
+  inCompare: '✓ En la comparación',
+  compareFull: 'Comparación completa (máx. 4)',
+  addCompare: '＋ Añadir a la comparación',
+  trendOf: 'Evolución · {label}',
+  topExportPartners: 'Principales destinos de exportación ({year})',
+  goTo: 'Ir a {name}',
+  topExportGoods: 'Principales productos exportados ({year})',
+  sourcesFooter: 'Fuentes: Banco Mundial · FMI · BIS · BCE · Eurostat · UN Comtrade · oficinas estadísticas',
+  compareBar: 'Comparar',
+  remove: 'Quitar',
+  compareBtn: 'Comparar ({n})',
+  clear: 'Vaciar',
+  searchLabel: 'Buscar país',
+  searchPlaceholder: 'Buscar país…',
+  trendAria: 'Evolución de {label}',
+  language: 'Idioma',
+  regionalMetricPicker: 'Métrica del mapa regional',
+  regionalBack: '← Mapa mundial',
+  regionalOpen: 'Ver mapa regional · {count} regiones',
+  regionalCoverage: 'Datos macro asignados a {matched} de {total} regiones. Las fronteras sin dato aparecen en gris.',
+  regionalNoDataCountry: 'Todavía no hay datos macro regionales para este país.',
+  regionalNoDataRegion: 'No hay datos macro asignados a esta región.',
+  regionalSelectRegion: 'Selecciona una región',
+  regionalMacroData: 'Datos macro',
+  regionalSourceNote: 'Datos regionales publicados hasta 2020. El PIB total en USD se calcula como PIB per cápita × población.',
+  regionalHint: 'PIB y población regionales · valores publicados hasta 2020',
+  downloadTitle: 'Descargar datos (CSV)',
+  downloadHistory: 'Serie histórica',
+  downloadLatest: 'Valores actuales',
+  downloadCountry: 'Descargar datos de {name} (CSV)',
+  downloadNote: 'CSV en UTF-8 con la fuente y la licencia de cada dato.',
 };
 
-export const STRINGS: Record<Lang, typeof STRINGS_EN> = { en: STRINGS_EN };
+export const STRINGS: Record<Lang, typeof STRINGS_ES> = { es: STRINGS_ES };
 
-export type Strings = typeof STRINGS_EN;
+export type Strings = typeof STRINGS_ES;
 
 /** Simple {placeholder} interpolation. */
 export function fmt(template: string, vars: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (_, k) => (k in vars ? String(vars[k]) : `{${k}}`));
 }
 
-/** English label for a metric. */
+const es = (m: MetricMeta) => METRICS_ES[m.id] ?? bondMetricEs(m.id);
+
+/** Spanish label for a metric (falls back to the English one from the data file). */
 export function metricLabel(m: MetricMeta, _lang?: Lang): string {
-  return m.labelEn ?? m.label;
+  return es(m)?.[0] ?? m.labelEn ?? m.label;
 }
 export function metricShortLabel(m: MetricMeta, _lang?: Lang): string {
-  return m.shortLabelEn ?? m.labelEn ?? m.label;
+  return es(m)?.[1] ?? m.shortLabelEn ?? m.labelEn ?? m.label;
 }
 export function metricUnit(m: MetricMeta, _lang?: Lang): string {
-  return m.unitEn ?? m.unit;
+  return es(m)?.[2] ?? m.unitEn ?? m.unit;
 }
 export function metricDescription(m: MetricMeta, _lang?: Lang): string {
-  return m.descriptionEn ?? m.description;
+  return es(m)?.[3] ?? m.descriptionEn ?? m.description;
+}
+
+/** Interest rates, inflation and sovereign risk form their own group, shown first. */
+const FINANCE_IDS = new Set(['inflation', 'policy_rate', 'real_policy_rate', 'euro_spread_bund']);
+export function displayDomain(m: Pick<MetricMeta, 'id' | 'domain'>): string {
+  return FINANCE_IDS.has(m.id) || m.id.startsWith('bond_yield_') ? 'finance' : m.domain;
+}
+
+/** Domains in first-appearance order, with "Tipos y riesgo soberano" always first. */
+export function orderedDomains(metrics: Pick<MetricMeta, 'id' | 'domain'>[]): string[] {
+  const domains: string[] = [];
+  for (const m of metrics) {
+    const d = displayDomain(m);
+    if (!domains.includes(d)) domains.push(d);
+  }
+  return domains.sort((a, b) => Number(b === 'finance') - Number(a === 'finance'));
 }
 
 export function domainLabel(domain: string, _lang?: Lang): string {
   return DOMAIN_LABELS[domain] ?? domain;
 }
 
-/** Format a data period for display. The pipeline emits ISO months ("2026-05"), shown as
- *  "May 2026". Legacy German labels ("Mär 2026") are still translated for older data files. */
+/** Format data periods for display: every ISO month ("2026-05") becomes "may 2026";
+ *  full dates ("2026-10-19") are left as they are. */
 export function tPeriod(period: string | undefined, lang: Lang): string | undefined {
   if (!period) return period;
-  const iso = /^(\d{4})-(\d{2})$/.exec(period);
-  if (iso) {
-    const date = new Date(Date.UTC(Number(iso[1]), Number(iso[2]) - 1, 1));
+  return period.replace(/\b(\d{4})-(\d{2})\b(?!-\d)/g, (_, y: string, mo: string) => {
+    const date = new Date(Date.UTC(Number(y), Number(mo) - 1, 1));
     return new Intl.DateTimeFormat(LOCALES[lang], { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date);
-  }
-  return period.replace(/^(Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)\b/, (m) => EN_MONTHS[m] ?? m);
+  });
 }
 
 export interface LangContextValue {

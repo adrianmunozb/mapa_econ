@@ -1,16 +1,16 @@
 import { useEffect, useMemo, type ReactNode } from 'react';
-import { LangContext, STRINGS_EN, type Lang } from './i18n';
+import { LangContext, STRINGS_ES, type Lang } from './i18n';
 
 export function LangProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
-    document.documentElement.lang = 'en';
+    document.documentElement.lang = 'es';
   }, []);
 
   const value = useMemo(
     () => ({
-      lang: 'en' as Lang,
+      lang: 'es' as Lang,
       setLang: () => {},
-      t: STRINGS_EN,
+      t: STRINGS_ES,
     }),
     [],
   );

@@ -86,7 +86,7 @@ const BASEMAP = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.jso
 // single-file build keeps working from file:// without any network access.
 const OFFLINE_STYLE: StyleSpecification = {
   version: 8,
-  name: 'World Economic Map (offline)',
+  name: 'Mapa económico mundial (sin conexión)',
   sources: {},
   layers: [
     { id: 'wem-bg', type: 'background', paint: { 'background-color': '#0d1117' } },

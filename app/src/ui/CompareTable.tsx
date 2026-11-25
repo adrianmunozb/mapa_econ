@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import type { CountryData, MetricMeta } from '../types';
 import { formatValueWithUnit } from '../lib/format';
 import { Flag } from './Flag';
-import { domainLabel, metricLabel, useLang } from '../i18n';
+import { displayDomain, domainLabel, metricLabel, orderedDomains, useLang } from '../i18n';
 
 interface Props {
   countries: CountryData[];
@@ -25,8 +25,7 @@ export function CompareTable({ countries, metrics, onClose }: Props) {
     return best?.iso ?? null;
   };
 
-  const domains: string[] = [];
-  for (const m of metrics) if (!domains.includes(m.domain)) domains.push(m.domain);
+  const domains = orderedDomains(metrics);
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -58,7 +57,7 @@ export function CompareTable({ countries, metrics, onClose }: Props) {
                     <td colSpan={countries.length + 1}>{domainLabel(d, lang)}</td>
                   </tr>
                   {metrics
-                    .filter((m) => m.domain === d)
+                    .filter((m) => displayDomain(m) === d)
                     .map((m) => {
                       const best = bestIso(m);
                       return (

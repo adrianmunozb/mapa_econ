@@ -33,7 +33,8 @@ export function SearchBox({ countries, onPick }: Props) {
     <div className="search">
       <input
         className="search__input"
-        type="text"
+        type="search"
+        aria-label={t.searchLabel}
         placeholder={t.searchPlaceholder}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
