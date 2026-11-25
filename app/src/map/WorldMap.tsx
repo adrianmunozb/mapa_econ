@@ -3,7 +3,7 @@ import { NewsMarkers } from './NewsMarkers';
 import type { NewsHotspot } from '../data/news';
 import type { Webcam } from '../data/webcams';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Map as MapGL, Source, Layer, useControl } from '@vis.gl/react-maplibre';
+import { Map as MapGL, Source, Layer, NavigationControl, useControl } from '@vis.gl/react-maplibre';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import { ArcLayer, PathLayer, ScatterplotLayer } from '@deck.gl/layers';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -486,6 +486,7 @@ export const WorldMap = memo(function WorldMap({
         customAttribution: t.sourcesFooter,
       }}
     >
+      <NavigationControl position="bottom-right" showCompass={false} />
       {/* promoteId lets feature-state key on the country's ISO3 string */}
       <Source id="countries" type="geojson" data={data as never} promoteId="iso3">
         <SmoothFill id="country-fill" color={fillColor} opacity={0.85} />

@@ -13,6 +13,8 @@ interface Props {
   onPick: (iso3: string) => void;
 }
 
+const TOP = 10;
+
 interface Row {
   iso3: string;
   name: string;
@@ -22,6 +24,7 @@ interface Row {
 
 export const RankingList = memo(function RankingList({ countries, getValue, format, ascending, label, selectedIso, onPick }: Props) {
   const [open, setOpen] = useState(true);
+  const [all, setAll] = useState(false);
   const { t } = useLang();
   const activeRef = useRef<HTMLButtonElement | null>(null);
 
@@ -43,6 +46,9 @@ export const RankingList = memo(function RankingList({ countries, getValue, form
     return rows;
   }, [countries, getValue, ascending]);
 
+  // Top 10 by default; the whole list when asked or when the selected country is further down.
+  const selectedRank = rows.findIndex((r) => r.iso3 === selectedIso);
+  const visible = all || selectedRank >= TOP ? rows : rows.slice(0, TOP);
   const values = rows.map((r) => r.value);
   const min = values.length ? Math.min(...values) : 0;
   const max = values.length ? Math.max(...values) : 1;
@@ -58,7 +64,7 @@ export const RankingList = memo(function RankingList({ countries, getValue, form
       </button>
       {open && (
         <ol className="ranking__list scroll-slim">
-          {rows.map((r, i) => {
+          {visible.map((r, i) => {
             const w = ((r.value - min) / span) * 100;
             const active = r.iso3 === selectedIso;
             return (
@@ -79,6 +85,11 @@ export const RankingList = memo(function RankingList({ countries, getValue, form
             );
           })}
         </ol>
+      )}
+      {open && rows.length > TOP && (
+        <button type="button" className="ranking__more" onClick={() => setAll((v) => !v)}>
+          {all ? 'Ver solo los 10 primeros' : `Ver los ${rows.length} países`}
+        </button>
       )}
     </div>
   );
