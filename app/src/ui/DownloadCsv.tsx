@@ -14,8 +14,8 @@ export function DownloadCsv({ metric, countries, history, index }: Props) {
   const { lang, t } = useLang();
   const label = metricLabel(metric, lang);
   return (
-    <div className="download" role="group" aria-label={t.downloadTitle}>
-      <span className="panel__group-title">{t.downloadTitle}</span>
+    <details className="download">
+      <summary>{t.downloadTitle}</summary>
       <div className="download__buttons">
         {history && index && (
           <button type="button" className="btn btn--ghost"
@@ -29,6 +29,6 @@ export function DownloadCsv({ metric, countries, history, index }: Props) {
         </button>
       </div>
       <p className="download__note">{t.downloadNote}</p>
-    </div>
+    </details>
   );
 }

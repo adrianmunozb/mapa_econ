@@ -3,7 +3,10 @@ import type { CountryData, MetricMeta, ProductEntry } from '../types';
 import type { YearMap } from '../lib/timeseries';
 import { formatValueWithUnit, formatUsdCompact } from '../lib/format';
 import { Flag } from './Flag';
-import { displayDomain, fmt, domainLabel, metricLabel, metricUnit, orderedDomains, tPeriod, useLang } from '../i18n';
+import { displayDomain, fmt, domainLabel, metricLabel, metricShortLabel, metricUnit, orderedDomains, tPeriod, useLang } from '../i18n';
+
+/** The four figures that open a country's summary, when available. */
+const KEY_FIGURES = ['policy_rate', 'euro_spread_bund', 'inflation', 'gdp_per_capita', 'unemployment', 'gdp_growth'];
 import { countryCsv, downloadCsv } from '../lib/csv';
 import { groupEs } from '../data/countryNames';
 import { TrendChart } from './TrendChart';
@@ -70,6 +73,7 @@ export const CountryPanel = memo(function CountryPanel({
   onPickBondMaturity,
 }: Props) {
   const { lang, t } = useLang();
+  const [tab, setTab] = useState<'resumen' | 'indicadores' | 'comercio'>('resumen');
 
   if (!country) {
     return (
@@ -101,6 +105,27 @@ export const CountryPanel = memo(function CountryPanel({
           </p>
         </div>
       </div>
+
+      <div className="panel-tabs" role="tablist" aria-label="Ficha del país">
+        {([['resumen', 'Resumen'], ['indicadores', 'Indicadores'], ['comercio', 'Comercio']] as const).map(([id, label]) => (
+          <button key={id} type="button" role="tab" aria-selected={tab === id} onClick={() => setTab(id)}>{label}</button>
+        ))}
+      </div>
+
+      {tab === 'resumen' && <>
+      <dl className="key-figures">
+        {KEY_FIGURES.map((id) => {
+          const m = metrics.find((x) => x.id === id);
+          const v = country.metrics[id];
+          return m && v ? (
+            <div key={id} className="key-figure">
+              <dt>{metricShortLabel(m, lang)}</dt>
+              <dd>{formatValueWithUnit(v.value, m, lang)}</dd>
+              <span>{tPeriod(v.period, lang) ?? v.year}</span>
+            </div>
+          ) : null;
+        })}
+      </dl>
 
       <CountryClock iso3={country.iso3} />
 
@@ -136,7 +161,9 @@ export const CountryPanel = memo(function CountryPanel({
         </div>
       )}
 
-      {domains.map((domain) => (
+      </>}
+
+      {tab === 'indicadores' && domains.map((domain) => (
         <div key={domain} className="panel__group">
           <h3 className="panel__group-title">{domainLabel(domain, lang)}</h3>
           <ul className="metric-list">
@@ -165,7 +192,11 @@ export const CountryPanel = memo(function CountryPanel({
         </div>
       ))}
 
-      {trade && trade.partners.length > 0 && (
+      {tab === 'comercio' && !(trade && trade.partners.length) && !(products && products.products.length) && (
+        <p className="muted panel__empty-tab">No hay datos de comercio bilateral para este país.</p>
+      )}
+
+      {tab === 'comercio' && trade && trade.partners.length > 0 && (
         <div className="panel__group">
           <h3 className="panel__group-title">{fmt(t.topExportPartners, { year: trade.year })}</h3>
           <ul className="trade-list">
@@ -194,7 +225,7 @@ export const CountryPanel = memo(function CountryPanel({
         </div>
       )}
 
-      {products && products.products.length > 0 && (
+      {tab === 'comercio' && products && products.products.length > 0 && (
         <div className="panel__group">
           <h3 className="panel__group-title">{fmt(t.topExportGoods, { year: products.year })}</h3>
           <ul className="trade-list">

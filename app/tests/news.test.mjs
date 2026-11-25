@@ -177,3 +177,16 @@ test('persisted cache survives restart without refetching and saves source obser
     await restarted.get(); assert.equal(calls, 2);
   } finally { await unlink(cachePath).catch(() => {}); await unlink(`${cachePath}.tmp`).catch(() => {}); await rmdir(directory); }
 });
+
+test('headline list merges events across hotspots once, newest first, and filters by country', async () => {
+  const { latestEvents } = await import('../src/data/news.ts');
+  const ev = (id, latestAt) => ({ id, title: id, articles: [], countries: [], topic: 'other', places: [], occurredIn: [], latestAt, sourceCount: 1, tokens: [] });
+  const shared = ev('shared', 300);
+  const spots = [
+    { id: 'ESP', events: [ev('a', 100), shared] },
+    { id: 'FRA', events: [shared, ev('b', 200)] },
+  ];
+  assert.deepEqual(latestEvents(spots).map(e => e.id), ['shared', 'b', 'a']);
+  assert.deepEqual(latestEvents(spots, 'FRA').map(e => e.id), ['shared', 'b']);
+  assert.deepEqual(latestEvents(spots, 'XXX'), []);
+});

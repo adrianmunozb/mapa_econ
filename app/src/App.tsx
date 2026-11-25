@@ -53,6 +53,8 @@ import { BOND_TENORS, availableBondCountries, bondMetricId, bondSnapshotTime, bo
 const BONDS = bondsSeed as BondSnapshot;
 /** Sections without a metric legend (country explorer, news) draw countries neutral. */
 const NEUTRAL_FILL = MAP_THEME.neutral;
+/** "Vista mundial": the whole inhabited world. */
+const WORLD_VIEW: BBox = [-170, -56, 180, 78];
 const BOND_AS_OF = bondSnapshotTime(BONDS);
 
 const MAX_COMPARE = 4;
@@ -114,8 +116,11 @@ export default function App() {
   const [newsSources, setNewsSources] = useState<string[]>([]);
   const [newsGeography, setNewsGeography] = useState<NewsGeography>('mentioned');
   const [newsOffset, setNewsOffset] = useState(0);
+  /** True once /api/news-feed answered (dev middleware or the Vercel function). */
+  const [newsLive, setNewsLive] = useState(false);
   useEffect(() => {
-    if (!showNews || newsImported || !import.meta.env.DEV) return;
+    // Live RSS via /api/news-feed; offline or on file:// the bundled snapshot stays.
+    if (!showNews || newsImported || location.protocol === 'file:') return;
     const controller = new AbortController();
     const refresh = async () => {
       try {
@@ -126,6 +131,7 @@ export default function App() {
         const articles = cleanArticles(data.articles);
         if (controller.signal.aborted) return;
         setNewsSnapshot({ ...data, articles });
+        setNewsLive(true);
         setNewsNow(Date.now());
       } catch {
         if (!controller.signal.aborted) setNewsSnapshot(current => ({ ...current, warnings: ['No se pudo actualizar RSS; se conserva la última carga.'] }));
@@ -600,7 +606,13 @@ export default function App() {
   // Escape closes the topmost panel (comparison first), except while typing in a field.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape' || (e.target as HTMLElement | null)?.closest('input, select, textarea')) return;
+      if ((e.target as HTMLElement | null)?.closest('input, select, textarea')) return;
+      if (e.key === '/') {
+        const search = document.querySelector<HTMLInputElement>('.topbar .search__input');
+        if (search) { e.preventDefault(); search.focus(); }
+        return;
+      }
+      if (e.key !== 'Escape') return;
       if (compareOpen) setCompareOpen(false);
       else closeCountryPanel();
     };
@@ -700,29 +712,68 @@ export default function App() {
         )}
       </main>
 
-      {!regionalIso && <header className="hud hud--top-left scroll-slim">
-        <div className="section-head">
-          <div className="section-head__top">
-            <button type="button" className="section-head__home" onClick={() => enterSection(null)}>← Inicio</button>
-            <span className="brand__sub">{t.brandTitle}</span>
-          </div>
-          <h1 className="section-head__title">{section.title}</h1>
-          <p className="section-head__intro">{section.intro}</p>
-          <nav className="section-tabs" aria-label="Secciones">
+      {sectionId && !regionalIso && (
+        <nav className="topbar" aria-label="Navegación principal">
+          <button type="button" className="topbar__brand" onClick={() => enterSection(null)} title="Volver a la portada">
+            Mapa económico mundial
+          </button>
+          <div className="topbar__sections">
             {SECTIONS.map((s) => (
               <button key={s.id} type="button" aria-current={s.id === section.id ? 'page' : undefined} onClick={() => enterSection(s.id)}>
                 {s.title}
               </button>
             ))}
-          </nav>
+          </div>
+          {snapshot && <div className="topbar__search" title="Atajo: tecla /">
+            <SearchBox countries={snapshot.countries} onPick={flyTo} />
+          </div>}
+        </nav>
+      )}
+
+      {sectionId && !regionalIso && metric && scale && shows(section, 'legend') && selectedAlliances.length === 0 && (
+        <div className="map-legend">
+          <span className="map-legend__title">{metricShortLabel(metric, lang)}</span>
+          <Legend
+            unit={viewMode === 'current' ? metricUnit(metric, lang) : fmt(t.changeSince, { year: changeFromYear })}
+            hint={viewMode === 'current' ? t.hintCurrent : t.hintChange}
+            scale={scale}
+            formatTick={(v) => (viewMode === 'current' ? formatCompact(v, metric, lang) : formatChange(v, metric, lang))}
+          />
+        </div>
+      )}
+
+      {sectionId && !regionalIso && (
+        <button type="button" className="map-reset" onClick={() => { setFocusBbox(WORLD_VIEW); setFocusNonce((n) => n + 1); }}>
+          Vista mundial
+        </button>
+      )}
+
+      {!regionalIso && <header className="hud hud--top-left scroll-slim">
+        <div className="section-head">
+          <h1 className="section-head__title">{section.title}</h1>
+          <p className="section-head__intro">{section.intro}</p>
         </div>
 
         {snapshot && metric && scale && (
           <div className="controls">
-            {shows(section, 'search') && <div className={section.id === 'pais' ? 'section-search' : undefined}>
+            {section.id === 'pais' && <div className="section-search">
               <SearchBox countries={snapshot.countries} onPick={flyTo} />
             </div>}
-            {shows(section, 'picker') && <MetricPicker metrics={snapshot.metrics} domains={section.domains} value={metricId} onChange={selectMetric} />}
+            {shows(section, 'picker') && section.keyMetrics && (
+              <div className="metric-chips" role="group" aria-label="Indicadores clave">
+                {section.keyMetrics.map((id) => {
+                  const m = snapshot.metrics.find((x) => x.id === id);
+                  return m ? (
+                    <button key={id} type="button" aria-pressed={metricId === id} onClick={() => selectMetric(id)}>
+                      {metricShortLabel(m, lang)}
+                    </button>
+                  ) : null;
+                })}
+              </div>
+            )}
+            {shows(section, 'picker') && <div className="metric-more">
+              <MetricPicker metrics={snapshot.metrics} domains={section.domains} value={metricId} onChange={selectMetric} label="Más indicadores" />
+            </div>}
             {shows(section, 'picker') && isBondMetric(metricId) && <div className="bond-controls">
               <label className="field">
                 <span>Plazo del bono</span>
@@ -743,7 +794,10 @@ export default function App() {
               <p>{display.size} países con este plazo · moneda local · observaciones de los 180 días previos a la descarga</p>
               <p>Fuentes diarias y mensuales: compara fechas y métodos en la curva de cada país. Para comparar países usa la prima de riesgo frente al Bund.</p>
             </div>}
-            {shows(section, 'legend') && <p className="metric-desc">{metricDescription(metric, lang)}</p>}
+            {shows(section, 'legend') && <details className="metric-about">
+              <summary>¿Qué mide «{metricShortLabel(metric, lang)}»?</summary>
+              <p className="metric-desc">{metricDescription(metric, lang)}</p>
+            </details>}
             {shows(section, 'download') && <DownloadCsv metric={metric} countries={snapshot.countries} history={histories[metric.id]} index={timeseriesIndex} />}
 
             {hasHistory && shows(section, 'trend') && (
@@ -782,12 +836,7 @@ export default function App() {
             >
               <AlliancePicker selected={selectedAlliances} onChange={setSelectedAlliances} />
             </Section>}
-            {shows(section, 'legend') && selectedAlliances.length === 0 && <Legend
-              unit={viewMode === 'current' ? metricUnit(metric, lang) : fmt(t.changeSince, { year: changeFromYear })}
-              hint={viewMode === 'current' ? t.hintCurrent : t.hintChange}
-              scale={scale}
-              formatTick={(v) => (viewMode === 'current' ? formatCompact(v, metric, lang) : formatChange(v, metric, lang))}
-            />}
+
 
             <div className="layer-toggles">
               <div className="layer-toggles__grid">
@@ -865,7 +914,7 @@ export default function App() {
                 topic={newsTopic} onTopic={setNewsTopic} geography={newsGeography} onGeography={setNewsGeography}
                 sources={newsSources} onSources={setNewsSources} offset={newsOffset} onOffset={setNewsOffset}
                 hours={newsHours} onHours={setNewsHours} selected={selectedNewsIso} onSelect={selectNews}
-                automatic={import.meta.env.DEV && !newsImported} now={newsNow}
+                automatic={newsLive && !newsImported} now={newsNow}
                 onImport={articles => { setNewsImported(true); setNewsSnapshot({ generatedAt: new Date().toISOString(), articles }); setNewsSources([]); setNewsOffset(0); setNewsNow(Date.now()); setSelectedNewsIso(null); }}
                 onReset={() => { setNewsImported(false); setNewsSnapshot(newsSeed as NewsSnapshot); setNewsSources([]); setNewsOffset(0); setSelectedNewsIso(null); setNewsNow(Date.now()); }} />}
               {showCables && (

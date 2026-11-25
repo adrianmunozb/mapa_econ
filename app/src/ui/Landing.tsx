@@ -31,8 +31,8 @@ export function Landing({ countries, stats, updated, onPick }: Props) {
             200 países. Elige una sección o pulsa el globo para abrir el mapa completo.
           </p>
           <div className="landing__ctas">
-            <button type="button" className="ui-button ui-button--primary" onClick={() => onPick('riesgo')}>
-              Ver el riesgo soberano
+            <button type="button" className="ui-button ui-button--primary" onClick={() => onPick('mapa')}>
+              Abrir mapa
             </button>
             <button type="button" className="ui-button" onClick={() => onPick('pais')}>Explorar un país</button>
           </div>

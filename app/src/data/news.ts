@@ -325,3 +325,11 @@ export function parseNewsImport(text: string): NewsArticle[] {
   if (!articles.length) throw new Error('No hay noticias válidas. Campos necesarios: title, url, publishedAt (fecha ISO).');
   return articles;
 }
+
+/** Headlines to list: every event across the hotspots (or one hotspot), newest first. */
+export function latestEvents(hotspots: NewsHotspot[], hotspotId: string | null = null): NewsEvent[] {
+  const pool = hotspotId ? hotspots.filter(spot => spot.id === hotspotId) : hotspots;
+  const byId = new Map<string, NewsEvent>();
+  for (const spot of pool) for (const event of spot.events) if (!byId.has(event.id)) byId.set(event.id, event);
+  return [...byId.values()].sort((a, b) => b.latestAt - a.latestAt);
+}

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { NEWS_TOPICS, parseNewsImport, publisherId, newsTopic, type NewsArticle, type NewsHotspot, type NewsSnapshot, type NewsTopic, type NewsGeography } from '../data/news';
+import { NEWS_TOPICS, latestEvents, parseNewsImport, publisherId, newsTopic, type NewsArticle, type NewsHotspot, type NewsSnapshot, type NewsTopic, type NewsGeography } from '../data/news';
 import './news.css';
 
 export function NewsControls({ enabled, onToggle, snapshot, hotspots, total, unmapped, hours, onHours, selected, onSelect, onImport, onReset, automatic, now,
@@ -14,6 +14,14 @@ export function NewsControls({ enabled, onToggle, snapshot, hotspots, total, unm
   sources: string[]; onSources: (sources: string[]) => void; offset: number; onOffset: (offset: number) => void;
 }) {
   const [message, setMessage] = useState('');
+  const [shown, setShown] = useState(25);
+  const headlines = useMemo(() => latestEvents(hotspots, selected), [hotspots, selected]);
+  const countryName = useMemo(() => new Map(hotspots.map(spot => [spot.iso3, spot.name])), [hotspots]);
+  const ago = (stamp: number) => {
+    const minutes = Math.max(0, Math.round((now - stamp) / 60_000));
+    return minutes < 60 ? `hace ${minutes} min` : minutes < 1440 ? `hace ${Math.round(minutes / 60)} h` : `hace ${Math.round(minutes / 1440)} d`;
+  };
+  const periods: [number, string][] = [[24, '24 h'], [72, '3 días'], [168, '7 días']];
   const active = hotspots.find(spot => spot.id === selected);
   const reference = now - offset * 3_600_000;
   const availableSources = useMemo(() => {
@@ -39,16 +47,40 @@ export function NewsControls({ enabled, onToggle, snapshot, hotspots, total, unm
       <span className="news-dot" aria-hidden="true" /> Radar de noticias <span>{enabled ? 'ON' : 'OFF'}</span>
     </button>
     {enabled && <div id="news-content">
-      <div className="news-heading"><strong>Qué está cambiando</strong><span>{offset ? 'HISTÓRICO' : 'ACTUALIDAD'}</span></div>
-      <div className="news-stats"><span><b>{eventCount}</b> acontecimientos</span><span><b>{sourceCount}</b> medios</span><span><b>{hotspots.length}</b> focos</span></div>
-      <div className="news-filters">
-        <label className="news-window">Periodo<select value={hours} onChange={event => onHours(Number(event.target.value))}>
-          <option value={24}>24 horas</option><option value={72}>3 días</option><option value={168}>7 días</option>
-        </select></label>
-        <label className="news-window">Tema<select value={topic} onChange={event => onTopic(event.target.value as NewsTopic | 'all')}>
-          {Object.entries(NEWS_TOPICS).map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-        </select></label>
+      <div className="news-heading"><strong>Últimos titulares</strong>
+        <span>{automatic ? 'En vivo' : offset ? 'Histórico' : 'Archivo'}{snapshot.generatedAt ? ` · ${new Date(snapshot.generatedAt).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}` : ''}</span></div>
+      <div className="news-quick" role="group" aria-label="Periodo">
+        {periods.map(([value, label]) =>
+          <button type="button" key={value} aria-pressed={hours === value} onClick={() => onHours(value)}>{label}</button>)}
       </div>
+      <div className="news-quick" role="group" aria-label="Tema">
+        {Object.entries(NEWS_TOPICS).map(([id, label]) =>
+          <button type="button" key={id} aria-pressed={topic === id} onClick={() => onTopic(id as NewsTopic | 'all')}>{id === 'all' ? 'Todos' : label}</button>)}
+      </div>
+      {active && <div className="news-filter-chip">Noticias de <b>{active.name}</b>
+        <button type="button" aria-label="Quitar el filtro de país" onClick={() => onSelect(null)}>×</button></div>}
+      <p className="news-caption">{eventCount} acontecimientos · {sourceCount} medios · {hotspots.length} países con cobertura. Pulsa un país en el mapa para filtrar.</p>
+
+      {!total && <p className="news-empty">No hay noticias con estos filtros. Amplía el periodo o vuelve a Ahora.</p>}
+      <ol className="news-headlines">
+        {headlines.slice(0, shown).map(event => {
+          const lead = event.articles[0];
+          const others = event.sourceCount - 1;
+          return <li key={event.id}>
+            <a href={lead?.url} target="_blank" rel="noopener noreferrer">{event.title}</a>
+            <small>{lead?.source}{others > 0 ? ` y ${others} medio${others > 1 ? 's' : ''} más` : ''} · {ago(event.latestAt)} · {NEWS_TOPICS[event.topic]}{event.countries.length ? ` · ${event.countries.slice(0, 3).map(code => countryName.get(code) ?? code).join(', ')}` : ''}</small>
+          </li>;
+        })}
+      </ol>
+      {headlines.length > shown && <button type="button" className="btn news-more" onClick={() => setShown(n => n + 25)}>Ver más titulares ({headlines.length - shown})</button>}
+
+      {!selected && hotspots.length > 0 && <>
+        <h4 className="news-subtitle">Países con más cobertura</h4>
+        <div className="news-countries">{hotspots.slice(0, 10).map(spot =>
+          <button type="button" key={spot.id} title={trendText(spot)} onClick={() => onSelect(spot.id)}>{spot.name} <b>{spot.events.length}</b></button>)}</div>
+      </>}
+
+      <details className="news-advanced"><summary>Opciones avanzadas</summary>
       <label className="news-window news-geography">Ubicación<select value={geography} onChange={event => onGeography(event.target.value as NewsGeography)}>
         <option value="mentioned">Países mencionados</option><option value="occurrence">Lugar del suceso</option>
       </select></label>
@@ -94,18 +126,7 @@ export function NewsControls({ enabled, onToggle, snapshot, hotspots, total, unm
       </details>
       {message && <p className="news-caption" role="status">{message}</p>}
       <p className="news-caption">{total} noticias · {unmapped} sin ubicación {geography === 'occurrence' ? 'del suceso' : 'reconocida'}.</p>
-      {!total && <p className="news-empty">No hay noticias con estos filtros. Amplía el periodo, vuelve a Ahora o importa datos recientes.</p>}
-      {total > 0 && !hotspots.length && <p className="news-empty">Hay noticias, pero ninguna tiene una ubicación reconocida en esta vista.</p>}
-      <div className="news-ranking">{hotspots.map(spot => <button type="button" key={spot.id} className={selected === spot.id ? 'news-country news-country--active' : 'news-country'} onClick={() => onSelect(spot.id)}>
-        <span>{spot.name}<small>{spot.events.length} acontecimientos · {spot.sourceCount} medios</small><small className={spot.isNew || (spot.trend ?? 0) >= 50 ? 'news-trend--up' : ''}>{trendText(spot)}</small></span><span className="news-meter"><i style={{ width: `${spot.intensity * 100}%` }} /></span><b>{spot.articles.length}</b>
-      </button>)}</div>
-      {active && <div className="news-stories"><div className="news-heading"><strong>{active.name}</strong><button type="button" className="btn" aria-label="Cerrar noticias del foco" onClick={() => onSelect(null)}>×</button></div>
-        {active.events.map(event => <details className="news-event" key={event.id} open={active.events.length === 1}>
-          <summary><span>{event.title}</span><small>{event.articles.length} noticias · {event.sourceCount} medios · {NEWS_TOPICS[event.topic]}</small></summary>
-          <p className="news-caption">Países mencionados: {event.countries.join(', ') || 'sin detectar'}. Lugar: {event.places.map(place => `${place.name} (${place.basis === 'explicit' ? 'explícito' : 'inferido del titular'})`).join(' · ') || 'sin confirmar'}.</p>
-          {event.articles.map(article => <article key={article.url}><a href={article.url} target="_blank" rel="noopener noreferrer">{article.title} ↗</a><small>{article.source} · {new Date(article.publishedAt).toLocaleString('es-ES')}</small></article>)}
-        </details>)}
-      </div>}
+      </details>
     </div>}
   </section>;
 }

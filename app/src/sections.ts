@@ -27,6 +27,8 @@ export interface Section {
   /** Short explanation shown at the top of the section panel. */
   intro: string;
   defaultMetric: string;
+  /** Metrics offered as one-tap buttons; the rest stay in "Más indicadores". */
+  keyMetrics?: string[];
   /** Where the map flies on entering, [minLng, minLat, maxLng, maxLat]; whole world if absent. */
   view?: [number, number, number, number];
   /** Metric groups offered in the picker (see displayDomain); empty = no picker. */
@@ -51,6 +53,7 @@ export const SECTIONS: Section[] = [
     tagline: 'Todos los indicadores en un solo mapa del mundo.',
     intro: 'El mapa completo: elige cualquier indicador, de la prima de riesgo al PIB, y compara todos los países.',
     defaultMetric: 'gdp_per_capita',
+    keyMetrics: ['gdp_per_capita', 'euro_spread_bund', 'policy_rate', 'inflation', 'unemployment', 'population'],
     domains: ['finance', ...NON_FINANCE],
     controls: ['search', 'picker', 'trend', 'legend', 'download', 'ranking'],
     layers: NO_LAYERS,
@@ -62,6 +65,7 @@ export const SECTIONS: Section[] = [
     tagline: 'Prima de riesgo frente al Bund, tipos oficiales, tipo real y curvas de deuda.',
     intro: 'Cuánto paga cada Estado por financiarse y qué tipos fija su banco central. Datos del BIS, el BCE y Eurostat, verificados contra la fuente.',
     defaultMetric: 'euro_spread_bund',
+    keyMetrics: ['euro_spread_bund', 'policy_rate', 'real_policy_rate', 'bond_yield_120m', 'inflation'],
     view: [-25, 34, 42, 66],
     domains: ['finance'],
     controls: ['search', 'picker', 'legend', 'download', 'ranking'],
@@ -73,6 +77,7 @@ export const SECTIONS: Section[] = [
     tagline: 'PIB, empleo, salud, gobernanza y medio ambiente de cada país, con 20 años de historia.',
     intro: 'Indicadores oficiales del Banco Mundial y el FMI. Cambia a "Evolución" para ver cómo han cambiado desde 2004 o 2014.',
     defaultMetric: 'gdp_per_capita',
+    keyMetrics: ['gdp_per_capita', 'gdp_growth', 'unemployment', 'gini', 'life_expectancy', 'control_of_corruption'],
     domains: NON_FINANCE,
     controls: ['search', 'picker', 'trend', 'legend', 'download', 'alliances', 'ranking'],
     layers: NO_LAYERS,

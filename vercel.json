@@ -3,5 +3,11 @@
   "framework": null,
   "installCommand": "npm ci --prefix app",
   "buildCommand": "npm run build --prefix app",
-  "outputDirectory": "app/dist"
+  "outputDirectory": "app/dist",
+  "functions": {
+    "api/news-feed.mjs": {
+      "includeFiles": "app/{scripts/news-feed.mjs,src/data/news.ts,src/data/news-feeds.json,src/data/news-snapshot.json}",
+      "maxDuration": 30
+    }
+  }
 }

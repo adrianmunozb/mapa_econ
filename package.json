@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "description": "Vercel project root: the app lives in app/, the news function in api/.",
+  "engines": {
+    "node": "24.x"
+  }
+}

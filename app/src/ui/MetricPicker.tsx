@@ -20,9 +20,10 @@ interface Props {
   domains?: string[];
   value: string;
   onChange: (id: string) => void;
+  label?: string;
 }
 
-export function MetricPicker({ metrics, domains, value, onChange }: Props) {
+export function MetricPicker({ metrics, domains, value, onChange, label }: Props) {
   const { lang, t } = useLang();
   const groups = DOMAIN_ORDER.filter((domain) => !domains || domains.includes(domain)).map((domain) => ({
     domain,
@@ -31,7 +32,7 @@ export function MetricPicker({ metrics, domains, value, onChange }: Props) {
 
   return (
     <label className="field">
-      <span>{t.metricPickerLabel}</span>
+      <span>{label ?? t.metricPickerLabel}</span>
       <select className="select" value={value} onChange={(e) => onChange(e.target.value)}>
         {groups.map((g) => (
           <optgroup key={g.domain} label={domainLabel(g.domain, lang)}>
