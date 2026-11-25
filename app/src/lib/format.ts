@@ -35,6 +35,8 @@ export function formatValueWithUnit(value: number, metric: MetricMeta, lang: Lan
       return `${n} years`;
     case 'currency':
       return `${n} ${metricUnit(metric, lang)}`;
+    case 'basisPoints':
+      return `${n} bp`;
     case 'index':
       return n;
     case 'number':
@@ -51,6 +53,7 @@ export function formatChange(value: number, metric: MetricMeta, lang: Lang = 'en
   if (metric.format === 'currency' || metric.format === 'number') return `${sign}${num} %`;
   if (metric.format === 'years') return `${sign}${num} yr`;
   if (metric.format === 'percent') return `${sign}${num} pp`;
+  if (metric.format === 'basisPoints') return `${sign}${num} bp`;
   return `${sign}${num}`;
 }
 
@@ -71,6 +74,7 @@ export function formatCompact(value: number, metric?: MetricMeta, lang: Lang = '
   }).format(value);
   if (!metric) return s;
   if (metric.format === 'percent') return `${s} %`;
+  if (metric.format === 'basisPoints') return `${s} bp`;
   if (metric.format === 'years') return `${s} yr`;
   return s;
 }

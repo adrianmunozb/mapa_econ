@@ -44,12 +44,18 @@ export function bondPoint(curve: BondCurve | undefined, months: number) {
   return curve?.points.find(point => point.months === months && Number.isFinite(point.yield));
 }
 
+/** "Recent" means recent when the static snapshot was built, not when it is viewed. */
+export const bondSnapshotTime = (bonds: Pick<BondSnapshot, 'generatedAt'>) => {
+  const time = Date.parse(bonds.generatedAt);
+  return Number.isFinite(time) ? time : Date.now();
+};
+
 export function isRecentBondCurve(curve: BondCurve, now = Date.now()) {
   const observed = Date.parse(`${curve.date}${curve.date.length === 7 ? '-01' : ''}T00:00:00Z`);
   return Number.isFinite(observed) && observed <= now && now - observed <= 180 * 86_400_000;
 }
 
-export function availableBondCountries(countries: CountryData[], bonds: BondSnapshot, now = Date.now()) {
+export function availableBondCountries(countries: CountryData[], bonds: BondSnapshot, now = bondSnapshotTime(bonds)) {
   return countries.filter(country => {
     const curve = bonds.countries[country.iso3];
     return curve && isRecentBondCurve(curve, now)
@@ -58,7 +64,8 @@ export function availableBondCountries(countries: CountryData[], bonds: BondSnap
 }
 
 export function withBondMetrics(snapshot: Snapshot, bonds: BondSnapshot): Snapshot {
-  const source: SourceRef = { name: 'Official sovereign yield sources', url: 'https://www.bankofcanada.ca/rates/interest-rates/lookup-bond-yields/', license: 'Official data; see country source' };
+  const asOf = bondSnapshotTime(bonds);
+  const source: SourceRef = { name: 'Official sovereign yield sources (one per country; see its curve)', url: 'https://github.com/adrianmunozb/mapa_econ/blob/main/docs/bond-yields.md', license: 'Official data; see country source' };
   const metrics: MetricMeta[] = BOND_TENORS.map(term => ({
     id: bondMetricId(term.months), label: `Government bond yield · ${term.label}`,
     shortLabel: `Bond yield · ${tenorLabel(term.months)}`, unit: '%',
@@ -71,7 +78,7 @@ export function withBondMetrics(snapshot: Snapshot, bonds: BondSnapshot): Snapsh
     ...snapshot.countries,
     ...BOND_ONLY_COUNTRIES.filter(country => {
       const curve = bonds.countries[country.iso3];
-      return !knownCountries.has(country.iso3) && curve !== undefined && isRecentBondCurve(curve);
+      return !knownCountries.has(country.iso3) && curve !== undefined && isRecentBondCurve(curve, asOf);
     }),
   ];
   return {
@@ -79,7 +86,7 @@ export function withBondMetrics(snapshot: Snapshot, bonds: BondSnapshot): Snapsh
     metrics: [...snapshot.metrics.filter(m => !isBondMetric(m.id)), ...metrics],
     countries: countries.map(country => {
       const curve = bonds.countries[country.iso3];
-      if (!curve || !isRecentBondCurve(curve)) return country;
+      if (!curve || !isRecentBondCurve(curve, asOf)) return country;
       const values = { ...country.metrics };
       for (const term of BOND_TENORS) {
         const point = bondPoint(curve, term.months);

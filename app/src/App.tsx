@@ -41,9 +41,10 @@ import newsSeed from './data/news-snapshot.json';
 import { cleanArticles, countryMatcher, newsHotspots, type NewsSnapshot, type NewsTopic, type NewsGeography } from './data/news';
 import { NewsControls } from './ui/NewsControls';
 import bondsSeed from './data/bonds-snapshot.json';
-import { BOND_TENORS, availableBondCountries, bondMetricId, bondMonths, isBondMetric, withBondMetrics, type BondSnapshot } from './data/bonds';
+import { BOND_TENORS, availableBondCountries, bondMetricId, bondSnapshotTime, bondMonths, isBondMetric, withBondMetrics, type BondSnapshot } from './data/bonds';
 
 const BONDS = bondsSeed as BondSnapshot;
+const BOND_AS_OF = bondSnapshotTime(BONDS);
 
 const MAX_COMPARE = 4;
 const CHANGE_PERIODS = [2004, 2014]; // baked into the geojson for fast development-mode coloring
@@ -876,6 +877,7 @@ export default function App() {
       {!regionalIso && selectedIso && snapshot && metric && (
         <CountryPanel
           bondCurve={BONDS.countries[selectedIso]}
+          bondAsOf={BOND_AS_OF}
           bondMaturity={bondMonths(metricId)}
           onPickBondMaturity={selectBondMaturity}
           country={byIso.get(selectedIso) ?? null}

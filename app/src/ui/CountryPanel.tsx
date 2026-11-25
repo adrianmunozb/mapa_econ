@@ -40,6 +40,7 @@ interface Props {
   regionalRegionCount?: number;
   onExploreRegions?: () => void;
   bondCurve?: BondCurve;
+  bondAsOf: number;
   bondMaturity: number;
   onPickBondMaturity: (months: number) => void;
 }
@@ -62,6 +63,7 @@ export const CountryPanel = memo(function CountryPanel({
   regionalRegionCount,
   onExploreRegions,
   bondCurve,
+  bondAsOf,
   bondMaturity,
   onPickBondMaturity,
 }: Props) {
@@ -101,7 +103,7 @@ export const CountryPanel = memo(function CountryPanel({
 
       <CountryClock iso3={country.iso3} />
 
-      <YieldCurve key={country.iso3} curve={bondCurve} countryName={country.name}
+      <YieldCurve key={country.iso3} curve={bondCurve} asOf={bondAsOf} countryName={country.name}
         months={bondMaturity} onPickMaturity={onPickBondMaturity} />
 
       <button

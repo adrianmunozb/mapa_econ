@@ -25,3 +25,4 @@ data/raw/
 
 # Local IDE / personal config
 .claude/
+.vercel

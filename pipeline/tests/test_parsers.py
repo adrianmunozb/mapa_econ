@@ -1,12 +1,13 @@
 import unittest
 
-from wem.providers import bis, comtrade, imf, natural_earth, worldbank
+from wem.providers import bis, comtrade, eurostat, imf, natural_earth, worldbank
 from wem.providers.imf_datamapper import ImfDataMapperClient, parse_series
 from wem.providers.registry import ProviderPool
 from wem.catalog import ALL_METRICS
 from wem.regions.boundaries import index_shapes
 from wem.regions.matcher import match_country
 from wem.regions.names import normalize, normalize_admin_name
+from wem.steps.current import real_policy_rates
 from wem.steps.trade import top_partners
 
 
@@ -83,6 +84,12 @@ class CurrentDataTest(unittest.TestCase):
         self.assertEqual(out["USA"], {"value": 4.5, "year": 2026, "period": "2026-06"})
         self.assertEqual(out["GBR"]["value"], 4.0)
 
+    def test_bis_bulgaria_gets_ecb_rate_since_joining_the_euro(self):
+        # Bulgaria adopted the euro on 1 Jan 2026 and BIS publishes no BG series.
+        out = bis.parse_policy_rates("REF_AREA,OBS_VALUE,TIME_PERIOD\nXM,2.5,2026-11-17\n", {})
+        self.assertEqual(out["BGR"], {"value": 2.5, "year": 2026, "period": "2026-11"})
+        self.assertEqual(len(bis.EURO_AREA_ISO3), 21)
+
     def test_imf_cpi_maps_kosovo_and_skips_nulls(self):
         root = {"data": {
             "dataSets": [{"series": {"0:0": {"observations": {"0": [1.5]}}, "1:0": {"observations": {"0": [None]}}}}],
@@ -91,6 +98,62 @@ class CurrentDataTest(unittest.TestCase):
                 "observation": [{"values": [{"value": "2026-M05"}]}]}}],
         }}
         self.assertEqual(imf.parse_cpi(root), {"XKX": {"value": 1.5, "year": 2026, "period": "2026-05"}})
+
+
+class EuroSpreadTest(unittest.TestCase):
+    ROOT = {
+        "id": ["freq", "geo", "time"], "size": [1, 3, 2],
+        "dimension": {
+            "freq": {"category": {"index": {"M": 0}}},
+            "geo": {"category": {"index": {"DE": 0, "IT": 1, "EL": 2}}},
+            "time": {"category": {"index": {"2026-09": 0, "2026-10": 1}}},
+        },
+        # IT has only September; EL (Greece) has both months.
+        "value": {"0": 3.473, "1": 3.416, "2": 4.362, "4": 3.9, "5": 4.1},
+    }
+
+    def test_parse_maps_greece_and_skips_gaps(self):
+        out = eurostat.parse_monthly(self.ROOT)
+        self.assertEqual(out["DEU"], {"2026-09": 3.473, "2026-10": 3.416})
+        self.assertEqual(out["ITA"], {"2026-09": 4.362})
+        self.assertEqual(out["GRC"]["2026-10"], 4.1)
+
+    def test_spread_never_subtracts_different_months(self):
+        out = eurostat.spreads_vs_bund(eurostat.parse_monthly(self.ROOT))
+        # Italy's latest month is September, so the Bund is taken from September too.
+        self.assertEqual(out["ITA"], {"value": 88.9, "year": 2026, "period": "2026-09"})
+        self.assertEqual(out["GRC"]["value"], 68.4)
+        self.assertEqual(out["DEU"]["value"], 0.0)
+
+    def test_frozen_yield_series_get_no_spread(self):
+        bund = {"2026-08": 3.185, "2026-09": 3.473, "2026-10": 3.416}
+        yields = {"DEU": bund, "LTU": {"2026-08": 2.88, "2026-09": 2.88, "2026-10": 2.88},
+                  "ESP": {"2026-08": 3.635, "2026-09": 3.927, "2026-10": 4.066}}
+        out = eurostat.spreads_vs_bund(yields)
+        self.assertNotIn("LTU", out)  # -53.6bp "below the Bund" was an artefact
+        self.assertEqual(out["ESP"]["value"], 65.0)
+        self.assertFalse(eurostat.is_frozen({"2026-09": 2.88, "2026-10": 2.88}))  # too short to judge
+
+    def test_spread_needs_a_bund_observation(self):
+        self.assertEqual(eurostat.spreads_vs_bund({"ITA": {"2026-09": 4.0}}), {})
+
+    def test_geo_codes_cover_the_euro_area(self):
+        self.assertEqual(set(eurostat.EUROSTAT_GEO), set(bis.EURO_AREA_ISO3))
+
+    def test_real_policy_rate_is_rate_minus_inflation_with_both_periods(self):
+        countries = {
+            "TUR": {"metrics": {"policy_rate": {"value": 36.0, "year": 2026, "period": "2026-11"},
+                                "inflation": {"value": 29.73, "year": 2026, "period": "2026-09"}}},
+            "ABC": {"metrics": {"inflation": {"value": 2.0, "year": 2025}}},
+            # A frozen 2025 rate must not be netted against 2026 inflation.
+            "ARG": {"metrics": {"policy_rate": {"value": 29.0, "year": 2025, "period": "2025-07"},
+                                "inflation": {"value": 33.1, "year": 2026, "period": "2026-10"}}},
+            # Annual (World Bank) inflation has no month to compare with.
+            "XYZ": {"metrics": {"policy_rate": {"value": 5.0, "year": 2026, "period": "2026-11"},
+                                "inflation": {"value": 3.0, "year": 2025}}},
+        }
+        out = real_policy_rates(countries)
+        self.assertEqual(out, {"TUR": {"value": 6.27, "year": 2026, "period": "2026-11 · CPI 2026-09"}})
 
 
 class TradeTest(unittest.TestCase):

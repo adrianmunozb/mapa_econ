@@ -7,7 +7,9 @@ catalog as the source of truth. Idempotent; existing values that differ from the
 
 from __future__ import annotations
 
-from ..catalog import HS2_NAMES_EN, INFLATION_ID, INFLATION_OVERRIDES, POLICY_RATE, ALL_METRICS
+from ..catalog import (
+    ALL_METRICS, EURO_SPREAD, HS2_NAMES_EN, INFLATION_ID, INFLATION_OVERRIDES, POLICY_RATE, REAL_POLICY_RATE,
+)
 from ..jsonio import read_json, write_json
 from ..paths import Paths
 
@@ -20,7 +22,8 @@ def english_fields() -> dict[str, dict[str, str]]:
     Runtime-patched metrics (see steps/current) take precedence over the base catalog.
     """
     fields = {m.id: m.to_dict() for m in ALL_METRICS}
-    fields[POLICY_RATE.id] = POLICY_RATE.to_dict()
+    for metric in (POLICY_RATE, REAL_POLICY_RATE, EURO_SPREAD):
+        fields[metric.id] = metric.to_dict()
     fields.setdefault(INFLATION_ID, {})["descriptionEn"] = INFLATION_OVERRIDES["descriptionEn"]
     return {mid: {f: d[f] for f in EN_FIELDS if f in d} for mid, d in fields.items()}
 

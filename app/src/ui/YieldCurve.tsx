@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { bondPoint, bondSpread, isRecentBondCurve, tenorLabel, type BondCurve } from '../data/bonds';
 import './bonds.css';
 
-export function YieldCurve({ curve, countryName, months, onPickMaturity }: {
+export function YieldCurve({ curve, asOf, countryName, months, onPickMaturity }: {
   curve?: BondCurve;
+  asOf: number;
   countryName: string;
   months: number;
   onPickMaturity: (months: number) => void;
@@ -31,7 +32,7 @@ export function YieldCurve({ curve, countryName, months, onPickMaturity }: {
         <span>{curve.currency} · {curve.date} · {curve.frequency === 'monthly' ? 'Monthly average' : curve.frequency === 'auction' ? 'Auction results' : 'Daily observation'}</span>
         <strong>{selected ? `${tenorLabel(selected.months)} · ${selected.yield.toFixed(2)}%` : `${tenorLabel(months)} · No data`}</strong>
       </div>
-      {!isRecentBondCurve(curve) && <p className="bond-curve__notice">Historical observation, over 180 days old. Excluded from the current map and ranking.</p>}
+      {!isRecentBondCurve(curve, asOf) && <p className="bond-curve__notice">Historical observation, over 180 days old. Excluded from the current map and ranking.</p>}
       {points.length > 1 ? <svg viewBox="0 0 320 182" role="img" aria-label={`${countryName}: bond yields by maturity, ${curve.date}. Values are listed below.`}>
         {[low, (low + high) / 2, high].map(v => <g key={v}>
           <line x1="40" x2="300" y1={y(v)} y2={y(v)} className="bond-curve__grid" />
