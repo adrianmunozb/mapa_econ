@@ -16,7 +16,8 @@ Fuente primaria: [ECB Data Portal, facilidad de depósito (DFR)](https://data.ec
 ## 2. Prima de riesgo frente al Bund (pb)
 
 Fuente primaria: [Eurostat `irt_lt_mcby_m`](https://ec.europa.eu/eurostat/databrowser/view/irt_lt_mcby_m/default/table),
-recalculada aquí con el mismo mes para el país y para Alemania.
+recalculada aquí con el mismo mes para el país y para Alemania. Se excluyen las series
+con el mismo valor tres meses seguidos (no son precios de mercado).
 
 | País | App (pb) | Mes app | Eurostat hoy (pb) | Mes Eurostat | Veredicto |
 |---|---:|---|---:|---|---|
@@ -27,7 +28,7 @@ recalculada aquí con el mismo mes para el país y para Alemania.
 | GRC | 99.4 | 2026-10 | 99.4 | 2026-10 | OK |
 | PRT | 50.1 | 2026-10 | 50.1 | 2026-10 | OK |
 | NLD | 11.9 | 2026-10 | 11.9 | 2026-10 | OK |
-| BGR | 67.4 | 2026-10 | 67.4 | 2026-10 | OK |
+| BGR | — | — | — | — | excluido: serie sin variación |
 
 ## 3. Capa de bonos (rentabilidad a 10 años) frente a Eurostat
 
