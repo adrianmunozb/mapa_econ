@@ -113,13 +113,13 @@ class EuroSpreadTest(unittest.TestCase):
     }
 
     def test_parse_maps_greece_and_skips_gaps(self):
-        out = eurostat.parse_yields(self.ROOT)
+        out = eurostat.parse_monthly(self.ROOT)
         self.assertEqual(out["DEU"], {"2026-09": 3.473, "2026-10": 3.416})
         self.assertEqual(out["ITA"], {"2026-09": 4.362})
         self.assertEqual(out["GRC"]["2026-10"], 4.1)
 
     def test_spread_never_subtracts_different_months(self):
-        out = eurostat.spreads_vs_bund(eurostat.parse_yields(self.ROOT))
+        out = eurostat.spreads_vs_bund(eurostat.parse_monthly(self.ROOT))
         # Italy's latest month is September, so the Bund is taken from September too.
         self.assertEqual(out["ITA"], {"value": 88.9, "year": 2026, "period": "2026-09"})
         self.assertEqual(out["GRC"]["value"], 68.4)

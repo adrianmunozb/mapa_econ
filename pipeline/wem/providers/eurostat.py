@@ -10,7 +10,7 @@ import math
 
 from ..http import HttpClient
 
-URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/irt_lt_mcby_m"
+BASE = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
 BENCHMARK = "DEU"
 
 # Eurostat geo codes are ISO alpha-2 except Greece ("EL").
@@ -22,8 +22,8 @@ EUROSTAT_GEO = {
 ISO3_BY_GEO = {geo: iso3 for iso3, geo in EUROSTAT_GEO.items()}
 
 
-def parse_yields(root: dict) -> dict[str, dict[str, float]]:
-    """JSON-stat 2.0 → ``{iso3: {"YYYY-MM": yield %}}`` (gaps and non-finite values dropped)."""
+def parse_monthly(root: dict) -> dict[str, dict[str, float]]:
+    """JSON-stat 2.0 (geo × month) → ``{iso3: {"YYYY-MM": value}}``; gaps and non-finite dropped."""
     dims = root["dimension"]
     # Row-major flat index over ``id``; the query fixes every other dimension to size 1.
     strides, step = {}, 1
@@ -63,9 +63,19 @@ def spreads_vs_bund(yields: dict[str, dict[str, float]]) -> dict[str, dict]:
     return out
 
 
-def fetch_yields(http: HttpClient, since: str) -> dict[str, dict[str, float]]:
-    params = [("format", "JSON"), ("lang", "EN"), ("sinceTimePeriod", since)]
+def fetch_monthly(http: HttpClient, dataset: str, since: str, **filters: str) -> dict[str, dict[str, float]]:
+    """One euro-area dataset (geo × month) since ``since``; ``filters`` pin the other dimensions."""
+    params = [("format", "JSON"), ("lang", "EN"), ("sinceTimePeriod", since), *filters.items()]
     params += [("geo", geo) for geo in EUROSTAT_GEO.values()]
-    resp = http.get(URL, params)
+    resp = http.get(f"{BASE}/{dataset}", params)
     resp.raise_for_status()
-    return parse_yields(resp.json())
+    return parse_monthly(resp.json())
+
+
+def fetch_yields(http: HttpClient, since: str) -> dict[str, dict[str, float]]:
+    return fetch_monthly(http, "irt_lt_mcby_m", since)
+
+
+def fetch_hicp(http: HttpClient, since: str) -> dict[str, dict[str, float]]:
+    """HICP annual rate. ``prc_hicp_manr`` stopped in Dec 2025 (ECOICOP 2 migration)."""
+    return fetch_monthly(http, "prc_hicp_minr", since, coicop18="TOTAL", unit="RCH_A")
