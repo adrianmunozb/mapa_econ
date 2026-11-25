@@ -5,4 +5,4 @@
 - [x] T3. Descarga CSV (serie, valores actuales, país) + test contra el pipeline.
 - [x] T4. Accesibilidad (etiquetas, `<main>`, 12 px mínimo, estados en texto, Escape).
 - [x] T5. Diseño tipo Apple (tipografía, cifras tabulares, objetivos táctiles, hoja inferior en móvil; tema claro descartado, ver PLAN).
-- [ ] T6. Verificación en navegador, despliegue en Vercel y PR.
+- [x] T6. Verificación en navegador, despliegue en Vercel y PR.
