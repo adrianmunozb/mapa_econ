@@ -552,6 +552,17 @@ export default function App() {
     setSelectedRegion(null);
   }, []);
 
+  // Escape closes the topmost panel (comparison first), except while typing in a field.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || (e.target as HTMLElement | null)?.closest('input, select, textarea')) return;
+      if (compareOpen) setCompareOpen(false);
+      else closeCountryPanel();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [compareOpen, closeCountryPanel]);
+
   const backToWorldMap = useCallback(() => {
     const iso3 = regionalIso;
     setRegionalIso(null);
@@ -571,7 +582,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <div className="map-root">
+      <main className="map-root" aria-label="Mapa">
         {!regionalIso ? (
           ready ? (
             <WorldMap
@@ -628,9 +639,7 @@ export default function App() {
             <p>{error ? fmt(t.loadError, { error }) : t.loading}</p>
           </div>
         )}
-      </div>
-
-
+      </main>
 
       {!regionalIso && <header className="hud hud--top-left scroll-slim">
         <div className="brand">
