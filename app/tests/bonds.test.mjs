@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
-import { availableBondCountries, bondPoint, bondSpread, bondMetricId, bondMonths, isRecentBondCurve, withBondMetrics } from '../src/data/bonds.ts';
+import { availableBondCountries, bondPoint, bondSpread, bondMetricId, bondMonths, bondSnapshotTime, isRecentBondCurve, withBondMetrics } from '../src/data/bonds.ts';
 
 const source = { name: 'Official source', url: 'https://example.org', license: 'Official data' };
 const curve = { date: new Date().toISOString().slice(0, 10), frequency: 'daily', currency: 'EUR', source,
@@ -40,6 +40,21 @@ test('historical, invalid and future observations cannot enter the current heatm
   for (const date of ['2022-08', 'invalid', '2027-01-01']) {
     assert.equal(isRecentBondCurve({ ...curve, date }, now), false);
   }
+});
+
+test('freshness is measured against the snapshot build date, not the viewing date', () => {
+  const bonds = { generatedAt: '2026-10-20T13:28:35Z', countries: { ESP: { ...curve, date: '2026-07' } }, warnings: [] };
+  const original = { generatedAt: '', sources: [], metrics: [], countries: [{ iso3: 'ESP', name: 'Spain', metrics: {} }] };
+  // Opened a year later, a static snapshot must still show what was current when it was built.
+  const realNow = Date.now;
+  Date.now = () => Date.parse('2027-10-20T00:00:00Z');
+  try {
+    assert.equal(bondSnapshotTime(bonds), Date.parse('2026-10-20T13:28:35Z'));
+    assert.equal(withBondMetrics(original, bonds).countries[0].metrics[bondMetricId(120)].value, -0.5);
+  } finally {
+    Date.now = realNow;
+  }
+  assert.ok(Number.isFinite(bondSnapshotTime({ generatedAt: 'invalid' })));
 });
 
 test('curve explorer lists only countries with recent selectable multi-tenor curves', () => {
