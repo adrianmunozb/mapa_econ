@@ -41,6 +41,8 @@ export interface Section {
   layers: Layers;
   /** Reached from the globe rather than from a landing card. */
   noCard?: boolean;
+  /** Only on the landing page, not in the map's top bar. */
+  noTopBar?: boolean;
 }
 
 const NO_LAYERS: Layers = {
@@ -97,7 +99,7 @@ export const SECTIONS: Section[] = [
   },
   {
     id: 'comercio',
-    title: 'Comercio y rutas marítimas',
+    title: 'Comercio y rutas',
     tagline: 'Flujos de exportación, pasos marítimos como Suez u Ormuz y cables submarinos.',
     intro: 'Selecciona un país para ver a quién exporta y de quién importa. Pulsa un paso marítimo para ver su tráfico y lo que depende de él.',
     defaultMetric: 'exports_gdp',
@@ -118,6 +120,7 @@ export const SECTIONS: Section[] = [
   {
     id: 'pais',
     title: 'Explorar un país',
+    noTopBar: true,
     tagline: 'Toda la información de un país en una ficha: tipos, curva de deuda, economía y comercio.',
     intro: 'Busca un país o púlsalo en el mapa para abrir su ficha completa y descargar sus datos.',
     defaultMetric: 'gdp_per_capita',

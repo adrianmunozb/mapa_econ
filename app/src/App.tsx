@@ -727,7 +727,7 @@ export default function App() {
             Mapa económico mundial
           </button>
           <div className="topbar__sections">
-            {SECTIONS.map((s) => (
+            {SECTIONS.filter((s) => !s.noTopBar || s.id === section.id).map((s) => (
               <button key={s.id} type="button" aria-current={s.id === section.id ? 'page' : undefined} onClick={() => enterSection(s.id)}>
                 {s.title}
               </button>
