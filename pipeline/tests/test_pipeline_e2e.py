@@ -47,6 +47,12 @@ class EndToEndTest(unittest.TestCase):
         usa = next(c for c in snap["countries"] if c["iso3"] == "USA")
         self.assertIn("period", usa["metrics"]["inflation"])
         self.assertEqual(usa["metrics"]["policy_rate"]["value"], 4.5)
+        deu = next(c for c in snap["countries"] if c["iso3"] == "DEU")
+        self.assertEqual(deu["metrics"]["euro_spread_bund"]["value"], 0.0)  # the Bund itself
+        self.assertNotIn("euro_spread_bund", usa["metrics"])  # euro area only
+        self.assertIn("real_policy_rate", usa["metrics"])
+        self.assertEqual(ids[ids.index("policy_rate") + 1 : ids.index("policy_rate") + 3],
+                         ["real_policy_rate", "euro_spread_bund"])
 
     def test_extra_metrics_optional_skipping_and_providers(self):
         snap = load(self.paths.snapshot)

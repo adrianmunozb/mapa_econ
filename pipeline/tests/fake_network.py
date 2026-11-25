@@ -164,6 +164,19 @@ def _dose_csv():
     return "\n".join(lines) + "\n"
 
 
+def _eurostat():
+    # JSON-stat 2.0, sparse values; ES has no October value (gaps must be tolerated).
+    return {
+        "id": ["freq", "int_rt", "geo", "time"], "size": [1, 1, 2, 2],
+        "dimension": {
+            "freq": {"category": {"index": {"M": 0}}}, "int_rt": {"category": {"index": {"MCBY": 0}}},
+            "geo": {"category": {"index": {"DE": 0, "ES": 1}}},
+            "time": {"category": {"index": {"2026-09": 0, "2026-10": 1}}},
+        },
+        "value": {"0": 2.5, "1": 2.6, "2": 3.4},
+    }
+
+
 class FakeResponse:
     def __init__(self, url, payload=None, text=None, status=200):
         self.url, self.status_code, self._payload = url, status, payload
@@ -191,6 +204,8 @@ def route(url, params=None):
         return FakeResponse(url, _natural_earth())
     if "IMF.STA/CPI" in url:
         return FakeResponse(url, _imf_cpi())
+    if "ec.europa.eu/eurostat" in url:
+        return FakeResponse(url, _eurostat())
     if "stats.bis.org" in url:
         return FakeResponse(url, text=_bis_csv())
     if "IMF.STA/IMTS" in url:

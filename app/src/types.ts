@@ -19,7 +19,7 @@ export type MetricDomain =
   | 'trade'
   | 'governance';
 
-export type MetricFormat = 'currency' | 'number' | 'percent' | 'years' | 'index';
+export type MetricFormat = 'currency' | 'number' | 'percent' | 'years' | 'index' | 'basisPoints';
 
 /** Describes one selectable metric (e.g. "GDP per capita"). */
 export interface MetricMeta {

@@ -25,3 +25,14 @@ IMF_DATAMAPPER = Source(
     "https://www.imf.org/external/datamapper",
     "IMF Terms (Quellenangabe erforderlich)",
 )
+EUROSTAT_LTIR = Source(
+    "Eurostat – EMU convergence criterion bond yields (irt_lt_mcby_m)",
+    "https://ec.europa.eu/eurostat/databrowser/view/irt_lt_mcby_m/default/table",
+    "Eurostat reuse policy (CC BY 4.0)",
+)
+REAL_RATE = Source(
+    "Derived: BIS policy rate minus IMF CPI inflation",
+    "https://data.bis.org/topics/CBPOL",
+    "BIS and IMF terms (attribution required)",
+)
+ECB_DATA = Source("ECB Data Portal – key interest rates", "https://data.ecb.europa.eu/", "ECB reuse policy (attribution required)")

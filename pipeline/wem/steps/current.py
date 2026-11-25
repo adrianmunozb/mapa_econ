@@ -3,6 +3,8 @@ World Bank data:
 
   • Inflation — IMF CPI dataflow (SDMX 3.0), latest monthly YoY %.
   • Policy rate — BIS WS_CBPOL, latest central-bank policy rate, daily.
+  • Real policy rate — policy rate minus that latest inflation (derived, ex post).
+  • Euro-area spread vs Bund — Eurostat 10Y convergence yields, one source, same month.
 
 Both are keyless and use ISO codes. Each patched value carries a precise ``period``
 (ISO, e.g. "2026-05") so the UI shows how fresh it is. Idempotent — safe to re-run.
@@ -12,12 +14,18 @@ Requires the ``snapshot`` step to have run first.
 from __future__ import annotations
 
 import math
+from datetime import date
 
-from ..catalog import INFLATION_ID, INFLATION_OVERRIDES, POLICY_RATE, POLICY_RATE_SOURCE, sources
+import requests
+
+from ..catalog import (
+    EURO_SPREAD, EURO_SPREAD_SOURCE, INFLATION_ID, INFLATION_OVERRIDES, POLICY_RATE, POLICY_RATE_SOURCE,
+    REAL_POLICY_RATE, REAL_POLICY_RATE_SOURCE, sources,
+)
 from ..http import HttpClient
 from ..jsonio import read_json, write_json
 from ..paths import Paths
-from ..providers import bis
+from ..providers import bis, eurostat
 from ..providers.imf import ImfClient
 
 
@@ -31,17 +39,35 @@ def _patch_values(countries: dict[str, dict], metric_id: str, values: dict[str, 
     return n
 
 
-def _patch_metric_meta(snap: dict) -> None:
+def real_policy_rates(countries: dict[str, dict]) -> dict[str, dict]:
+    """Policy rate minus the latest inflation figure, where a country has both."""
+    out = {}
+    for iso3, country in countries.items():
+        rate, infl = country["metrics"].get(POLICY_RATE.id), country["metrics"].get(INFLATION_ID)
+        if not rate or not infl:
+            continue
+        out[iso3] = {
+            "value": round(rate["value"] - infl["value"], 2),
+            "year": rate["year"],
+            "period": f"{rate.get('period', rate['year'])} · CPI {infl.get('period', infl['year'])}",
+        }
+    return out
+
+
+def _patch_metric_meta(snap: dict, extra: list[tuple]) -> None:
     metrics = snap["metrics"]
     for m in metrics:
         if m["id"] == INFLATION_ID:
             m.update(INFLATION_OVERRIDES)
-    if not any(m["id"] == POLICY_RATE.id for m in metrics):
-        # Insert right after inflation for a natural ordering.
-        idx = next((i for i, m in enumerate(metrics) if m["id"] == INFLATION_ID), len(metrics) - 1)
-        metrics.insert(idx + 1, POLICY_RATE.to_dict(POLICY_RATE_SOURCE))
+    # Insert right after inflation (policy rate first) for a natural ordering.
+    anchor = INFLATION_ID
+    for metric, source in [(POLICY_RATE, POLICY_RATE_SOURCE), *extra]:
+        if not any(m["id"] == metric.id for m in metrics):
+            idx = next((i for i, m in enumerate(metrics) if m["id"] == anchor), len(metrics) - 1)
+            metrics.insert(idx + 1, metric.to_dict(source))
+        anchor = metric.id
     have = {s["name"] for s in snap["sources"]}
-    for src in (sources.IMF_CPI, sources.BIS):
+    for src in (sources.IMF_CPI, sources.BIS, *(source for _, source in extra)):
         if src.name not in have:
             snap["sources"].append(src.to_dict())
 
@@ -75,7 +101,25 @@ def run(paths: Paths, args=()) -> int:
     n_rate = _patch_values(countries, POLICY_RATE.id, bis.fetch_policy_rates(http, iso2_to_iso3))
     print(f"  {n_rate} Länder mit Leitzins")
 
-    _patch_metric_meta(snap)
+    n_real = _patch_values(countries, REAL_POLICY_RATE.id, real_policy_rates(countries))
+    print(f"  {n_real} countries with a real policy rate")
+    extra = [(REAL_POLICY_RATE, REAL_POLICY_RATE_SOURCE)]
+
+    print("-> Euro-area 10Y yields (Eurostat irt_lt_mcby_m) ...")
+    try:
+        since = f"{date.today().year - 1}-01"
+        spreads = eurostat.spreads_vs_bund(eurostat.fetch_yields(http, since))
+    except (requests.RequestException, KeyError, ValueError) as exc:
+        # Keep the committed values rather than publishing a half-built spread.
+        print(f"  WARNING: Eurostat unavailable ({exc}); spread left unchanged")
+        spreads = {}
+    if spreads:
+        n_spread = _patch_values(countries, EURO_SPREAD.id, spreads)
+        print(f"  {n_spread} euro-area countries with a spread vs Bund")
+    if spreads or any(m["id"] == EURO_SPREAD.id for m in snap["metrics"]):
+        extra.append((EURO_SPREAD, EURO_SPREAD_SOURCE))
+
+    _patch_metric_meta(snap, extra)
     dropped = _drop_non_finite(snap)
     if dropped:
         print(f"  {dropped} nicht-endliche Werte bereinigt")
