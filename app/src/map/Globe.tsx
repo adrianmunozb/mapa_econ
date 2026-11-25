@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { Map as MapGL, type MapRef } from '@vis.gl/react-maplibre';
 import type { StyleSpecification } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import { MAP_THEME } from '../theme';
 
 const DEGREES_PER_SECOND = 6;
 
@@ -15,10 +16,10 @@ export function Globe({ countries }: { countries: unknown | null }) {
     projection: { type: 'globe' },
     sources: (countries ? { countries: { type: 'geojson', data: countries as GeoJSON.FeatureCollection } } : {}) as StyleSpecification['sources'],
     layers: [
-      { id: 'ocean', type: 'background', paint: { 'background-color': '#0c1630' } },
+      { id: 'ocean', type: 'background', paint: { 'background-color': MAP_THEME.ocean } },
       ...(countries ? [
-        { id: 'land', type: 'fill' as const, source: 'countries', paint: { 'fill-color': '#22355f' } },
-        { id: 'borders', type: 'line' as const, source: 'countries', paint: { 'line-color': '#5b7bd5', 'line-width': 0.5, 'line-opacity': 0.7 } },
+        { id: 'land', type: 'fill' as const, source: 'countries', paint: { 'fill-color': MAP_THEME.land } },
+        { id: 'borders', type: 'line' as const, source: 'countries', paint: { 'line-color': MAP_THEME.border, 'line-width': 0.5, 'line-opacity': 0.8 } },
       ] : []),
     ],
   }), [countries]);

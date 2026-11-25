@@ -20,6 +20,7 @@ import { getMarketStatus } from '../data/markets';
 import { SolarCycle } from './SolarCycle';
 import { SmoothFill } from './SmoothFill';
 import { frameCoalescer } from './interaction';
+import { MAP_THEME } from '../theme';
 
 // The map instance + event shapes we actually use. Kept local so we don't depend
 // on the exact type-export surface of the wrapper/maplibre-gl across versions.
@@ -82,6 +83,17 @@ interface Props {
 // CARTO dark-matter: tokenless vector style, dark ocean — ideal under a glowing choropleth.
 const BASEMAP = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 
+const BASEMAP_LAND_LAYERS = new Set(['landcover', 'landuse', 'park_national_park', 'park_nature_reserve']);
+
+/** Recolour CARTO's near-black base to the app's navy, so the map matches the landing globe. */
+function tintBasemap(map: import('maplibre-gl').Map) {
+  for (const layer of map.getStyle()?.layers ?? []) {
+    if (layer.type === 'background') map.setPaintProperty(layer.id, 'background-color', MAP_THEME.land);
+    else if (layer.id === 'water') map.setPaintProperty(layer.id, 'fill-color', MAP_THEME.ocean);
+    else if (BASEMAP_LAND_LAYERS.has(layer.id)) map.setPaintProperty(layer.id, 'fill-color', MAP_THEME.land);
+  }
+}
+
 // Offline fallback: a minimal dark style with no external resources, so the
 // single-file build keeps working from file:// without any network access.
 const OFFLINE_STYLE: StyleSpecification = {
@@ -89,7 +101,7 @@ const OFFLINE_STYLE: StyleSpecification = {
   name: 'Mapa económico mundial (sin conexión)',
   sources: {},
   layers: [
-    { id: 'wem-bg', type: 'background', paint: { 'background-color': '#0d1117' } },
+    { id: 'wem-bg', type: 'background', paint: { 'background-color': MAP_THEME.ocean } },
   ],
 };
 
@@ -468,7 +480,7 @@ export const WorldMap = memo(function WorldMap({
       onMouseMove={onMouseMove}
       onMouseOut={onMouseOut}
       onClick={onClick}
-      onLoad={() => setMapLoaded(true)}
+      onLoad={(event) => { tintBasemap(event.target); setMapLoaded(true); }}
       attributionControl={{
         compact: true,
         customAttribution: t.sourcesFooter,

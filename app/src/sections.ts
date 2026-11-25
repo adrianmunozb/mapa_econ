@@ -26,7 +26,6 @@ export interface Section {
   tagline: string;
   /** Short explanation shown at the top of the section panel. */
   intro: string;
-  icon: string;
   defaultMetric: string;
   /** Where the map flies on entering, [minLng, minLat, maxLng, maxLat]; whole world if absent. */
   view?: [number, number, number, number];
@@ -51,7 +50,6 @@ export const SECTIONS: Section[] = [
     title: 'Mapa mundial',
     tagline: 'Todos los indicadores en un solo mapa del mundo.',
     intro: 'El mapa completo: elige cualquier indicador, de la prima de riesgo al PIB, y compara todos los países.',
-    icon: '◍',
     defaultMetric: 'gdp_per_capita',
     domains: ['finance', ...NON_FINANCE],
     controls: ['search', 'picker', 'trend', 'legend', 'download', 'ranking'],
@@ -63,7 +61,6 @@ export const SECTIONS: Section[] = [
     title: 'Tipos y riesgo soberano',
     tagline: 'Prima de riesgo frente al Bund, tipos oficiales, tipo real y curvas de deuda.',
     intro: 'Cuánto paga cada Estado por financiarse y qué tipos fija su banco central. Datos del BIS, el BCE y Eurostat, verificados contra la fuente.',
-    icon: '◎',
     defaultMetric: 'euro_spread_bund',
     view: [-25, 34, 42, 66],
     domains: ['finance'],
@@ -75,7 +72,6 @@ export const SECTIONS: Section[] = [
     title: 'Economía y sociedad',
     tagline: 'PIB, empleo, salud, gobernanza y medio ambiente de cada país, con 20 años de historia.',
     intro: 'Indicadores oficiales del Banco Mundial y el FMI. Cambia a "Evolución" para ver cómo han cambiado desde 2004 o 2014.',
-    icon: '▤',
     defaultMetric: 'gdp_per_capita',
     domains: NON_FINANCE,
     controls: ['search', 'picker', 'trend', 'legend', 'download', 'alliances', 'ranking'],
@@ -86,7 +82,6 @@ export const SECTIONS: Section[] = [
     title: 'Comercio y rutas marítimas',
     tagline: 'Flujos de exportación, pasos marítimos como Suez u Ormuz y cables submarinos.',
     intro: 'Selecciona un país para ver a quién exporta y de quién importa. Pulsa un paso marítimo para ver su tráfico y lo que depende de él.',
-    icon: '⚓',
     defaultMetric: 'exports_gdp',
     domains: [],
     controls: ['search', 'legend', 'trade', 'maritime', 'cables', 'ranking'],
@@ -97,7 +92,6 @@ export const SECTIONS: Section[] = [
     title: 'Mercados y bolsas',
     tagline: 'Las grandes bolsas del mundo, abiertas o cerradas ahora mismo, y el ciclo día/noche.',
     intro: 'Horario en vivo de las principales bolsas y tipo oficial de cada banco central en el mapa.',
-    icon: '↗',
     defaultMetric: 'policy_rate',
     domains: [],
     controls: ['legend', 'markets', 'daynight', 'ticker', 'ranking'],
@@ -108,7 +102,6 @@ export const SECTIONS: Section[] = [
     title: 'Explorar un país',
     tagline: 'Toda la información de un país en una ficha: tipos, curva de deuda, economía y comercio.',
     intro: 'Busca un país o púlsalo en el mapa para abrir su ficha completa y descargar sus datos.',
-    icon: '⌕',
     defaultMetric: 'gdp_per_capita',
     domains: [],
     controls: ['search'],
@@ -119,7 +112,6 @@ export const SECTIONS: Section[] = [
     title: 'Actualidad',
     tagline: 'Noticias georreferenciadas por país y cámaras en directo de todo el mundo.',
     intro: 'Titulares de agencias agrupados por país y tema, y cámaras públicas en directo.',
-    icon: '◉',
     defaultMetric: 'gdp_per_capita',
     domains: [],
     controls: ['news', 'webcams'],
