@@ -591,7 +591,7 @@ export default function App() {
     if (!id) return;
     const next = SECTION_BY_ID.get(id)!;
     setMetricId(next.defaultMetric);
-    setViewMode('current');
+    setViewMode(next.defaultView ?? 'current');
     setSelectedAlliances([]);
     setTradeMode(next.layers.trade);
     setShowChokepoints(next.layers.chokepoints);
@@ -789,6 +789,24 @@ export default function App() {
                 })}
               </div>
             )}
+            {section.themes && (() => {
+              const active = Math.max(0, section.themes.findIndex((th) => th.metrics.includes(metricId)));
+              return <>
+                <div className="theme-tabs" role="tablist" aria-label="Temas">
+                  {section.themes.map((th, i) => (
+                    <button key={th.label} type="button" role="tab" aria-selected={i === active} onClick={() => selectMetric(th.metrics[0])}>{th.label}</button>
+                  ))}
+                </div>
+                <div className="metric-chips" role="group" aria-label={section.themes[active].label}>
+                  {section.themes[active].metrics.map((id) => {
+                    const m = snapshot.metrics.find((x) => x.id === id);
+                    return m ? (
+                      <button key={id} type="button" aria-pressed={metricId === id} onClick={() => selectMetric(id)}>{metricShortLabel(m, lang)}</button>
+                    ) : null;
+                  })}
+                </div>
+              </>;
+            })()}
             {shows(section, 'picker') && <div className="metric-more">
               <MetricPicker metrics={snapshot.metrics} domains={section.domains} value={metricId} onChange={selectMetric} label="Más indicadores" />
             </div>}

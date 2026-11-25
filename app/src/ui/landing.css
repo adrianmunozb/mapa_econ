@@ -400,3 +400,18 @@
 .verified-badge small { display: block; font-size: 12px; color: var(--text-dim); }
 .verified-badge--warn { border-color: rgba(255, 201, 51, 0.4); background: rgba(255, 201, 51, 0.08); }
 .verified-badge--warn > span:first-child { background: var(--accent); color: var(--accent-ink); }
+
+/* ---------- Economy themes ---------- */
+.theme-tabs { display: flex; flex-wrap: wrap; gap: 4px 2px; margin-bottom: 4px; }
+.theme-tabs button {
+  border: 0;
+  background: none;
+  color: var(--text-dim);
+  padding: 6px 8px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.theme-tabs button:hover { color: var(--text); }
+.theme-tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }

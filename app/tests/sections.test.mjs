@@ -38,3 +38,15 @@ test('the globe opens a full world map with every metric group, not a landing ca
   assert.ok(full.domains.includes('finance') && full.domains.includes('economy') && full.domains.length >= 9);
   assert.equal(SECTIONS.filter(s => !s.noCard).length, 6);
 });
+
+test('economy is organised by themes and differs from the full world map', () => {
+  const eco = SECTIONS.find(s => s.id === 'economia');
+  const full = SECTIONS.find(s => s.id === 'mapa');
+  assert.equal(eco.defaultView, 'change');
+  assert.ok(eco.themes.length >= 6);
+  const all = eco.themes.flatMap(th => th.metrics);
+  assert.equal(new Set(all).size, all.length, 'a metric belongs to one theme only');
+  for (const id of all) assert.ok(metricIds.has(id), id);
+  assert.equal(eco.themes[0].metrics[0], eco.defaultMetric);
+  assert.notDeepEqual(eco.controls, full.controls);
+});
