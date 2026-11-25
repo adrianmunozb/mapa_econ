@@ -114,8 +114,11 @@ export default function App() {
   const [newsSources, setNewsSources] = useState<string[]>([]);
   const [newsGeography, setNewsGeography] = useState<NewsGeography>('mentioned');
   const [newsOffset, setNewsOffset] = useState(0);
+  /** True once /api/news-feed answered (dev middleware or the Vercel function). */
+  const [newsLive, setNewsLive] = useState(false);
   useEffect(() => {
-    if (!showNews || newsImported || !import.meta.env.DEV) return;
+    // Live RSS via /api/news-feed; offline or on file:// the bundled snapshot stays.
+    if (!showNews || newsImported || location.protocol === 'file:') return;
     const controller = new AbortController();
     const refresh = async () => {
       try {
@@ -126,6 +129,7 @@ export default function App() {
         const articles = cleanArticles(data.articles);
         if (controller.signal.aborted) return;
         setNewsSnapshot({ ...data, articles });
+        setNewsLive(true);
         setNewsNow(Date.now());
       } catch {
         if (!controller.signal.aborted) setNewsSnapshot(current => ({ ...current, warnings: ['No se pudo actualizar RSS; se conserva la última carga.'] }));
@@ -865,7 +869,7 @@ export default function App() {
                 topic={newsTopic} onTopic={setNewsTopic} geography={newsGeography} onGeography={setNewsGeography}
                 sources={newsSources} onSources={setNewsSources} offset={newsOffset} onOffset={setNewsOffset}
                 hours={newsHours} onHours={setNewsHours} selected={selectedNewsIso} onSelect={selectNews}
-                automatic={import.meta.env.DEV && !newsImported} now={newsNow}
+                automatic={newsLive && !newsImported} now={newsNow}
                 onImport={articles => { setNewsImported(true); setNewsSnapshot({ generatedAt: new Date().toISOString(), articles }); setNewsSources([]); setNewsOffset(0); setNewsNow(Date.now()); setSelectedNewsIso(null); }}
                 onReset={() => { setNewsImported(false); setNewsSnapshot(newsSeed as NewsSnapshot); setNewsSources([]); setNewsOffset(0); setSelectedNewsIso(null); setNewsNow(Date.now()); }} />}
               {showCables && (
