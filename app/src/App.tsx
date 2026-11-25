@@ -44,6 +44,7 @@ import bondsSeed from './data/bonds-snapshot.json';
 import { withSpanishNames } from './data/countryNames';
 import { DownloadCsv } from './ui/DownloadCsv';
 import { Landing } from './ui/Landing';
+import { Logo } from './ui/Logo';
 import { VerificationPage } from './ui/VerificationPage';
 import { VERIFICATION, verificationDate } from './data/verification';
 import { MAP_THEME } from './theme';
@@ -724,7 +725,7 @@ export default function App() {
       {sectionId && !regionalIso && (
         <nav className="topbar" aria-label="Navegación principal">
           <button type="button" className="topbar__brand" onClick={() => enterSection(null)} title="Volver a la portada">
-            Meridiano
+            <Logo size={26} />
           </button>
           <div className="topbar__sections">
             {SECTIONS.filter((s) => !s.noTopBar || s.id === section.id).map((s) => (

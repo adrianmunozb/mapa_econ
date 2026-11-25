@@ -1,5 +1,6 @@
 import { Fragment, type ReactNode } from 'react';
 import { VERIFICATION, verificationDate } from '../data/verification';
+import { Logo } from './Logo';
 
 /** Markdown links ([texto](https://…)) and `code` in the report notes, as React nodes. */
 function rich(text: string): ReactNode[] {
@@ -45,7 +46,7 @@ export function VerificationPage({ onClose, onOpenMap }: Props) {
   return (
     <div className="landing vpage" role="dialog" aria-modal="true" aria-labelledby="vpage-title">
       <header className="landing__nav">
-        <button type="button" className="landing__brand vpage__back" onClick={onClose}>← Meridiano</button>
+        <button type="button" className="landing__brand vpage__back" onClick={onClose} aria-label="Volver a Meridiano"><Logo size={40} /></button>
         <button type="button" className="ui-button ui-button--primary" onClick={onOpenMap}>Abrir mapa</button>
       </header>
 

@@ -1,5 +1,6 @@
 import { Globe } from '../map/Globe';
 import { SECTIONS, type SectionId } from '../sections';
+import { Logo } from './Logo';
 
 interface Props {
   countries: unknown | null;
@@ -15,13 +16,13 @@ export function Landing({ countries, stats, updated, onPick, onVerify }: Props) 
   return (
     <div className="landing">
       <header className="landing__nav">
-        <span className="landing__brand">Meridiano</span>
+        <Logo size={52} />
         <button type="button" className="landing__navlink" onClick={onVerify}>Cómo verificamos los datos</button>
       </header>
 
       <section className="landing__hero">
         <div className="landing__copy">
-          <p className="landing__eyebrow">Datos oficiales · comprobados contra la fuente</p>
+          <p className="landing__eyebrow">Datos oficiales de más de 200 países</p>
           <h1 className="landing__title">
             El sistema financiero mundial, <em>en un mapa que puedes comprobar.</em>
           </h1>
