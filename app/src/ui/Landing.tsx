@@ -7,17 +7,16 @@ interface Props {
   stats: Partial<Record<SectionId, string>>;
   updated?: string;
   onPick: (section: SectionId) => void;
+  onVerify: () => void;
 }
 
-const VERIFY_URL = 'https://github.com/adrianmunozb/mapa_econ/blob/main/docs/verificacion.md';
-
-export function Landing({ countries, stats, updated, onPick }: Props) {
+export function Landing({ countries, stats, updated, onPick, onVerify }: Props) {
   const cards = SECTIONS.filter(section => !section.noCard);
   return (
     <div className="landing">
       <header className="landing__nav">
         <span className="landing__brand">Mapa económico mundial</span>
-        <a className="landing__navlink" href={VERIFY_URL} target="_blank" rel="noreferrer">Cómo verificamos los datos</a>
+        <button type="button" className="landing__navlink" onClick={onVerify}>Cómo verificamos los datos</button>
       </header>
 
       <section className="landing__hero">

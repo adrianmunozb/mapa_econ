@@ -44,6 +44,8 @@ import bondsSeed from './data/bonds-snapshot.json';
 import { withSpanishNames } from './data/countryNames';
 import { DownloadCsv } from './ui/DownloadCsv';
 import { Landing } from './ui/Landing';
+import { VerificationPage } from './ui/VerificationPage';
+import { VERIFICATION, verificationDate } from './data/verification';
 import { MAP_THEME } from './theme';
 import './ui/landing.css';
 import { SECTIONS, SECTION_BY_ID, isSectionId, sectionForLink, shows, type SectionId } from './sections';
@@ -79,6 +81,9 @@ export default function App() {
       ? sectionForLink(initial.m, initial.t, (id) => displayDomain({ id, domain: 'economy' }) === 'finance')
       : null);
   const section = SECTION_BY_ID.get(sectionId ?? 'riesgo')!;
+  // The "how we verify" page sits over everything; #p=verificacion makes it linkable.
+  const [showVerification, setShowVerification] = useState(() =>
+    typeof location !== 'undefined' && new URLSearchParams(location.hash.slice(1)).get('p') === 'verificacion');
   const [metricId, setMetricId] = useState(initial.m || section.defaultMetric);
   const [selectedIso, setSelectedIso] = useState<string | null>(initial.c);
   const [requestedRegionalIso, setRegionalIso] = useState<string | null>(initial.r ? initial.c : null);
@@ -205,6 +210,10 @@ export default function App() {
 
   // Keep the URL hash in sync so the current view is shareable.
   useEffect(() => {
+    if (showVerification) {
+      if (location.hash !== '#p=verificacion') history.replaceState(null, '', '#p=verificacion');
+      return;
+    }
     if (!sectionId) {
       if (location.hash) history.replaceState(null, '', location.pathname + location.search);
       return;
@@ -224,7 +233,7 @@ export default function App() {
     }
     const hash = `#${p.toString()}`;
     if (location.hash !== hash) history.replaceState(null, '', hash);
-  }, [sectionId, metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, requestedViewMode, changeFromYear, selectedAlliances, showDayNight]);
+  }, [showVerification, sectionId, metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, requestedViewMode, changeFromYear, selectedAlliances, showDayNight]);
 
   const byIso = useMemo(() => {
     const map = new Map<string, CountryData>();
@@ -752,6 +761,15 @@ export default function App() {
         <div className="section-head">
           <h1 className="section-head__title">{section.title}</h1>
           <p className="section-head__intro">{section.intro}</p>
+          {section.id === 'riesgo' && (
+            <button type="button" className={`verified-badge${VERIFICATION.issues ? ' verified-badge--warn' : ''}`} onClick={() => setShowVerification(true)}>
+              <span aria-hidden="true">{VERIFICATION.issues ? '!' : '✓'}</span>
+              <span>
+                <b>{VERIFICATION.issues ? `${VERIFICATION.issues} datos por revisar` : 'Verificado contra BCE y Eurostat'}</b>
+                <small>{verificationDate()} · cómo lo comprobamos →</small>
+              </span>
+            </button>
+          )}
         </div>
 
         {snapshot && metric && scale && (
@@ -1072,7 +1090,8 @@ export default function App() {
         onToggleRoutes={toggleMaritimeRoutes}
       />}
 
-      {!sectionId && <Landing countries={geojson} stats={landingStats} updated={updated} onPick={enterSection} />}
+      {!sectionId && <Landing countries={geojson} stats={landingStats} updated={updated} onPick={enterSection} onVerify={() => setShowVerification(true)} />}
+      {showVerification && <VerificationPage onClose={() => setShowVerification(false)} onOpenMap={() => { setShowVerification(false); enterSection('mapa'); }} />}
     </div>
   );
 }
