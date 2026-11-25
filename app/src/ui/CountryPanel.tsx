@@ -3,7 +3,8 @@ import type { CountryData, MetricMeta, ProductEntry } from '../types';
 import type { YearMap } from '../lib/timeseries';
 import { formatValueWithUnit, formatUsdCompact } from '../lib/format';
 import { Flag } from './Flag';
-import { displayDomain, fmt, domainLabel, metricLabel, orderedDomains, tPeriod, useLang } from '../i18n';
+import { displayDomain, fmt, domainLabel, metricLabel, metricUnit, orderedDomains, tPeriod, useLang } from '../i18n';
+import { countryCsv, downloadCsv } from '../lib/csv';
 import { TrendChart } from './TrendChart';
 import { getCountryTimeInfo } from '../data/markets';
 import { YieldCurve } from './YieldCurve';
@@ -111,6 +112,12 @@ export const CountryPanel = memo(function CountryPanel({
         onClick={() => onAddCompare(country.iso3)}
       >
         {inCompare ? t.inCompare : compareFull ? t.compareFull : t.addCompare}
+      </button>
+
+      <button type="button" className="btn btn--ghost btn--compare"
+        onClick={() => downloadCsv(`${country.iso3}_datos.csv`,
+          countryCsv(country, metrics, m => metricLabel(m, lang), m => metricUnit(m, lang)))}>
+        {fmt(t.downloadCountry, { name: country.name })}
       </button>
 
       {regionalRegionCount && onExploreRegions ? (

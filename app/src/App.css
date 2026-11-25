@@ -1302,3 +1302,24 @@
 .webcam-list details { margin-top: 8px; }
 .webcam-list summary { cursor: pointer; color: #cde9e3; font-size: 12px; padding: 8px 0; }
 .webcam-list small { display: block; color: #91a8bd; font-size: 10px; margin-top: 4px; }
+
+/* ---------- CSV downloads ---------- */
+.btn--ghost {
+  background: transparent;
+  border-color: var(--panel-border);
+}
+.download {
+  display: grid;
+  gap: 6px;
+  margin: 4px 0 10px;
+}
+.download__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.download__note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-dim, inherit);
+}

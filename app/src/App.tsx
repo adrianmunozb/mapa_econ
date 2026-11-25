@@ -42,6 +42,7 @@ import { cleanArticles, countryMatcher, newsHotspots, type NewsSnapshot, type Ne
 import { NewsControls } from './ui/NewsControls';
 import bondsSeed from './data/bonds-snapshot.json';
 import { withSpanishNames } from './data/countryNames';
+import { DownloadCsv } from './ui/DownloadCsv';
 import { tenorLabelEs } from './data/metricsEs';
 import { BOND_TENORS, availableBondCountries, bondMetricId, bondSnapshotTime, bondMonths, isBondMetric, withBondMetrics, type BondSnapshot } from './data/bonds';
 
@@ -666,6 +667,7 @@ export default function App() {
               <p>Fuentes diarias y mensuales: compara fechas y métodos en la curva de cada país. Para comparar países usa la prima de riesgo frente al Bund.</p>
             </div>}
             <p className="metric-desc">{metricDescription(metric, lang)}</p>
+            <DownloadCsv metric={metric} countries={snapshot.countries} history={histories[metric.id]} index={timeseriesIndex} />
 
             {hasHistory && (
               <div className="segmented">
