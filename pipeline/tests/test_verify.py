@@ -2,7 +2,7 @@ import unittest
 from datetime import date
 
 from wem.providers import ecb
-from wem.steps.verify import build_report
+from wem.steps.verify import build_report, report_to_json
 
 
 def country(iso3, **metrics):
@@ -47,6 +47,22 @@ class VerifyReportTest(unittest.TestCase):
         text, _ = self.report(snap, hicp={"ESP": {"2026-09": 3.0}, "ITA": {"2026-09": 2.0}})
         self.assertIn("| ESP | 3.10 | 2026-09 | 3.00 | 0.10 | OK |", text)
         self.assertIn("| ITA | 4.00 | 2026-09 | 2.00 | 2.00 | REVISAR |", text)
+
+
+class ReportJsonTest(VerifyReportTest):
+    def test_json_has_one_section_per_check_with_its_table(self):
+        snap = {"countries": [country("DEU", policy_rate={"value": 2.5, "period": "2026-11"},
+                                      euro_spread_bund={"value": 0.0, "period": "2026-10"})]}
+        text, issues = self.report(snap)
+        data = report_to_json(text, date(2026, 11, 25), issues)
+        self.assertEqual(data["generatedAt"], "2026-11-25")
+        self.assertEqual(len(data["sections"]), 4)
+        first = data["sections"][0]
+        self.assertIn("BCE", first["title"])
+        self.assertEqual(first["columns"][0], "País")
+        self.assertEqual(first["rows"][0][:2], ["DEU", "2.50"])
+        self.assertIn("https://data.ecb.europa.eu", first["notes"][0])
+        self.assertTrue(all(len(r) == len(s["columns"]) for s in data["sections"] for r in s["rows"]))
 
 
 class EcbParserTest(unittest.TestCase):

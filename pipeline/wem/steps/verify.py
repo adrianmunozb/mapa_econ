@@ -12,7 +12,7 @@ from datetime import date
 import requests
 
 from ..http import HttpClient
-from ..jsonio import read_json
+from ..jsonio import read_json, write_json
 from ..paths import Paths
 from ..providers import ecb, eurostat
 
@@ -156,6 +156,32 @@ def build_report(snap: dict, bonds: dict, yields: dict | None, hicp: dict | None
     return "\n".join(out), issues
 
 
+def report_to_json(markdown: str, today: date, issues: int) -> dict:
+    """The same report as data for the app's verification page: one entry per section with
+    its notes (Markdown links kept) and its table."""
+    sections: list[dict] = []
+    for line in markdown.splitlines():
+        if line.startswith("## "):
+            sections.append({"title": line[3:].strip(), "notes": [], "columns": [], "rows": []})
+        elif not sections or not line.strip():
+            continue
+        elif line.startswith("|"):
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if set("".join(cells)) <= set("-:"):
+                continue  # Markdown alignment row
+            target = sections[-1]
+            if target["columns"]:
+                target["rows"].append(cells)
+            else:
+                target["columns"] = cells
+        elif not line.startswith("**Filas que requieren"):
+            sections[-1]["notes"].append(line.strip())
+    # Notes wrap across lines in the Markdown; join each section's into paragraphs.
+    for section in sections:
+        section["notes"] = [" ".join(section["notes"])] if section["notes"] else []
+    return {"generatedAt": today.isoformat(), "issues": issues, "sample": SAMPLE, "sections": sections}
+
+
 def _try(label: str, fetch):
     try:
         return fetch()
@@ -178,5 +204,7 @@ def run(paths: Paths, args=()) -> int:
     target = paths.root / "docs" / "verificacion.md"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(report, encoding="utf-8")
+    write_json(paths.root / "app" / "src" / "data" / "verification.json",
+               report_to_json(report, today, issues), ensure_ascii=False)
     print(f"OK: {target.relative_to(paths.root)} written; {issues} rows need attention")
     return 0
