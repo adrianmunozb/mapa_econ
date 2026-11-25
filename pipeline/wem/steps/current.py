@@ -39,12 +39,29 @@ def _patch_values(countries: dict[str, dict], metric_id: str, values: dict[str, 
     return n
 
 
+MAX_REAL_RATE_GAP_MONTHS = 3
+
+
+def _month_index(period: str | None) -> int | None:
+    """``"2026-09"`` -> months since year 0; ``None`` for annual or missing periods."""
+    if not period or len(period) < 7 or period[4] != "-":
+        return None
+    return int(period[:4]) * 12 + int(period[5:7])
+
+
 def real_policy_rates(countries: dict[str, dict]) -> dict[str, dict]:
-    """Policy rate minus the latest inflation figure, where a country has both."""
+    """Policy rate minus the latest inflation, only when both are monthly and close in time.
+
+    A rate frozen in 2025 minus 2026 inflation is not a real rate (e.g. Argentina's BCRA
+    stopped publishing a policy rate in July 2025), so wide gaps are left out.
+    """
     out = {}
     for iso3, country in countries.items():
         rate, infl = country["metrics"].get(POLICY_RATE.id), country["metrics"].get(INFLATION_ID)
         if not rate or not infl:
+            continue
+        months = _month_index(rate.get("period")), _month_index(infl.get("period"))
+        if None in months or abs(months[0] - months[1]) > MAX_REAL_RATE_GAP_MONTHS:
             continue
         out[iso3] = {
             "value": round(rate["value"] - infl["value"], 2),

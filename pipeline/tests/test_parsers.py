@@ -136,6 +136,12 @@ class EuroSpreadTest(unittest.TestCase):
             "TUR": {"metrics": {"policy_rate": {"value": 36.0, "year": 2026, "period": "2026-11"},
                                 "inflation": {"value": 29.73, "year": 2026, "period": "2026-09"}}},
             "ABC": {"metrics": {"inflation": {"value": 2.0, "year": 2025}}},
+            # A frozen 2025 rate must not be netted against 2026 inflation.
+            "ARG": {"metrics": {"policy_rate": {"value": 29.0, "year": 2025, "period": "2025-07"},
+                                "inflation": {"value": 33.1, "year": 2026, "period": "2026-10"}}},
+            # Annual (World Bank) inflation has no month to compare with.
+            "XYZ": {"metrics": {"policy_rate": {"value": 5.0, "year": 2026, "period": "2026-11"},
+                                "inflation": {"value": 3.0, "year": 2025}}},
         }
         out = real_policy_rates(countries)
         self.assertEqual(out, {"TUR": {"value": 6.27, "year": 2026, "period": "2026-11 · CPI 2026-09"}})
