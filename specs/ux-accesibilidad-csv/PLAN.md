@@ -6,7 +6,7 @@
 | Dónde viven las etiquetas en español | `app/src/i18n.ts` + `app/src/data/metricsEs.ts` | Añadir campos `labelEs` al pipeline | Sin regenerar datos; el pipeline sigue publicando EN/DE como hasta ahora. |
 | Grupo financiero | Dominio derivado en la app (`displayDomain`) | Cambiar `domain` en el pipeline | El dato no cambia de naturaleza; es una decisión de presentación. |
 | CSV | Generado en el navegador con `Blob` | Servir `data/csv/` como archivos | Funciona en el HTML de un solo archivo y sin red; coincide con lo que se ve. |
-| Tema claro | `prefers-color-scheme` + mapa base claro de CARTO | Interruptor manual | Lo que hace el sistema (comportamiento Apple). |
+| Tema claro | **Descartado por ahora**: solo oscuro, con pulido tipo Apple (cifras tabulares, jerarquía tipográfica, objetivos táctiles de 44 px, hoja inferior en móvil) | Tema claro automático con `prefers-color-scheme` | El CSS tiene 278 colores fijos y la escala del mapa está pensada para fondo oscuro; hacerlo la víspera de la entrega arriesgaba contraste y legibilidad. Queda como siguiente paso. |
 
 ## Pasos
 

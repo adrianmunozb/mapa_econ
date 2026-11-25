@@ -5,6 +5,7 @@ import { formatValueWithUnit, formatUsdCompact } from '../lib/format';
 import { Flag } from './Flag';
 import { displayDomain, fmt, domainLabel, metricLabel, metricUnit, orderedDomains, tPeriod, useLang } from '../i18n';
 import { countryCsv, downloadCsv } from '../lib/csv';
+import { groupEs } from '../data/countryNames';
 import { TrendChart } from './TrendChart';
 import { getCountryTimeInfo } from '../data/markets';
 import { YieldCurve } from './YieldCurve';
@@ -96,7 +97,7 @@ export const CountryPanel = memo(function CountryPanel({
         <div>
           <h2 className="panel__name">{country.name}</h2>
           <p className="panel__meta">
-            {[country.region, country.incomeGroup].filter(Boolean).join(' · ')}
+            {[groupEs(country.region), groupEs(country.incomeGroup)].filter(Boolean).join(' · ')}
           </p>
         </div>
       </div>

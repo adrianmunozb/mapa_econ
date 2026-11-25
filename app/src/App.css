@@ -1323,3 +1323,58 @@
   font-size: 12px;
   color: var(--text-dim, inherit);
 }
+
+/* ---------- Apple-style polish ---------- */
+/* Data reads in columns: tabular figures keep rankings and tables aligned. */
+.app {
+  font-variant-numeric: tabular-nums;
+}
+.brand__title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.panel__group-title {
+  letter-spacing: 0.04em;
+}
+/* HIG minimum hit target on touch screens. */
+@media (pointer: coarse) {
+  .btn,
+  .select,
+  .seg,
+  .search__input {
+    min-height: 44px;
+  }
+}
+/* Phones: panels become bottom sheets and never stack on top of each other. */
+@media (max-width: 760px) {
+  .hud--top-left,
+  .panel-right {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
+    max-height: 48vh;
+    border-radius: 18px;
+    padding-top: 22px;
+  }
+  .hud--top-left::before,
+  .panel-right::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    width: 36px;
+    height: 5px;
+    margin-left: -18px;
+    border-radius: 3px;
+    background: var(--text-faint);
+  }
+  .app:has(.panel-right) .hud--top-left {
+    display: none;
+  }
+}
+.sr-label {
+  color: var(--text-dim);
+}

@@ -59,8 +59,8 @@ export function YieldCurve({ curve, asOf, countryName, months, onPickMaturity }:
           <span>{tenorLabel(point.months)}</span><strong>{formatPercentEs(point.yield)}</strong>
         </button>)}
       </div>
-      <p className="bond-curve__method">{curve.method}</p>
-      <a className="bond-curve__source" href={curve.source.url} target="_blank" rel="noreferrer">Source: {curve.source.name} ↗</a>
+      <p className="bond-curve__method"><span className="sr-label">Método según la fuente (en inglés): </span><span lang="en">{curve.method}</span></p>
+      <a className="bond-curve__source" href={curve.source.url} target="_blank" rel="noreferrer">Fuente: {curve.source.name} ↗</a>
       <p className="bond-curve__method">Datos de una descarga fechada, no cotizaciones en vivo. Las líneas unen plazos publicados; la app no estima rentabilidades intermedias.</p>
     </>}
   </section>;
