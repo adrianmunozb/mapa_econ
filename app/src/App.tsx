@@ -44,6 +44,7 @@ import bondsSeed from './data/bonds-snapshot.json';
 import { withSpanishNames } from './data/countryNames';
 import { DownloadCsv } from './ui/DownloadCsv';
 import { Landing } from './ui/Landing';
+import { MAP_THEME } from './theme';
 import './ui/landing.css';
 import { SECTIONS, SECTION_BY_ID, isSectionId, sectionForLink, shows, type SectionId } from './sections';
 import { tenorLabelEs } from './data/metricsEs';
@@ -51,7 +52,7 @@ import { BOND_TENORS, availableBondCountries, bondMetricId, bondSnapshotTime, bo
 
 const BONDS = bondsSeed as BondSnapshot;
 /** Sections without a metric legend (country explorer, news) draw countries neutral. */
-const NEUTRAL_FILL = '#1f2a44';
+const NEUTRAL_FILL = MAP_THEME.neutral;
 const BOND_AS_OF = bondSnapshotTime(BONDS);
 
 const MAX_COMPARE = 4;
@@ -798,7 +799,7 @@ export default function App() {
                   aria-pressed={tradeMode}
                   title="Flujos bilaterales de exportación"
                 >
-                  <span aria-hidden="true">🔄</span> Flujos comerciales
+                  Flujos comerciales
                 </button>
                 {tradeMode && (
                   <div className="layer-toggles__detail">
@@ -826,7 +827,7 @@ export default function App() {
                   aria-pressed={showChokepoints}
                   title="Puntos de estrangulamiento marítimo (Suez, Ormuz, Malaca, etc.)"
                 >
-                  <span aria-hidden="true">⚓</span> Pasos marítimos
+                  Pasos marítimos
                 </button>
                 {showChokepoints && <button type="button" className="btn" onClick={() => setSelectedChokepoint(CHOKEPOINTS[0])}>Explorar pasos marítimos</button>}
                 </>}
@@ -848,7 +849,7 @@ export default function App() {
                   aria-pressed={showMarkets}
                   title="Centros financieros y bolsas de valores en vivo"
                 >
-                  <span aria-hidden="true">📈</span> Bolsas
+                  Bolsas
                 </button>}
                 {shows(section, 'daynight') && <button type="button" className={`btn toggle daynight-toggle${showDayNight ? ' toggle--on' : ''}`}
                   aria-pressed={showDayNight} onClick={() => setShowDayNight((value) => !value)}>
