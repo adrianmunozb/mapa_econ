@@ -7,7 +7,9 @@ from wem.catalog import ALL_METRICS
 from wem.regions.boundaries import index_shapes
 from wem.regions.matcher import match_country
 from wem.regions.names import normalize, normalize_admin_name
-from wem.steps.current import real_policy_rates
+from datetime import date
+
+from wem.steps.current import freshest_inflation, real_policy_rates, recent_policy_rates
 from wem.steps.trade import top_partners
 
 
@@ -154,6 +156,31 @@ class EuroSpreadTest(unittest.TestCase):
         }
         out = real_policy_rates(countries)
         self.assertEqual(out, {"TUR": {"value": 6.27, "year": 2026, "period": "2026-11 · CPI 2026-09"}})
+
+
+class FreshnessTest(unittest.TestCase):
+    TODAY = date(2026, 11, 25)
+
+    def test_newer_annual_inflation_beats_an_old_monthly_observation(self):
+        imf = {"NRU": {"value": 9.9, "year": 2013, "period": "2013-08"},
+               "ESP": {"value": 2.9, "year": 2026, "period": "2026-10"}}
+        annual = {"NRU": {"2023": 5.0, "2024": None}, "ESP": {"2024": 2.8}}
+        out = freshest_inflation(imf, annual, self.TODAY)
+        self.assertEqual(out["NRU"], {"value": 5.0, "year": 2023})
+        self.assertEqual(out["ESP"]["period"], "2026-10")
+
+    def test_snapshot_annual_value_newer_than_the_history_window_is_kept(self):
+        out = freshest_inflation({}, {"NZL": {"2024": 2.9}}, self.TODAY, {"NZL": {"value": 2.5, "year": 2025}})
+        self.assertEqual(out["NZL"], {"value": 2.5, "year": 2025})
+
+    def test_inflation_older_than_three_years_is_not_current(self):
+        out = freshest_inflation({"YEM": {"value": 30.0, "year": 2015, "period": "2015-12"}}, {}, self.TODAY)
+        self.assertEqual(out, {})
+
+    def test_discontinued_policy_rates_are_dropped(self):
+        rates = {"ARG": {"value": 29.0, "year": 2025, "period": "2025-07"},
+                 "USA": {"value": 3.875, "year": 2026, "period": "2026-11"}}
+        self.assertEqual(list(recent_policy_rates(rates, self.TODAY)), ["USA"])
 
 
 class TradeTest(unittest.TestCase):

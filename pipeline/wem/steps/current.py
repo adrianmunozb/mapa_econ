@@ -27,6 +27,7 @@ from ..jsonio import read_json, write_json
 from ..paths import Paths
 from ..providers import bis, eurostat
 from ..providers.imf import ImfClient
+from .. import timeseries_store
 
 
 def _patch_values(countries: dict[str, dict], metric_id: str, values: dict[str, dict]) -> int:
@@ -40,6 +41,44 @@ def _patch_values(countries: dict[str, dict], metric_id: str, values: dict[str, 
 
 
 MAX_REAL_RATE_GAP_MONTHS = 3
+MAX_INFLATION_AGE_YEARS = 3    # "current" inflation older than this is not current
+MAX_POLICY_RATE_AGE_MONTHS = 6  # a rate not updated in 6 months is a discontinued series
+
+
+def freshest_inflation(imf: dict[str, dict], annual: dict[str, dict], today: date,
+                       existing: dict[str, dict] | None = None) -> dict[str, dict]:
+    """Per country, the most recent of IMF monthly CPI, the value already in the snapshot
+    (World Bank latest year, which can be newer than the history window) and the World
+    Bank annual history.
+
+    The IMF CPI "latest observation" can be years old (Nauru 2013, Yemen 2015, Syria
+    2019); it must not override a newer annual figure, and nothing older than
+    ``MAX_INFLATION_AGE_YEARS`` is shown as current inflation.
+    """
+    existing = existing or {}
+    out = {}
+    for iso3 in set(imf) | set(annual) | set(existing):
+        candidates = []
+        for source in (imf, existing):
+            if iso3 in source:
+                v = source[iso3]
+                candidates.append((v["year"], 1 if v.get("period") else 0, v))  # same year: monthly wins
+        years = {int(y): v for y, v in annual.get(iso3, {}).items() if v is not None}
+        if years:
+            y = max(years)
+            candidates.append((y, 0, {"value": years[y], "year": y}))
+        year, _, best = max(candidates, key=lambda c: (c[0], c[1]))
+        if today.year - year <= MAX_INFLATION_AGE_YEARS:
+            out[iso3] = best
+    return out
+
+
+def recent_policy_rates(rates: dict[str, dict], today: date) -> dict[str, dict]:
+    """Drop policy rates whose last observation is older than ``MAX_POLICY_RATE_AGE_MONTHS``
+    (e.g. Argentina: the BCRA stopped publishing a reference rate in July 2025)."""
+    now = today.year * 12 + today.month
+    return {iso3: r for iso3, r in rates.items()
+            if (m := _month_index(r.get("period"))) is not None and now - m <= MAX_POLICY_RATE_AGE_MONTHS}
 
 
 def _month_index(period: str | None) -> int | None:
@@ -110,13 +149,23 @@ def run(paths: Paths, args=()) -> int:
     countries = {c["iso3"]: c for c in snap["countries"]}
     iso2_to_iso3 = {c["iso2"]: c["iso3"] for c in snap["countries"] if c.get("iso2")}
 
-    print("→ Lade aktuelle Inflation (IMF CPI, monatlich) …")
-    n_inf = _patch_values(countries, INFLATION_ID, ImfClient(http).inflation())
-    print(f"  {n_inf} Länder aktualisiert (neuester Monat im Datensatz)")
+    today = date.today()
+    print("-> Current inflation (IMF CPI monthly, World Bank annual if newer) ...")
+    annual = timeseries_store.read(paths).series.get(INFLATION_ID, {})
+    existing = {iso3: c["metrics"][INFLATION_ID] for iso3, c in countries.items() if INFLATION_ID in c["metrics"]}
+    inflation = freshest_inflation(ImfClient(http).inflation(), annual, today, existing)
+    for country in countries.values():
+        country["metrics"].pop(INFLATION_ID, None)
+    n_inf = _patch_values(countries, INFLATION_ID, inflation)
+    print(f"  {n_inf} countries with inflation from the last {MAX_INFLATION_AGE_YEARS} years")
 
-    print("→ Lade Leitzinsen (BIS WS_CBPOL, täglich) …")
-    n_rate = _patch_values(countries, POLICY_RATE.id, bis.fetch_policy_rates(http, iso2_to_iso3))
-    print(f"  {n_rate} Länder mit Leitzins")
+    print("-> Policy rates (BIS WS_CBPOL, daily) ...")
+    rates = recent_policy_rates(bis.fetch_policy_rates(http, iso2_to_iso3), today)
+    for country in countries.values():
+        country["metrics"].pop(POLICY_RATE.id, None)
+        country["metrics"].pop(REAL_POLICY_RATE.id, None)
+    n_rate = _patch_values(countries, POLICY_RATE.id, rates)
+    print(f"  {n_rate} countries with a policy rate updated in the last {MAX_POLICY_RATE_AGE_MONTHS} months")
 
     n_real = _patch_values(countries, REAL_POLICY_RATE.id, real_policy_rates(countries))
     print(f"  {n_real} countries with a real policy rate")

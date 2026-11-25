@@ -38,14 +38,14 @@ Por eso el diferencial se calcula aparte (sección 2) y no restando valores de e
 
 | País | App 10A (%) | Fecha app | Fuente app | Eurostat mismo mes (%) | Dif. (pb) | Eurostat último (%) | Desfase (meses) | Veredicto |
 |---|---:|---|---|---:|---:|---:|---:|---|
-| DEU | 3.490 | 2026-10-19 | Deutsche Bundesbank | 3.416 | 7.4 | 3.416 (2026-10) | 0 | OK |
-| ESP | 3.530 | 2026-07 | Banco de España · table 22.7 | 3.534 | -0.4 | 4.066 (2026-10) | 3 | DESFASADO 3 meses |
-| ITA | 3.986 | 2026-08 | OECD · Main Economic Indicators via FRED | 3.986 | 0.0 | 4.680 (2026-10) | 2 | DESFASADO 2 meses |
-| FRA | 4.853 | 2026-10-19 | Banque de France · CNO-TEC | 4.890 | -3.7 | 4.890 (2026-10) | 0 | OK |
-| GRC | 4.230 | 2026-09 | OECD · Main Economic Indicators via FRED | 4.220 | 1.0 | 4.410 (2026-10) | 1 | OK |
-| PRT | 3.850 | 2026-09 | OECD · Main Economic Indicators via FRED | 3.846 | 0.4 | 3.917 (2026-10) | 1 | OK |
-| NLD | 3.285 | 2026-08 | OECD · Main Economic Indicators via FRED | 3.285 | 0.0 | 3.535 (2026-10) | 2 | DESFASADO 2 meses |
-| BGR | 4.090 | 2026-09 | Eurostat · EMU convergence criterion bond yields | 4.090 | 0.0 | 4.090 (2026-10) | 1 | OK |
+| DEU | 3.300 | 2026-11-25 | Deutsche Bundesbank | — | — | 3.416 (2026-10) | -1 | OK |
+| ESP | 4.070 | 2026-10 | Banco de España · table 22.7 | 4.066 | 0.4 | 4.066 (2026-10) | 0 | OK |
+| ITA | 4.680 | 2026-10 | Eurostat · EMU convergence criterion bond yields | 4.680 | 0.0 | 4.680 (2026-10) | 0 | OK |
+| FRA | 4.766 | 2026-11-24 | Banque de France · CNO-TEC | — | — | 4.890 (2026-10) | -1 | OK |
+| GRC | 4.410 | 2026-10 | Eurostat · EMU convergence criterion bond yields | 4.410 | 0.0 | 4.410 (2026-10) | 0 | OK |
+| PRT | 3.917 | 2026-10 | Eurostat · EMU convergence criterion bond yields | 3.917 | 0.0 | 3.917 (2026-10) | 0 | OK |
+| NLD | 3.535 | 2026-10 | Eurostat · EMU convergence criterion bond yields | 3.535 | 0.0 | 3.535 (2026-10) | 0 | OK |
+| BGR | 4.090 | 2026-10 | Eurostat · EMU convergence criterion bond yields | 4.090 | 0.0 | 4.090 (2026-10) | 0 | OK |
 
 ## 4. Inflación (FMI en la app) frente al IPCA de Eurostat
 
@@ -64,4 +64,4 @@ conceptos distintos, así que se tolera hasta 0.5 pp.
 | NLD | 3.43 | 2026-09 | 3.00 | 0.43 | OK |
 | BGR | 6.05 | 2026-10 | 5.90 | 0.15 | OK |
 
-**Filas que requieren atención: 3.**
+**Filas que requieren atención: 0.**

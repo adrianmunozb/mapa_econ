@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import os
 import io
 import json
 import math
@@ -24,7 +25,8 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'app/src/data/bonds-snapshot.json'
-CACHE = ROOT / 'pipeline/.cache/bonds'
+# BONDS_CACHE_DIR: a short path avoids Windows' 260-character limit on deep checkouts.
+CACHE = Path(os.environ.get('BONDS_CACHE_DIR') or ROOT / 'pipeline/.cache/bonds')
 TODAY = date.today()
 SUPPORTED_MONTHS = {3, 6, 12, 24, 36, 60, 84, 120, 180, 240, 300, 360, 480, 600}
 
@@ -215,6 +217,14 @@ OECD_EXTRA_SERIES = {
 EUROSTAT_ADDITIONS = {
     'BG': ('BGR', 'EUR'), 'EE': ('EST', 'EUR'), 'HR': ('HRV', 'EUR'),
     'CY': ('CYP', 'EUR'), 'MT': ('MLT', 'EUR'), 'RO': ('ROU', 'RON'),
+    # EU members whose OECD/FRED monthly series lag Eurostat by one or two months.
+    # Eurostat runs after the OECD provider, so its fresher month replaces the OECD point;
+    # national multi-tenor providers (ES, FR, DE, ...) still run later and win.
+    'AT': ('AUT', 'EUR'), 'BE': ('BEL', 'EUR'), 'CZ': ('CZE', 'CZK'), 'DK': ('DNK', 'DKK'),
+    'FI': ('FIN', 'EUR'), 'EL': ('GRC', 'EUR'), 'HU': ('HUN', 'HUF'), 'IE': ('IRL', 'EUR'),
+    'IT': ('ITA', 'EUR'), 'LU': ('LUX', 'EUR'), 'LV': ('LVA', 'EUR'), 'LT': ('LTU', 'EUR'),
+    'NL': ('NLD', 'EUR'), 'PL': ('POL', 'PLN'), 'PT': ('PRT', 'EUR'), 'SK': ('SVK', 'EUR'),
+    'SI': ('SVN', 'EUR'),
 }
 
 
@@ -366,6 +376,8 @@ def refresh_providers(previous, providers):
                 current = countries.get(iso)
                 if current and len(current['points']) > 1 and len(incoming['points']) == 1:
                     continue
+                if current and incoming['date'][:7] < current['date'][:7]:
+                    continue  # never replace a curve with an older observation
                 countries[iso] = incoming
             print(name, len(update), 'countries')
         except Exception as error:
