@@ -31,3 +31,10 @@ test('old shared links land in the right section', () => {
   assert.equal(isSectionId('riesgo'), true);
   assert.equal(isSectionId('inicio'), false);
 });
+
+test('the globe opens a full world map with every metric group, not a landing card', () => {
+  const full = SECTIONS.find(s => s.id === 'mapa');
+  assert.equal(full.noCard, true);
+  assert.ok(full.domains.includes('finance') && full.domains.includes('economy') && full.domains.length >= 9);
+  assert.equal(SECTIONS.filter(s => !s.noCard).length, 6);
+});

@@ -1,7 +1,7 @@
 // What each section of the app shows. One table, so it is easy to read which controls,
 // layers and metrics belong where.
 
-export type SectionId = 'riesgo' | 'economia' | 'comercio' | 'mercados' | 'pais' | 'actualidad';
+export type SectionId = 'mapa' | 'riesgo' | 'economia' | 'comercio' | 'mercados' | 'pais' | 'actualidad';
 
 /** Controls that a section can show in its side panel. */
 export type Control =
@@ -34,6 +34,8 @@ export interface Section {
   domains: string[];
   controls: Control[];
   layers: Layers;
+  /** Reached from the globe rather than from a landing card. */
+  noCard?: boolean;
 }
 
 const NO_LAYERS: Layers = {
@@ -44,6 +46,18 @@ const NO_LAYERS: Layers = {
 const NON_FINANCE = ['economy', 'social', 'governance', 'health', 'demographics', 'environment', 'infrastructure', 'trade'];
 
 export const SECTIONS: Section[] = [
+  {
+    id: 'mapa',
+    title: 'Mapa mundial',
+    tagline: 'Todos los indicadores en un solo mapa del mundo.',
+    intro: 'El mapa completo: elige cualquier indicador, de la prima de riesgo al PIB, y compara todos los países.',
+    icon: '◍',
+    defaultMetric: 'gdp_per_capita',
+    domains: ['finance', ...NON_FINANCE],
+    controls: ['search', 'picker', 'trend', 'legend', 'download', 'ranking'],
+    layers: NO_LAYERS,
+    noCard: true,
+  },
   {
     id: 'riesgo',
     title: 'Tipos y riesgo soberano',

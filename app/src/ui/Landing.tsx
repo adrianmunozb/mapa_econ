@@ -36,11 +36,14 @@ export function Landing({ countries, stats, updated, onPick }: Props) {
             <button type="button" className="landing__cta" onClick={() => onPick('pais')}>Explorar un país</button>
           </div>
         </div>
-        <Globe countries={countries} />
+        <button type="button" className="globe-button" onClick={() => onPick('mapa')} aria-label="Abrir el mapa mundial completo">
+          <Globe countries={countries} />
+          <span className="globe-button__hint" aria-hidden="true">Pulsa para abrir el mapa mundial →</span>
+        </button>
       </section>
 
       <nav className="landing__grid" aria-label="Secciones">
-        {SECTIONS.map(section => (
+        {SECTIONS.filter(section => !section.noCard).map(section => (
           <button key={section.id} type="button" className="landing__card" onClick={() => onPick(section.id)}>
             <span className="landing__icon" aria-hidden="true">{section.icon}</span>
             <span className="landing__card-title">{section.title}</span>
