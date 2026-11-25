@@ -202,3 +202,42 @@
 }
 .section-tabs button[aria-current="page"] { background: var(--accent); border-color: transparent; color: #06101f; font-weight: 600; }
 .section-search { margin-top: 6px; }
+
+/* The globe is the way into the full world map. */
+.globe-button {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.globe-button .globe {
+  transition: transform 0.4s var(--ease-spring, ease), filter 0.4s;
+}
+.globe-button:hover .globe,
+.globe-button:focus-visible .globe {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 80px rgba(120, 150, 255, 0.6));
+}
+.globe-button:focus-visible { outline: none; }
+.globe-button:focus-visible .globe { outline: 2px solid #8fb3ff; outline-offset: 6px; }
+.globe-button__hint {
+  font-size: 14px;
+  color: #c9d2ea;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.globe-button:hover .globe-button__hint { background: rgba(255, 255, 255, 0.1); color: #fff; }
+@media (max-width: 960px) {
+  .globe-button { order: -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .globe-button .globe { transition: none; }
+}
