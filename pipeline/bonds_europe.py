@@ -7,6 +7,7 @@ only; they do not interpolate or substitute policy rates.
 from __future__ import annotations
 
 import hashlib
+import os
 import io
 import json
 import math
@@ -29,7 +30,7 @@ BOE_PAGE = 'https://www.bankofengland.co.uk/statistics/yield-curves'
 BOE_ZIP = 'https://www.bankofengland.co.uk/-/media/boe/files/statistics/yield-curves/latest-yield-curve-data.zip'
 
 SUPPORTED_MONTHS = frozenset((3, 6, 12, 24, 36, 60, 84, 120, 180, 240, 300, 360, 480, 600))
-_BOE_CACHE = Path(__file__).resolve().parent / '.cache' / 'bonds'
+_BOE_CACHE = Path(os.environ.get('BONDS_CACHE_DIR') or Path(__file__).resolve().parent / '.cache' / 'bonds')
 _BOE_MAX_BYTES = 5 * 1024 * 1024
 
 
