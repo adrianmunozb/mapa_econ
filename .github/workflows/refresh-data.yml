@@ -1,0 +1,84 @@
+name: Refresh and verify data
+
+# Every Monday (and on demand): download the fast-moving data again, check it against
+# the primary sources and open a pull request, so a person reviews it before it is
+# published. Nothing is merged automatically.
+#
+# One-time setup by a repo admin: Settings → Actions → General → "Allow GitHub Actions
+# to create and approve pull requests". Without it the refreshed branch is still pushed.
+# Pull requests opened with GITHUB_TOKEN do not trigger the CI workflow by themselves:
+# close and reopen the PR (or push to it) to run it.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+      - run: pip install -r requirements.txt
+
+      - name: Policy rates, inflation, real rate and spread vs Bund
+        run: python -m wem current
+      - name: Sovereign bond curves (failing sources keep their dated values)
+        run: python build_bonds.py
+        continue-on-error: true
+      - name: News archive used when the live feed is unreachable
+        run: python build_news.py
+        continue-on-error: true
+      - name: CSV exports
+        run: python -m wem export
+
+      - name: Verify against primary sources (ECB, Eurostat)
+        id: verify
+        run: |
+          python -m wem verify | tee verify.log
+          echo "summary=$(tail -n 1 verify.log)" >> "$GITHUB_OUTPUT"
+      - name: Offline tests still pass
+        run: python -m unittest discover -s tests -t .
+
+      - name: Open a pull request with the refreshed data
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERIFY_SUMMARY: ${{ steps.verify.outputs.summary }}
+        run: |
+          if git diff --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          day="$(date -u +%Y-%m-%d)"
+          branch="data/refresh-$day"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add app/public/data app/src/data data/csv docs/verificacion.md
+          git commit -m "data: weekly refresh $day" -m "$VERIFY_SUMMARY"
+          git push -u origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "Datos: refresco semanal $day" \
+            --body "Refresco automático de tipos, inflación, prima de riesgo, bonos y noticias.
+
+          Verificación contra fuente primaria: \`$VERIFY_SUMMARY\`. Detalle en \`docs/verificacion.md\`.
+
+          Revisa las filas marcadas antes de fusionar; al fusionar, Vercel publica la versión nueva."

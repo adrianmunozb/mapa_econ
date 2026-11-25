@@ -29,6 +29,10 @@ export interface Section {
   defaultMetric: string;
   /** Metrics offered as one-tap buttons; the rest stay in "Más indicadores". */
   keyMetrics?: string[];
+  /** Metrics grouped by theme (first metric opens the theme); replaces the picker. */
+  themes?: { label: string; metrics: string[] }[];
+  /** 'change' opens on the trend since 2004 instead of the latest value. */
+  defaultView?: 'current' | 'change';
   /** Where the map flies on entering, [minLng, minLat, maxLng, maxLat]; whole world if absent. */
   view?: [number, number, number, number];
   /** Metric groups offered in the picker (see displayDomain); empty = no picker. */
@@ -51,7 +55,7 @@ export const SECTIONS: Section[] = [
     id: 'mapa',
     title: 'Mapa mundial',
     tagline: 'Todos los indicadores en un solo mapa del mundo.',
-    intro: 'El mapa completo: elige cualquier indicador, de la prima de riesgo al PIB, y compara todos los países.',
+    intro: 'El explorador completo: cualquier indicador, de la prima de riesgo al PIB, con su último dato para todos los países.',
     defaultMetric: 'gdp_per_capita',
     keyMetrics: ['gdp_per_capita', 'euro_spread_bund', 'policy_rate', 'inflation', 'unemployment', 'population'],
     domains: ['finance', ...NON_FINANCE],
@@ -74,12 +78,21 @@ export const SECTIONS: Section[] = [
   {
     id: 'economia',
     title: 'Economía y sociedad',
-    tagline: 'PIB, empleo, salud, gobernanza y medio ambiente de cada país, con 20 años de historia.',
-    intro: 'Indicadores oficiales del Banco Mundial y el FMI. Cambia a "Evolución" para ver cómo han cambiado desde 2004 o 2014.',
+    tagline: 'Por temas: crecimiento, empleo, desigualdad, salud, gobernanza y clima, y cómo han cambiado desde 2004.',
+    intro: 'Elige un tema y un indicador. El mapa muestra cuánto ha cambiado cada país desde 2004 (o 2014); pulsa «Actual» para ver el último dato.',
     defaultMetric: 'gdp_per_capita',
-    keyMetrics: ['gdp_per_capita', 'gdp_growth', 'unemployment', 'gini', 'life_expectancy', 'control_of_corruption'],
-    domains: NON_FINANCE,
-    controls: ['search', 'picker', 'trend', 'legend', 'download', 'alliances', 'ranking'],
+    defaultView: 'change',
+    themes: [
+      { label: 'Crecimiento y renta', metrics: ['gdp_per_capita', 'gdp_per_capita_ppp', 'gdp_growth', 'gni_per_capita', 'gdp_total', 'capital_formation_gdp'] },
+      { label: 'Empleo', metrics: ['unemployment', 'youth_unemployment', 'labor_participation'] },
+      { label: 'Desigualdad y educación', metrics: ['gini', 'poverty', 'literacy', 'secondary_enrollment', 'education_expenditure'] },
+      { label: 'Salud y población', metrics: ['life_expectancy', 'infant_mortality', 'health_expenditure_gdp', 'fertility', 'population_65plus', 'population_growth'] },
+      { label: 'Gobernanza', metrics: ['control_of_corruption', 'rule_of_law', 'government_effectiveness', 'regulatory_quality', 'political_stability', 'voice_accountability'] },
+      { label: 'Clima y energía', metrics: ['co2_per_capita', 'renewable_energy', 'energy_use_per_capita', 'pm25', 'forest_area'] },
+      { label: 'Estructura y comercio', metrics: ['exports_gdp', 'imports_gdp', 'fdi_inflows_gdp', 'tax_revenue_gdp', 'services_gdp', 'industry_gdp', 'rd_expenditure'] },
+    ],
+    domains: [],
+    controls: ['trend', 'legend', 'download', 'alliances', 'ranking'],
     layers: NO_LAYERS,
   },
   {
