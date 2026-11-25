@@ -10,6 +10,8 @@ Explore economic, health and social indicators for **every country on Earth** on
 
 **Autores:** Adrián López Lamata y Adrián Muñoz Borbón. Proyecto de nivel 2 · CONSTRUIR.
 
+**Web:** https://mapaecon.vercel.app
+
 **Qué es.** Un mapa mundial de datos macro-financieros oficiales en el que cada cifra enlaza
 con la institución que la produce y se puede volver a comprobar contra ella.
 

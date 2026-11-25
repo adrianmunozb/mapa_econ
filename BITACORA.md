@@ -1,7 +1,7 @@
 # Bitácora — Mapa económico mundial con ancla en riesgo soberano
 
 Adrián López Lamata · Adrián Muñoz Borbón · Carril abierto, nivel 2 (CONSTRUIR) · 26-nov-2026
-Repositorio: https://github.com/adrianmunozb/mapa_econ · Uso de IA declarado en [`IA.md`](IA.md)
+Repositorio: https://github.com/adrianmunozb/mapa_econ · Web: https://mapaecon.vercel.app · Uso de IA declarado en [`IA.md`](IA.md)
 
 > **BORRADOR.** Los hechos, cifras y fuentes están comprobados y enlazados. Los bloques ✏️
 > los tenéis que escribir vosotros, con vuestras palabras: son vuestras decisiones y nadie
@@ -47,7 +47,8 @@ La pieza del sistema que tocamos es la de **tipos de interés y riesgo soberano*
   mercado exige por el riesgo de crédito de ese Estado frente al activo de referencia. Solo
   es comparable si los dos bonos están en **la misma moneda**: fuera del euro, el
   diferencial también incluye el riesgo de tipo de cambio y la inflación esperada. Por eso
-  la calculamos solo para los 21 países del euro.
+  la calculamos solo para los países del euro (19 de 21: Lituania y Bulgaria quedan fuera
+  porque su serie no cotiza; ver apartado 4).
 
 ✏️ *Por qué os interesa esta pieza (2-3 líneas). Ejemplo concreto: en octubre de 2026
 Francia (4,89 %) paga más que Italia (4,68 %) a 10 años según Eurostat. ¿Qué os dice eso?*
@@ -138,6 +139,20 @@ cuadraban. Ahora el tipo
 real solo se calcula si las dos cifras son mensuales y están a 3 meses o menos (commit
 `8c3cd16`). Es la misma lección que el caso 1: **una resta solo vale con fechas
 comparables**.
+
+### Una prima negativa que no podía ser
+
+Ya publicada la primera versión, el ranking ponía a **Lituania 53,6 pb por debajo del Bund**.
+Un Estado con calificación A financiándose más barato que Alemania (AAA) no tiene sentido
+económico.
+
+- **Fuente primaria.** En Eurostat, la serie de Lituania marca exactamente 2,88 % de julio a
+  octubre de 2026, y la de Bulgaria 4,09 %. Un bono a 10 años que cotiza se mueve cada mes:
+  esas cifras son valores arrastrados, no precios de mercado.
+- **Arreglo.** Las series idénticas tres meses seguidos se quedan sin prima (commit
+  `84414da`), y `wem verify` las marca como excluidas.
+- **Lección.** Que el dato venga de la fuente oficial no lo convierte en un precio. Hay que
+  entender qué mide la serie.
 
 ### Y una vez en que la máquina sospechó mal
 
