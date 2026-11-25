@@ -64,3 +64,39 @@
 @keyframes news-arrival { 0% { box-shadow: 0 0 0 0 #ffc98caa; } 100% { box-shadow: 0 0 0 18px #ffc98c00; } }
 .news-days button:focus-visible, .news-controls summary:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .news-marker--fresh { animation: none; } }
+
+/* ---------- Headlines first ---------- */
+.news-quick { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; }
+.news-quick button {
+  border: 1px solid var(--panel-border);
+  background: transparent;
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.news-quick button:hover { color: var(--text); background: var(--bg-elev); }
+.news-quick button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.news-filter-chip {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 10px;
+  padding: 5px 6px 5px 12px; border-radius: 999px; background: var(--bg-elev-2); font-size: 13px;
+}
+.news-filter-chip button { border: 0; background: none; color: var(--text-dim); font-size: 16px; cursor: pointer; padding: 0 6px; }
+.news-headlines { list-style: none; margin: 10px 0 0; padding: 0; display: grid; }
+.news-headlines li { display: grid; gap: 3px; padding: 10px 0; border-top: 1px solid var(--panel-border); }
+.news-headlines a { color: var(--text); font-size: 14px; font-weight: 700; line-height: 1.35; text-decoration: none; }
+.news-headlines a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.news-headlines small { color: var(--text-dim); font-size: 12px; line-height: 1.4; }
+.news-more { width: 100%; margin-top: 6px; }
+.news-subtitle { margin: 16px 0 6px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+.news-countries { display: flex; flex-wrap: wrap; gap: 6px; }
+.news-countries button {
+  border: 1px solid var(--panel-border); background: transparent; color: var(--text);
+  border-radius: 999px; padding: 5px 10px; font-size: 12px; cursor: pointer;
+}
+.news-countries button b { color: var(--accent); margin-left: 4px; }
+.news-countries button:hover { background: var(--bg-elev); }
+.news-advanced { margin-top: 16px; border-top: 1px solid var(--panel-border); padding-top: 10px; }
+.news-advanced > summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--text-dim); }
