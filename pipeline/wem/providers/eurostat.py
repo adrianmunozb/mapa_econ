@@ -46,14 +46,28 @@ def parse_monthly(root: dict) -> dict[str, dict[str, float]]:
     return out
 
 
+FROZEN_MONTHS = 3
+
+
+def is_frozen(series: dict[str, float]) -> bool:
+    """True when the last ``FROZEN_MONTHS`` monthly yields are identical.
+
+    A traded 10Y yield moves every month; a value repeated to the basis point (Lithuania
+    2.88 % and Bulgaria 4.09 % from Jul to Oct 2026) is a carried-forward or non-market
+    figure, and a spread built on it is not a market risk premium.
+    """
+    last = [series[m] for m in sorted(series)[-FROZEN_MONTHS:]]
+    return len(last) == FROZEN_MONTHS and len(set(last)) == 1
+
+
 def spreads_vs_bund(yields: dict[str, dict[str, float]]) -> dict[str, dict]:
     """Spread in basis points against the Bund, for the latest month both countries report."""
     bund = yields.get(BENCHMARK, {})
     out: dict[str, dict] = {}
     for iso3, series in yields.items():
         common = sorted(set(series) & set(bund))
-        if not common:
-            continue  # never subtract different months
+        if not common or is_frozen(series):
+            continue  # never subtract different months, nor a yield that does not trade
         month = common[-1]
         out[iso3] = {
             "value": round((series[month] - bund[month]) * 100, 1),

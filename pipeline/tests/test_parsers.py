@@ -125,6 +125,15 @@ class EuroSpreadTest(unittest.TestCase):
         self.assertEqual(out["GRC"]["value"], 68.4)
         self.assertEqual(out["DEU"]["value"], 0.0)
 
+    def test_frozen_yield_series_get_no_spread(self):
+        bund = {"2026-08": 3.185, "2026-09": 3.473, "2026-10": 3.416}
+        yields = {"DEU": bund, "LTU": {"2026-08": 2.88, "2026-09": 2.88, "2026-10": 2.88},
+                  "ESP": {"2026-08": 3.635, "2026-09": 3.927, "2026-10": 4.066}}
+        out = eurostat.spreads_vs_bund(yields)
+        self.assertNotIn("LTU", out)  # -53.6bp "below the Bund" was an artefact
+        self.assertEqual(out["ESP"]["value"], 65.0)
+        self.assertFalse(eurostat.is_frozen({"2026-09": 2.88, "2026-10": 2.88}))  # too short to judge
+
     def test_spread_needs_a_bund_observation(self):
         self.assertEqual(eurostat.spreads_vs_bund({"ITA": {"2026-09": 4.0}}), {})
 

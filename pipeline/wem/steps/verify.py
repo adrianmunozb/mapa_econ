@@ -71,7 +71,8 @@ def build_report(snap: dict, bonds: dict, yields: dict | None, hicp: dict | None
         "## 2. Prima de riesgo frente al Bund (pb)",
         "",
         "Fuente primaria: [Eurostat `irt_lt_mcby_m`](https://ec.europa.eu/eurostat/databrowser/view/irt_lt_mcby_m/default/table),",
-        "recalculada aquí con el mismo mes para el país y para Alemania.",
+        "recalculada aquí con el mismo mes para el país y para Alemania. Se excluyen las series",
+        "con el mismo valor tres meses seguidos (no son precios de mercado).",
         "",
         "| País | App (pb) | Mes app | Eurostat hoy (pb) | Mes Eurostat | Veredicto |",
         "|---|---:|---|---:|---|---|",
@@ -81,6 +82,8 @@ def build_report(snap: dict, bonds: dict, yields: dict | None, hicp: dict | None
         app, src = _metric(snap, iso3, "euro_spread_bund"), fresh.get(iso3)
         if yields is None:
             verdict = "fuente no disponible"
+        elif app is None and src is None and eurostat.is_frozen(yields.get(iso3, {})):
+            verdict = "excluido: serie sin variación"
         elif app is None or src is None:
             verdict, issues = "FALTA", issues + 1
         elif app["period"] != src["period"]:

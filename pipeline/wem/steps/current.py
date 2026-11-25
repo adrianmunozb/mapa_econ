@@ -131,6 +131,8 @@ def run(paths: Paths, args=()) -> int:
         print(f"  WARNING: Eurostat unavailable ({exc}); spread left unchanged")
         spreads = {}
     if spreads:
+        for country in countries.values():  # a series can drop out (e.g. it froze)
+            country["metrics"].pop(EURO_SPREAD.id, None)
         n_spread = _patch_values(countries, EURO_SPREAD.id, spreads)
         print(f"  {n_spread} euro-area countries with a spread vs Bund")
     if spreads or any(m["id"] == EURO_SPREAD.id for m in snap["metrics"]):
