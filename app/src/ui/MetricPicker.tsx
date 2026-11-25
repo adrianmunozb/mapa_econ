@@ -16,13 +16,15 @@ const DOMAIN_ORDER = [
 
 interface Props {
   metrics: MetricMeta[];
+  /** Only these metric groups (see displayDomain); all when omitted. */
+  domains?: string[];
   value: string;
   onChange: (id: string) => void;
 }
 
-export function MetricPicker({ metrics, value, onChange }: Props) {
+export function MetricPicker({ metrics, domains, value, onChange }: Props) {
   const { lang, t } = useLang();
-  const groups = DOMAIN_ORDER.map((domain) => ({
+  const groups = DOMAIN_ORDER.filter((domain) => !domains || domains.includes(domain)).map((domain) => ({
     domain,
     items: metrics.filter((m) => displayDomain(m) === domain && (!isBondMetric(m.id) || m.id === (isBondMetric(value) ? value : bondMetricId(120)))),
   })).filter((g) => g.items.length > 0);

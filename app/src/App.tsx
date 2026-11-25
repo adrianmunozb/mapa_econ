@@ -17,7 +17,7 @@ import { formatValueWithUnit, formatUsdCompact, formatCompact, formatChange } fr
 import { changeSince } from './lib/timeseries';
 import { useMetricHistories } from './data/useMetricHistories';
 import { bboxOf, mergeBBox, largestPolygonCentroid, type BBox } from './lib/geo';
-import { fmt, metricDescription, metricShortLabel, metricUnit, useLang } from './i18n';
+import { displayDomain, fmt, metricDescription, metricShortLabel, metricUnit, useLang } from './i18n';
 import type { CountryData } from './types';
 import {
   REGIONAL_METRICS,
@@ -43,10 +43,15 @@ import { NewsControls } from './ui/NewsControls';
 import bondsSeed from './data/bonds-snapshot.json';
 import { withSpanishNames } from './data/countryNames';
 import { DownloadCsv } from './ui/DownloadCsv';
+import { Landing } from './ui/Landing';
+import './ui/landing.css';
+import { SECTIONS, SECTION_BY_ID, isSectionId, sectionForLink, shows, type SectionId } from './sections';
 import { tenorLabelEs } from './data/metricsEs';
 import { BOND_TENORS, availableBondCountries, bondMetricId, bondSnapshotTime, bondMonths, isBondMetric, withBondMetrics, type BondSnapshot } from './data/bonds';
 
 const BONDS = bondsSeed as BondSnapshot;
+/** Sections without a metric legend (country explorer, news) draw countries neutral. */
+const NEUTRAL_FILL = '#1f2a44';
 const BOND_AS_OF = bondSnapshotTime(BONDS);
 
 const MAX_COMPARE = 4;
@@ -56,15 +61,22 @@ type ViewMode = 'current' | 'change';
 
 /** Read shareable state from the URL hash. */
 function readHash() {
-  if (typeof location === 'undefined') return { m: null as string | null, c: null as string | null, t: false, v: null as string | null, fy: null as string | null, r: false, rm: null as string | null, a: null as string | null, dn: false };
+  if (typeof location === 'undefined') return { s: null as string | null, m: null as string | null, c: null as string | null, t: false, v: null as string | null, fy: null as string | null, r: false, rm: null as string | null, a: null as string | null, dn: false };
   const p = new URLSearchParams(location.hash.replace(/^#/, ''));
-  return { m: p.get('m'), c: p.get('c'), t: p.get('t') === '1', v: p.get('v'), fy: p.get('fy'), r: p.get('r') === '1', rm: p.get('rm'), a: p.get('a'), dn: p.get('dn') === '1' };
+  return { s: p.get('s'), m: p.get('m'), c: p.get('c'), t: p.get('t') === '1', v: p.get('v'), fy: p.get('fy'), r: p.get('r') === '1', rm: p.get('rm'), a: p.get('a'), dn: p.get('dn') === '1' };
 }
 
 export default function App() {
   const { lang, t } = useLang();
   const initial = useMemo(() => readHash(), []);
-  const [metricId, setMetricId] = useState(initial.m || 'euro_spread_bund');
+  // null = landing page. A shared link opens its section directly (old links are mapped).
+  const [sectionId, setSectionId] = useState<SectionId | null>(() => isSectionId(initial.s)
+    ? initial.s
+    : initial.m || initial.c
+      ? sectionForLink(initial.m, initial.t, (id) => displayDomain({ id, domain: 'economy' }) === 'finance')
+      : null);
+  const section = SECTION_BY_ID.get(sectionId ?? 'riesgo')!;
+  const [metricId, setMetricId] = useState(initial.m || section.defaultMetric);
   const [selectedIso, setSelectedIso] = useState<string | null>(initial.c);
   const [requestedRegionalIso, setRegionalIso] = useState<string | null>(initial.r ? initial.c : null);
   const [regionalMetricId, setRegionalMetricId] = useState<RegionalMetricId>(
@@ -79,10 +91,10 @@ export default function App() {
   const [focusNonce, setFocusNonce] = useState(0);
   const [compare, setCompare] = useState<string[]>([]);
   const [compareOpen, setCompareOpen] = useState(false);
-  const [tradeMode, setTradeMode] = useState(initial.t);
+  const [tradeMode, setTradeMode] = useState(initial.t || section.layers.trade);
   const [requestedViewMode, setViewMode] = useState<ViewMode>(initial.v === 'change' && !isBondMetric(initial.m ?? '') ? 'change' : 'current');
   const [changeFromYear, setChangeFromYear] = useState(initial.fy === '2014' ? 2014 : 2004);
-  const [showDayNight, setShowDayNight] = useState(initial.dn);
+  const [showDayNight, setShowDayNight] = useState(initial.dn || section.layers.dayNight);
   const [selectedAlliances, setSelectedAlliances] = useState<string[]>(() =>
     ALLIANCES.filter((alliance) => initial.a?.split(',').includes(alliance.id)).map((alliance) => alliance.id),
   );
@@ -90,8 +102,8 @@ export default function App() {
   const allianceMembers = useMemo(() => selectedAlliances.length
     ? new Set(ALLIANCES.filter((a) => selectedAlliances.includes(a.id)).flatMap((a) => a.members))
     : null, [selectedAlliances]);
-  const [showWebcams, setShowWebcams] = useState(false);
-  const [showNews, setShowNews] = useState(false);
+  const [showWebcams, setShowWebcams] = useState(section.layers.webcams);
+  const [showNews, setShowNews] = useState(section.layers.news);
   const [newsSnapshot, setNewsSnapshot] = useState<NewsSnapshot>(newsSeed as NewsSnapshot);
   const [newsHours, setNewsHours] = useState(72);
   const [selectedNewsIso, setSelectedNewsIso] = useState<string | null>(null);
@@ -138,7 +150,7 @@ export default function App() {
     setHover(null);
     setRegionHover(null);
     setSelectedWebcam(camera);
-  }, []);
+  }, [setSelectedWebcam]);
   const openWebcamFromMapOrCatalog = useCallback((camera: Webcam) => {
     setSelectedWebcamCluster(null);
     openWebcam(camera);
@@ -146,12 +158,12 @@ export default function App() {
   const openWebcamCluster = useCallback((cameras: Webcam[]) => {
     setSelectedWebcam(null);
     setSelectedWebcamCluster(cameras);
-  }, []);
+  }, [setSelectedWebcam]);
   const clearWebcamCluster = useCallback(() => setSelectedWebcamCluster(null), []);
-  const [showCables, setShowCables] = useState(false);
-  const [showChokepoints, setShowChokepoints] = useState(true);
-  const [showMaritimeRoutes, setShowMaritimeRoutes] = useState(true);
-  const [showMarkets, setShowMarkets] = useState(true);
+  const [showCables, setShowCables] = useState(section.layers.cables);
+  const [showChokepoints, setShowChokepoints] = useState(section.layers.chokepoints);
+  const [showMaritimeRoutes, setShowMaritimeRoutes] = useState(section.layers.routes);
+  const [showMarkets, setShowMarkets] = useState(section.layers.markets);
   const [selectedChokepoint, setSelectedChokepoint] = useState<MaritimeChokepoint | null>(null);
   const closeChokepoint = useCallback(() => setSelectedChokepoint(null), [setSelectedChokepoint]);
   const toggleMaritimeRoutes = useCallback(() => setShowMaritimeRoutes(value => !value), []);
@@ -186,7 +198,12 @@ export default function App() {
 
   // Keep the URL hash in sync so the current view is shareable.
   useEffect(() => {
+    if (!sectionId) {
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+      return;
+    }
     const p = new URLSearchParams();
+    p.set('s', sectionId);
     p.set('m', metricId);
     if (selectedAlliances.length) p.set('a', selectedAlliances.join(','));
     if (showDayNight) p.set('dn', '1');
@@ -200,7 +217,7 @@ export default function App() {
     }
     const hash = `#${p.toString()}`;
     if (location.hash !== hash) history.replaceState(null, '', hash);
-  }, [metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, requestedViewMode, changeFromYear, selectedAlliances, showDayNight]);
+  }, [sectionId, metricId, selectedIso, regionalIso, regionalMetricId, tradeMode, requestedViewMode, changeFromYear, selectedAlliances, showDayNight]);
 
   const byIso = useMemo(() => {
     const map = new Map<string, CountryData>();
@@ -214,7 +231,7 @@ export default function App() {
   // metrics that have a history file.
   const histories = useMetricHistories(metric?.id, timeseriesIndex);
   const hasHistory = !!metric && !!timeseriesIndex?.metrics.includes(metric.id);
-  const viewMode: ViewMode = hasHistory ? requestedViewMode : 'current';
+  const viewMode: ViewMode = hasHistory && shows(section, 'trend') ? requestedViewMode : 'current';
 
   // Per-country bounding boxes → fly-to.
   const bboxes = useMemo(() => {
@@ -552,6 +569,33 @@ export default function App() {
     setSelectedRegion(null);
   }, []);
 
+  /** Open a section with its own metric and layers; nothing from the previous one lingers. */
+  const enterSection = (id: SectionId | null) => {
+    setSectionId(id);
+    if (!id) return;
+    const next = SECTION_BY_ID.get(id)!;
+    setMetricId(next.defaultMetric);
+    setViewMode('current');
+    setSelectedAlliances([]);
+    setTradeMode(next.layers.trade);
+    setShowChokepoints(next.layers.chokepoints);
+    setShowMaritimeRoutes(next.layers.routes);
+    setShowCables(next.layers.cables);
+    setShowMarkets(next.layers.markets);
+    setShowDayNight(next.layers.dayNight);
+    setShowWebcams(next.layers.webcams);
+    setShowNews(next.layers.news);
+    setSelectedChokepoint(null);
+    setSelectedWebcam(null);
+    setSelectedIso(null);
+    setRegionalIso(null);
+    setSelectedRegion(null);
+    if (next.view) {
+      setFocusBbox(next.view);
+      setFocusNonce((n) => n + 1);
+    }
+  };
+
   // Escape closes the topmost panel (comparison first), except while typing in a field.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -571,8 +615,22 @@ export default function App() {
     if (iso3) flyTo(iso3);
   }, [regionalIso, flyTo]);
 
-  const activeLayerCount = [tradeMode, showChokepoints, showCables, showMarkets, showDayNight, showWebcams, showNews]
-    .filter(Boolean).length;
+  const landingStats = useMemo<Partial<Record<SectionId, string>>>(() => {
+    if (!snapshot) return {};
+    const count = (id: string) => snapshot.countries.filter((c) => c.metrics[id]).length;
+    const indicators = snapshot.metrics.filter((m) => displayDomain(m) !== 'finance').length;
+    return {
+      riesgo: `${count('euro_spread_bund')} primas de riesgo · ${count('policy_rate')} bancos centrales`,
+      economia: `${indicators} indicadores · historia 2004–2024`,
+      comercio: `${CHOKEPOINTS.length} pasos marítimos · ${SUBMARINE_CABLES.length} cables`,
+      mercados: `${MAJOR_MARKETS.length} bolsas en vivo`,
+      pais: `${snapshot.countries.length} países y territorios`,
+      actualidad: `${newsSnapshot.articles.length} titulares recientes`,
+    };
+  }, [snapshot, newsSnapshot]);
+  const updated = snapshot?.generatedAt
+    ? new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(snapshot.generatedAt))
+    : undefined;
   const ready = enriched && scale && metric;
   const hoverValue = hover ? display.get(hover.iso3) : undefined;
   const rankingCountries = useMemo(() => allianceMembers
@@ -590,7 +648,7 @@ export default function App() {
               selectedNewsIso={selectedNewsIso}
               onSelectNews={selectNews}
               data={enriched}
-              fillColor={selectedAlliances.length ? allianceFill : scale.expression}
+              fillColor={selectedAlliances.length ? allianceFill : shows(section, 'legend') ? scale.expression : NEUTRAL_FILL}
               showDayNight={showDayNight}
               selectedIso={selectedIso}
               focusBbox={focusBbox}
@@ -642,20 +700,29 @@ export default function App() {
       </main>
 
       {!regionalIso && <header className="hud hud--top-left scroll-slim">
-        <div className="brand">
-          <span className="brand__globe" aria-hidden="true">🌍</span>
-          <div>
-            <h1 className="brand__title">{t.brandTitle}</h1>
-            <p className="brand__sub">{t.brandSub}</p>
+        <div className="section-head">
+          <div className="section-head__top">
+            <button type="button" className="section-head__home" onClick={() => enterSection(null)}>← Inicio</button>
+            <span className="brand__sub">{t.brandTitle}</span>
           </div>
+          <h1 className="section-head__title">{section.title}</h1>
+          <p className="section-head__intro">{section.intro}</p>
+          <nav className="section-tabs" aria-label="Secciones">
+            {SECTIONS.map((s) => (
+              <button key={s.id} type="button" aria-current={s.id === section.id ? 'page' : undefined} onClick={() => enterSection(s.id)}>
+                {s.title}
+              </button>
+            ))}
+          </nav>
         </div>
 
         {snapshot && metric && scale && (
           <div className="controls">
-            <span className="panel__group-title">{t.indicator}</span>
-            <SearchBox countries={snapshot.countries} onPick={flyTo} />
-            <MetricPicker metrics={snapshot.metrics} value={metricId} onChange={selectMetric} />
-            {isBondMetric(metricId) && <div className="bond-controls">
+            {shows(section, 'search') && <div className={section.id === 'pais' ? 'section-search' : undefined}>
+              <SearchBox countries={snapshot.countries} onPick={flyTo} />
+            </div>}
+            {shows(section, 'picker') && <MetricPicker metrics={snapshot.metrics} domains={section.domains} value={metricId} onChange={selectMetric} />}
+            {shows(section, 'picker') && isBondMetric(metricId) && <div className="bond-controls">
               <label className="field">
                 <span>Plazo del bono</span>
                 <select className="select" value={bondMonths(metricId)} onChange={e => selectBondMaturity(Number(e.target.value))}>
@@ -675,10 +742,10 @@ export default function App() {
               <p>{display.size} países con este plazo · moneda local · observaciones de los 180 días previos a la descarga</p>
               <p>Fuentes diarias y mensuales: compara fechas y métodos en la curva de cada país. Para comparar países usa la prima de riesgo frente al Bund.</p>
             </div>}
-            <p className="metric-desc">{metricDescription(metric, lang)}</p>
-            <DownloadCsv metric={metric} countries={snapshot.countries} history={histories[metric.id]} index={timeseriesIndex} />
+            {shows(section, 'legend') && <p className="metric-desc">{metricDescription(metric, lang)}</p>}
+            {shows(section, 'download') && <DownloadCsv metric={metric} countries={snapshot.countries} history={histories[metric.id]} index={timeseriesIndex} />}
 
-            {hasHistory && (
+            {hasHistory && shows(section, 'trend') && (
               <div className="segmented">
                 <button
                   className={`seg${viewMode === 'current' ? ' seg--on' : ''}`}
@@ -708,31 +775,30 @@ export default function App() {
               </label>
             )}
 
-            <Section
+            {shows(section, 'alliances') && <Section
               title="Grupos geopolíticos"
               badge={selectedAlliances.length ? String(selectedAlliances.length) : undefined}
             >
               <AlliancePicker selected={selectedAlliances} onChange={setSelectedAlliances} />
-            </Section>
-            {selectedAlliances.length === 0 && <Legend
+            </Section>}
+            {shows(section, 'legend') && selectedAlliances.length === 0 && <Legend
               unit={viewMode === 'current' ? metricUnit(metric, lang) : fmt(t.changeSince, { year: changeFromYear })}
               hint={viewMode === 'current' ? t.hintCurrent : t.hintChange}
               scale={scale}
               formatTick={(v) => (viewMode === 'current' ? formatCompact(v, metric, lang) : formatChange(v, metric, lang))}
             />}
 
-            <Section
-              title="Capas del mapa"
-              badge={activeLayerCount ? `${activeLayerCount} activas` : undefined}
-            >
+            <div className="layer-toggles">
               <div className="layer-toggles__grid">
+                {shows(section, 'trade') && <>
                 <button
                   type="button"
                   className={`btn toggle${tradeMode ? ' toggle--on' : ''}`}
                   onClick={() => setTradeMode((m) => !m)}
+                  aria-pressed={tradeMode}
                   title="Flujos bilaterales de exportación"
                 >
-                  🔄 {tradeMode ? 'Comercio ON' : 'Comercio'}
+                  <span aria-hidden="true">🔄</span> Flujos comerciales
                 </button>
                 {tradeMode && (
                   <div className="layer-toggles__detail">
@@ -751,6 +817,8 @@ export default function App() {
                     </div>
                   </div>
                 )}
+                </>}
+                {shows(section, 'maritime') && <>
                 <button
                   type="button"
                   className={`btn toggle${showChokepoints ? ' toggle--on' : ''}`}
@@ -758,10 +826,11 @@ export default function App() {
                   aria-pressed={showChokepoints}
                   title="Puntos de estrangulamiento marítimo (Suez, Ormuz, Malaca, etc.)"
                 >
-                  ⚓ {showChokepoints ? 'Chokepoints ON' : 'Chokepoints'}
+                  <span aria-hidden="true">⚓</span> Pasos marítimos
                 </button>
                 {showChokepoints && <button type="button" className="btn" onClick={() => setSelectedChokepoint(CHOKEPOINTS[0])}>Explorar pasos marítimos</button>}
-                <button
+                </>}
+                {shows(section, 'cables') && <button
                   type="button"
                   className={`btn toggle cable-toggle${showCables ? ' toggle--on' : ''}`}
                   onClick={() => setShowCables((v) => !v)}
@@ -771,24 +840,25 @@ export default function App() {
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M3 17C7 17 7 7 12 7s5 10 9 10"/><circle cx="3" cy="17" r="2"/><circle cx="21" cy="17" r="2"/></svg>
                   Cables submarinos
-                </button>
-                <button
+                </button>}
+                {shows(section, 'markets') && <button
                   type="button"
                   className={`btn toggle${showMarkets ? ' toggle--on' : ''}`}
                   onClick={() => setShowMarkets((v) => !v)}
+                  aria-pressed={showMarkets}
                   title="Centros financieros y bolsas de valores en vivo"
                 >
-                  📈 {showMarkets ? 'Bolsas ON' : 'Bolsas'}
-                </button>
-                <button type="button" className={`btn toggle daynight-toggle${showDayNight ? ' toggle--on' : ''}`}
+                  <span aria-hidden="true">📈</span> Bolsas
+                </button>}
+                {shows(section, 'daynight') && <button type="button" className={`btn toggle daynight-toggle${showDayNight ? ' toggle--on' : ''}`}
                   aria-pressed={showDayNight} onClick={() => setShowDayNight((value) => !value)}>
                   <span aria-hidden="true">◐</span> Ciclo día/noche <span className="daynight-toggle__state">{showDayNight ? 'EN VIVO' : 'Activar'}</span>
-                </button>
+                </button>}
               </div>
               {showDayNight && <p className="solar-hint">Sombra y crepúsculo según la hora UTC. Luces urbanas ilustrativas sobre ciudades de <a href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/" target="_blank" rel="noreferrer">Natural Earth</a> · cálculo <a href="https://gml.noaa.gov/grad/solcalc/solareqns.PDF" target="_blank" rel="noreferrer">NOAA</a>. Actualización cada 30 s.</p>}
-              <WebcamControls enabled={showWebcams} onToggle={toggleWebcams} onSelect={openWebcamFromMapOrCatalog}
-                clusterCameras={selectedWebcamCluster} onSelectClusterCamera={openWebcam} onClearCluster={clearWebcamCluster} />
-              <NewsControls enabled={showNews} onToggle={() => { setShowNews(value => !value); setNewsNow(Date.now()); }}
+              {shows(section, 'webcams') && <WebcamControls enabled={showWebcams} onToggle={toggleWebcams} onSelect={openWebcamFromMapOrCatalog}
+                clusterCameras={selectedWebcamCluster} onSelectClusterCamera={openWebcam} onClearCluster={clearWebcamCluster} />}
+              {shows(section, 'news') && <NewsControls enabled={showNews} onToggle={() => { setShowNews(value => !value); setNewsNow(Date.now()); }}
                 snapshot={newsSnapshot} hotspots={newsActivity.hotspots} total={newsActivity.total} unmapped={newsActivity.unmapped}
                 eventCount={newsActivity.eventCount} sourceCount={newsActivity.sourceCount} baselineReady={newsActivity.baselineReady}
                 topic={newsTopic} onTopic={setNewsTopic} geography={newsGeography} onGeography={setNewsGeography}
@@ -796,7 +866,7 @@ export default function App() {
                 hours={newsHours} onHours={setNewsHours} selected={selectedNewsIso} onSelect={selectNews}
                 automatic={import.meta.env.DEV && !newsImported} now={newsNow}
                 onImport={articles => { setNewsImported(true); setNewsSnapshot({ generatedAt: new Date().toISOString(), articles }); setNewsSources([]); setNewsOffset(0); setNewsNow(Date.now()); setSelectedNewsIso(null); }}
-                onReset={() => { setNewsImported(false); setNewsSnapshot(newsSeed as NewsSnapshot); setNewsSources([]); setNewsOffset(0); setSelectedNewsIso(null); setNewsNow(Date.now()); }} />
+                onReset={() => { setNewsImported(false); setNewsSnapshot(newsSeed as NewsSnapshot); setNewsSources([]); setNewsOffset(0); setSelectedNewsIso(null); setNewsNow(Date.now()); }} />}
               {showCables && (
                 <div className="cable-network" id="cable-network-legend">
                   <div className="cable-network__heading"><span className="cable-network__status" aria-hidden="true" />Red submarina<span className="cable-network__badge">Flujo animado</span></div>
@@ -805,9 +875,9 @@ export default function App() {
                   <p>Rutas esquemáticas · movimiento ilustrativo, sin datos de tráfico en tiempo real.</p>
                 </div>
               )}
-            </Section>
+            </div>
 
-            <RankingList
+            {shows(section, 'ranking') && <RankingList
               countries={rankingCountries}
               getValue={rankingValue}
               format={formatValue}
@@ -815,7 +885,7 @@ export default function App() {
               label={selectedAlliances.length ? 'Indicador · grupos seleccionados' : viewMode === 'current' ? t.ranking : t.biggestChange}
               selectedIso={selectedIso}
               onPick={flyTo}
-            />
+            />}
           </div>
         )}
       </header>}
@@ -939,7 +1009,7 @@ export default function App() {
       )}
 
       {/* Ticker superior de bolsas mundiales en tiempo real */}
-      <MarketBar onFlyToCoord={flyToCoord} />
+      {sectionId && shows(section, 'ticker') && <MarketBar onFlyToCoord={flyToCoord} />}
 
       {showWebcams && selectedWebcam && (!regionalIso || regionalWebcamCountry(regionalIso) === selectedWebcam.country) && <WebcamModal key={selectedWebcam.id} camera={selectedWebcam} onClose={() => setSelectedWebcam(null)} />}
 
@@ -951,6 +1021,8 @@ export default function App() {
         showRoutes={showMaritimeRoutes}
         onToggleRoutes={toggleMaritimeRoutes}
       />}
+
+      {!sectionId && <Landing countries={geojson} stats={landingStats} updated={updated} onPick={enterSection} />}
     </div>
   );
 }
