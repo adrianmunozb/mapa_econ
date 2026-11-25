@@ -9,4 +9,4 @@ Cada tarea es un commit atómico y verificable.
 - [x] T5. Métrica `real_policy_rate` + test.
 - [x] T6. Paso `wem verify` + `docs/verificacion.md` + tests offline.
 - [x] T7. README en español, créditos al proyecto base, `IA.md`, despliegue en GitHub Pages.
-- [ ] T8. Lint, tests, build; revisión del diff; PR.
+- [x] T8. Lint, tests, build; revisión del diff; PR.
