@@ -24,7 +24,7 @@ export function Landing({ countries, stats, updated, onPick, onVerify }: Props) 
         <div className="landing__copy">
           <p className="landing__eyebrow">Datos oficiales de más de 200 países</p>
           <h1 className="landing__title">
-            El sistema financiero mundial, <em>en un mapa que puedes comprobar.</em>
+            El <em>meridiano cero</em> de los datos económicos.
           </h1>
           <p className="landing__lead">
             Prima de riesgo, tipos de interés, deuda pública, comercio y rutas marítimas de más de
