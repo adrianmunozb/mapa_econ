@@ -7,7 +7,10 @@ life_expectancy,Lebenserwartung,Life expectancy,health,Jahre,years,World Bank Op
 gini,Gini-Index (Ungleichheit),Gini index (inequality),social,Index 0–100,Index 0–100,World Bank Open Data,CC BY 4.0,SI.POV.GINI,2004,2024,168
 health_expenditure_gdp,Gesundheitsausgaben,Health expenditure,health,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,SH.XPD.CHEX.GD.ZS,2004,2024,193
 unemployment,Arbeitslosenquote,Unemployment rate,economy,% der Erwerbspersonen,% of labor force,World Bank Open Data,CC BY 4.0,SL.UEM.TOTL.ZS,2004,2024,187
-inflation,Inflation,Inflation,economy,% pro Jahr,% per year,World Bank Open Data,CC BY 4.0,FP.CPI.TOTL.ZG,2004,2024,193
+inflation,Inflation,Inflation,economy,% pro Jahr,% per year,IMF – Consumer Price Index (CPI),IMF Terms (Quellenangabe erforderlich),CPI:YOY_PCH_PA_PT,2004,2024,193
+policy_rate,Leitzins,Central bank policy rate,economy,%,%,BIS – Central bank policy rates,BIS Terms (Quellenangabe erforderlich),WS_CBPOL,,,
+real_policy_rate,Realer Leitzins (ex post),Real policy rate (ex post),economy,%,%,Derived: BIS policy rate minus IMF CPI inflation,BIS and IMF terms (attribution required),WS_CBPOL-CPI,,,
+euro_spread_bund,Risikoaufschlag ggü. Bund (10 J.),"Sovereign spread vs Bund (10Y, euro area)",economy,Bp.,bp,Eurostat – EMU convergence criterion bond yields (irt_lt_mcby_m),Eurostat reuse policy (CC BY 4.0),irt_lt_mcby_m,,,
 gdp_growth,BIP-Wachstum,GDP growth,economy,% pro Jahr,% per year,World Bank Open Data,CC BY 4.0,NY.GDP.MKTP.KD.ZG,2004,2024,214
 exports_gdp,Exporte (Anteil am BIP),Exports (% of GDP),economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,NE.EXP.GNFS.ZS,2004,2024,193
 poverty,Extreme Armut,Extreme poverty,social,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,SI.POV.DDAY,2004,2024,168
@@ -24,3 +27,36 @@ government_effectiveness,Regierungseffektivität,Government effectiveness,govern
 regulatory_quality,Regulierungsqualität,Regulatory quality,governance,Index 0–100,Index 0–100,World Bank Open Data,CC BY 4.0,GOV_WGI_RQ.SC,2004,2024,205
 rule_of_law,Rechtsstaatlichkeit,Rule of law,governance,Index 0–100,Index 0–100,World Bank Open Data,CC BY 4.0,GOV_WGI_RL.SC,2004,2024,207
 control_of_corruption,Korruptionskontrolle,Control of corruption,governance,Index 0–100,Index 0–100,World Bank Open Data,CC BY 4.0,GOV_WGI_CC.SC,2004,2024,207
+gni_per_capita,BNE pro Kopf,GNI per capita,economy,US$,US$,World Bank Open Data,CC BY 4.0,NY.GNP.PCAP.CD,2004,2024,207
+gdp_per_capita_growth,BIP-Wachstum pro Kopf,GDP per capita growth,economy,% pro Jahr,% per year,World Bank Open Data,CC BY 4.0,NY.GDP.PCAP.KD.ZG,2004,2024,214
+imports_gdp,Importe (Anteil am BIP),Imports (% of GDP),economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,NE.IMP.GNFS.ZS,2004,2024,193
+fdi_inflows_gdp,Ausländische Direktinvestitionen,Foreign direct investment,economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,BX.KLT.DINV.WD.GD.ZS,2004,2024,203
+capital_formation_gdp,Bruttoinvestitionen,Gross capital formation,economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,NE.GDI.TOTL.ZS,2004,2024,185
+tax_revenue_gdp,Steuereinnahmen,Tax revenue,economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,GC.TAX.TOTL.GD.ZS,2004,2024,155
+agriculture_gdp,Landwirtschaft (Anteil am BIP),Agriculture (% of GDP),economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,NV.AGR.TOTL.ZS,2004,2024,205
+industry_gdp,Industrie (Anteil am BIP),Industry (% of GDP),economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,NV.IND.TOTL.ZS,2004,2024,207
+services_gdp,Dienstleistungen (Anteil am BIP),Services (% of GDP),economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,NV.SRV.TOTL.ZS,2004,2024,205
+total_reserves,Währungsreserven,Total reserves,economy,US$,US$,World Bank Open Data,CC BY 4.0,FI.RES.TOTL.CD,2004,2024,178
+youth_unemployment,Jugendarbeitslosigkeit,Youth unemployment,economy,% der Erwerbspersonen 15–24,% of labor force 15–24,World Bank Open Data,CC BY 4.0,SL.UEM.1524.ZS,2004,2024,187
+labor_participation,Erwerbsquote,Labor force participation,economy,% der Bevölkerung 15+,% of population 15+,World Bank Open Data,CC BY 4.0,SL.TLF.CACT.ZS,2004,2024,187
+rd_expenditure,Forschungsausgaben (F&E),R&D expenditure,economy,% des BIP,% of GDP,World Bank Open Data,CC BY 4.0,GB.XPD.RSDV.GD.ZS,2004,2024,151
+tourism_arrivals,Internationale Touristenankünfte,International tourist arrivals,trade,Ankünfte,arrivals,World Bank Open Data,CC BY 4.0,ST.INT.ARVL,2004,2020,201
+literacy,Alphabetisierungsrate,Literacy rate,social,% der Erwachsenen,% of adults,World Bank Open Data,CC BY 4.0,SE.ADT.LITR.ZS,2004,2024,148
+secondary_enrollment,Sekundarschul-Einschulung,Secondary school enrollment,social,% brutto,% gross,World Bank Open Data,CC BY 4.0,SE.SEC.ENRR,2004,2024,203
+women_parliament,Frauenanteil im Parlament,Women in parliament,social,% der Sitze,% of seats,World Bank Open Data,CC BY 4.0,SG.GEN.PARL.ZS,2004,2024,193
+homicide_rate,Mordrate,Homicide rate,social,pro 100.000,"per 100,000",World Bank Open Data,CC BY 4.0,VC.IHR.PSRC.P5,2004,2023,193
+infant_mortality,Säuglingssterblichkeit,Infant mortality,health,pro 1.000 Lebendgeburten,"per 1,000 live births",World Bank Open Data,CC BY 4.0,SP.DYN.IMRT.IN,2004,2024,196
+under5_mortality,Kindersterblichkeit (unter 5),Under-5 mortality,health,pro 1.000 Lebendgeburten,"per 1,000 live births",World Bank Open Data,CC BY 4.0,SH.DYN.MORT,2004,2024,196
+physicians,Ärztedichte,Physicians,health,pro 1.000,"per 1,000",World Bank Open Data,CC BY 4.0,SH.MED.PHYS.ZS,2004,2023,194
+hospital_beds,Krankenhausbetten,Hospital beds,health,pro 1.000,"per 1,000",World Bank Open Data,CC BY 4.0,SH.MED.BEDS.ZS,2004,2023,190
+safe_water,Sauberes Trinkwasser,Basic drinking water,health,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,SH.H2O.BASW.ZS,2004,2024,214
+sanitation,Sanitärversorgung,Basic sanitation,health,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,SH.STA.BASS.ZS,2004,2024,214
+population_growth,Bevölkerungswachstum,Population growth,demographics,% pro Jahr,% per year,World Bank Open Data,CC BY 4.0,SP.POP.GROW,2004,2024,217
+population_65plus,Bevölkerung ab 65,Population aged 65+,demographics,% der Bevölkerung,% of population,World Bank Open Data,CC BY 4.0,SP.POP.65UP.TO.ZS,2004,2024,217
+birth_rate,Geburtenziffer,Crude birth rate,demographics,pro 1.000,"per 1,000",World Bank Open Data,CC BY 4.0,SP.DYN.CBRT.IN,2004,2024,217
+net_migration,Netto-Migration,Net migration,demographics,Personen (5 Jahre),people (5-year),World Bank Open Data,CC BY 4.0,SM.POP.NETM,2004,2024,217
+renewable_energy,Erneuerbare Energien,Renewable energy,environment,% des Endenergieverbrauchs,% of final energy,World Bank Open Data,CC BY 4.0,EG.FEC.RNEW.ZS,2004,2022,212
+forest_area,Waldfläche,Forest area,environment,% der Landfläche,% of land area,World Bank Open Data,CC BY 4.0,AG.LND.FRST.ZS,2004,2024,214
+pm25,"Feinstaub (PM2,5)",Air pollution (PM2.5),environment,µg/m³,µg/m³,World Bank Open Data,CC BY 4.0,EN.ATM.PM25.MC.M3,2004,2023,200
+energy_use_per_capita,Energieverbrauch pro Kopf,Energy use per capita,environment,kg Öläquivalent,kg of oil equivalent,World Bank Open Data,CC BY 4.0,EG.USE.PCAP.KG.OE,2004,2024,178
+broadband,Festnetz-Breitband,Fixed broadband,infrastructure,pro 100 Einw.,per 100 people,World Bank Open Data,CC BY 4.0,IT.NET.BBND.P2,2004,2024,208
