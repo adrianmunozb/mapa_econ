@@ -29,7 +29,7 @@ export const BOND_TENORS = [
 export const bondMetricId = (months: number) => `bond_yield_${months}m`;
 export const isBondMetric = (id: string) => BOND_TENORS.some(t => bondMetricId(t.months) === id);
 export const bondMonths = (id: string) => BOND_TENORS.find(t => bondMetricId(t.months) === id)?.months ?? 120;
-export const tenorLabel = (months: number) => months < 12 ? `${months}M` : `${months / 12}Y`;
+export const tenorLabel = (months: number) => months < 12 ? `${months}M` : `${months / 12}A`;
 
 // The World Bank country snapshot does not include Taiwan. Keep its official
 // bond observation joinable to the existing TWN map geometry without
