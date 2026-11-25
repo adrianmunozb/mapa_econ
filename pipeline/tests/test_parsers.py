@@ -83,6 +83,12 @@ class CurrentDataTest(unittest.TestCase):
         self.assertEqual(out["USA"], {"value": 4.5, "year": 2026, "period": "2026-06"})
         self.assertEqual(out["GBR"]["value"], 4.0)
 
+    def test_bis_bulgaria_gets_ecb_rate_since_joining_the_euro(self):
+        # Bulgaria adopted the euro on 1 Jan 2026 and BIS publishes no BG series.
+        out = bis.parse_policy_rates("REF_AREA,OBS_VALUE,TIME_PERIOD\nXM,2.5,2026-11-17\n", {})
+        self.assertEqual(out["BGR"], {"value": 2.5, "year": 2026, "period": "2026-11"})
+        self.assertEqual(len(bis.EURO_AREA_ISO3), 21)
+
     def test_imf_cpi_maps_kosovo_and_skips_nulls(self):
         root = {"data": {
             "dataSets": [{"series": {"0:0": {"observations": {"0": [1.5]}}, "1:0": {"observations": {"0": [None]}}}}],

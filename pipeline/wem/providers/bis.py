@@ -11,10 +11,11 @@ from ..periods import bis_period
 
 URL = "https://stats.bis.org/api/v1/data/WS_CBPOL/D.."
 
-# Euro-area members get the ECB rate (BIS area "XM"); their historical pre-euro
+# Euro-area members (21 since Bulgaria joined on 1 Jan 2026) get the ECB rate
+# (BIS area "XM"; the deposit facility rate since 18 Sep 2024). Their pre-euro
 # alpha-2 series are frozen and must be ignored.
 EURO_AREA_ISO3 = [
-    "AUT", "BEL", "CYP", "DEU", "EST", "ESP", "FIN", "FRA", "GRC", "HRV",
+    "AUT", "BEL", "BGR", "CYP", "DEU", "EST", "ESP", "FIN", "FRA", "GRC", "HRV",
     "IRL", "ITA", "LTU", "LUX", "LVA", "MLT", "NLD", "PRT", "SVK", "SVN",
 ]
 EURO_AREA_FROZEN_A2 = {"AT", "BE", "DE", "ES", "FR", "GR", "HR", "IT", "NL", "PT"}
