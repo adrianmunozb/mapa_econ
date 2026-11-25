@@ -50,3 +50,10 @@ test('economy is organised by themes and differs from the full world map', () =>
   assert.equal(eco.themes[0].metrics[0], eco.defaultMetric);
   assert.notDeepEqual(eco.controls, full.controls);
 });
+
+test('the country explorer is reached from the landing page, not from the top bar', () => {
+  const pais = SECTIONS.find(s => s.id === 'pais');
+  assert.equal(pais.noTopBar, true);
+  assert.notEqual(pais.noCard, true);
+  assert.ok(SECTIONS.find(s => s.id === 'comercio').title.length <= 16);
+});

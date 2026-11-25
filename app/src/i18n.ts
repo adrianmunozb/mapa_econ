@@ -23,8 +23,8 @@ export const DOMAIN_LABELS: Record<string, string> = {
 export const STRINGS_ES = {
   loading: 'Cargando datos…',
   loadError: 'Error al cargar: {error}',
-  brandTitle: 'Mapa económico mundial',
-  brandSub: 'Tipos, riesgo soberano e indicadores oficiales · cada cifra con su fuente',
+  brandTitle: 'Meridiano',
+  brandSub: 'Riesgo soberano y economía mundial',
   indicator: 'Indicador',
   metricPickerLabel: 'Métrica del mapa',
   viewCurrent: 'Actual',

@@ -415,3 +415,15 @@
 }
 .theme-tabs button:hover { color: var(--text); }
 .theme-tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+
+/* ---------- Logo ---------- */
+.logo { display: inline-flex; align-items: center; gap: calc(var(--logo-size) * 0.3); color: var(--text); }
+.logo__mark { flex: none; display: block; }
+.logo__text { display: grid; line-height: 1; }
+.logo__name { font-size: calc(var(--logo-size) * 0.62); font-weight: 900; letter-spacing: -0.02em; }
+.logo__sub { margin-top: calc(var(--logo-size) * 0.1); font-size: max(12px, calc(var(--logo-size) * 0.25)); font-weight: 700; color: var(--text-dim); letter-spacing: 0.01em; }
+.landing__nav { padding: 22px 0; }
+.topbar__brand { display: inline-flex; align-items: center; }
+.topbar__brand:hover .logo__name { color: var(--accent); }
+.vpage__back:hover .logo__name { color: var(--accent); }
+@media (max-width: 600px) { .landing__nav .logo { --logo-size: 40px !important; } .landing__nav .logo__sub { display: none; } }

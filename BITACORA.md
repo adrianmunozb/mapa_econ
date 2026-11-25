@@ -1,4 +1,4 @@
-# Bitácora — Mapa económico mundial con ancla en riesgo soberano
+# Bitácora — Meridiano: riesgo soberano y economía mundial
 
 Adrián López Lamata · Adrián Muñoz Borbón · Carril abierto, nivel 2 (CONSTRUIR) · 26-nov-2026
 Repositorio: https://github.com/adrianmunozb/mapa_econ · Web: https://mapaecon.vercel.app · Uso de IA declarado en [`IA.md`](IA.md)
